@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  api:
+    container_name: news-api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: 'php artisan serve --host=0.0.0.0'
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 8000:8000
+
+  postgres:
+      container_name: news-db
+      image: postgres:latest
+      ports:
+          - "5432:5432"
+      environment:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          PGDATA: /var/lib/postgresql/data
+          
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: news-ui
+    stdin_open: true
+
+networks:
+  news:
+    driver: bridge
