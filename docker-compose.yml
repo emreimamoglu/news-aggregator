@@ -5,8 +5,10 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: 'php artisan serve --host=0.0.0.0'
     restart: unless-stopped
+    volumes :
+      - ./backend:/app
+    command: 'php artisan serve --host=0.0.0.0'
     tty: true
     ports:
       - 8000:8000
