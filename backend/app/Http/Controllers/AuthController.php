@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Password;
 
 class AuthController extends Controller
 {
@@ -51,5 +53,24 @@ class AuthController extends Controller
     {
         Auth::user()->currentAccessToken()->delete();
         return $this->success(null, 'Logged out successfully');
+    }
+
+    public function forgotPassword(ForgotPasswordRequest $request)
+    {
+        $request->validated($request->all());
+
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status === Password::RESET_LINK_SENT
+            ? $this->success(null, __($status))
+            : $this->error(null, __($status), 500);
+    }
+
+    public function resetPassword(ForgotPasswordRequest $request)
+    {
+        // to be filled
+        throw new \Exception('Method not implemented');
     }
 }
