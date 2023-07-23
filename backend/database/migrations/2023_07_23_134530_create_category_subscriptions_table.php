@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('category_subscriptions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
