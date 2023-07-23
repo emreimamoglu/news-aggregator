@@ -10,6 +10,7 @@ use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Password;
+use Request;
 
 class AuthController extends Controller
 {
@@ -72,5 +73,11 @@ class AuthController extends Controller
     {
         // to be filled
         throw new \Exception('Method not implemented');
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        Auth::user()->delete();
+        return $this->success(null, 'Account deleted successfully');
     }
 }
