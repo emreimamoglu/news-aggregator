@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SourceController;
 use Illuminate\Http\Request;
@@ -35,4 +36,5 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('articles', ArticleController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('sources', SourceController::class);
+    Route::apiResource('authors', AuthorController::class);
 });

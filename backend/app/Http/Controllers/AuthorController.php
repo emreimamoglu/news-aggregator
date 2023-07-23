@@ -5,23 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Author;
+use App\Traits\HttpResponses;
 
 class AuthorController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(Author::all());
     }
 
     /**
@@ -29,7 +24,9 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $author = Author::create($request->all());
+        return $this->success($author, 'Author created successfully');
     }
 
     /**
@@ -37,15 +34,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Author $author)
-    {
-        //
+        return $this->success($author);
     }
 
     /**
@@ -53,7 +42,9 @@ class AuthorController extends Controller
      */
     public function update(UpdateAuthorRequest $request, Author $author)
     {
-        //
+        $request->validated($request->all());
+        $author->update($request->all());
+        return $this->success($author, 'Author updated successfully');
     }
 
     /**
@@ -61,6 +52,7 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+        return $this->success(null, 'Author deleted successfully');
     }
 }
