@@ -5,23 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
+use App\Traits\HttpResponses;
 
 class ArticleController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(Article::all());
     }
 
     /**
@@ -29,7 +23,9 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $article = Article::create($request->all());
+        return $this->success($article, 'Article created successfully');
     }
 
     /**
@@ -37,15 +33,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
-    {
-        //
+        return $this->success($article);
     }
 
     /**
@@ -53,7 +41,9 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        //
+        $request->validated($request->all());
+        $article->update($request->all());
+        return $this->success($article, 'Article updated successfully');
     }
 
     /**
@@ -61,6 +51,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->delete();
+        return $this->success(null, 'Article deleted successfully');
     }
 }

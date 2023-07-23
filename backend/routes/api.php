@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +31,6 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::apiResource('articles', ArticleController::class);
+    Route::apiResource('categories', CategoryController::class);
 });
