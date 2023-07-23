@@ -11,7 +11,7 @@ class StoreSavedArticleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreSavedArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'article_id' => 'required|exists:articles,id'
         ];
     }
 }

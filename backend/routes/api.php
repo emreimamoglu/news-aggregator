@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SavedArticleController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
 use App\Http\Controllers\SourceSubscriptionController;
@@ -40,4 +41,5 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('authors', AuthorController::class);
     Route::apiResource('category-subscriptions', CategorySubscriptionController::class, ['except' => ['update']]);
     Route::apiResource('source-subscriptions', SourceSubscriptionController::class, ['except' => ['update']]);
+    Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
 });

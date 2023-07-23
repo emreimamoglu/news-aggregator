@@ -5,23 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSavedArticleRequest;
 use App\Http\Requests\UpdateSavedArticleRequest;
 use App\Models\SavedArticle;
+use App\Traits\HttpResponses;
 
 class SavedArticleController extends Controller
 {
+    use HttpResponses;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(SavedArticle::all());
     }
 
     /**
@@ -29,7 +23,9 @@ class SavedArticleController extends Controller
      */
     public function store(StoreSavedArticleRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $savedArticle = SavedArticle::create($request->all());
+        return $this->success($savedArticle, 'Article saved successfully');
     }
 
     /**
@@ -37,23 +33,7 @@ class SavedArticleController extends Controller
      */
     public function show(SavedArticle $savedArticle)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SavedArticle $savedArticle)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSavedArticleRequest $request, SavedArticle $savedArticle)
-    {
-        //
+        return $this->success($savedArticle);
     }
 
     /**
@@ -61,6 +41,7 @@ class SavedArticleController extends Controller
      */
     public function destroy(SavedArticle $savedArticle)
     {
-        //
+        $savedArticle->delete();
+        return $this->success(null, 'Article deleted successfully');
     }
 }
