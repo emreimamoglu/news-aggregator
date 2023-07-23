@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
+use App\Http\Controllers\SourceSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,4 +39,5 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('sources', SourceController::class);
     Route::apiResource('authors', AuthorController::class);
     Route::apiResource('category-subscriptions', CategorySubscriptionController::class, ['except' => ['update']]);
+    Route::apiResource('source-subscriptions', SourceSubscriptionController::class, ['except' => ['update']]);
 });

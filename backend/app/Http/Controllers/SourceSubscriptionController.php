@@ -5,23 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSourceSubscriptionRequest;
 use App\Http\Requests\UpdateSourceSubscriptionRequest;
 use App\Models\SourceSubscription;
+use App\Traits\HttpResponses;
 
 class SourceSubscriptionController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(SourceSubscription::all());
     }
 
     /**
@@ -29,7 +24,9 @@ class SourceSubscriptionController extends Controller
      */
     public function store(StoreSourceSubscriptionRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $sourceSubscription = SourceSubscription::create($request->all());
+        return $this->success($sourceSubscription, 'Successfully subscribed to source');
     }
 
     /**
@@ -37,15 +34,7 @@ class SourceSubscriptionController extends Controller
      */
     public function show(SourceSubscription $sourceSubscription)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SourceSubscription $sourceSubscription)
-    {
-        //
+        return $this->success($sourceSubscription);
     }
 
     /**
@@ -53,7 +42,7 @@ class SourceSubscriptionController extends Controller
      */
     public function update(UpdateSourceSubscriptionRequest $request, SourceSubscription $sourceSubscription)
     {
-        //
+        throw new \Exception('Not implemented');
     }
 
     /**
@@ -61,6 +50,7 @@ class SourceSubscriptionController extends Controller
      */
     public function destroy(SourceSubscription $sourceSubscription)
     {
-        //
+        $sourceSubscription->delete();
+        return $this->success(null, 'Successfully unsubscribed from source');
     }
 }

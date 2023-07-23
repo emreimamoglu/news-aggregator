@@ -11,7 +11,7 @@ class StoreSourceSubscriptionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreSourceSubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|exists:users,id',
+            'source_id' => 'required|exists:sources,id'
         ];
     }
 }
