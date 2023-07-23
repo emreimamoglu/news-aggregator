@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('content');
             $table->string('url');
             $table->string('image_url');
+            $table->string('published_at');
             $table->foreignId('source_id')->references('id')->on('sources')->onDelete('cascade');
             $table->foreignId('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
