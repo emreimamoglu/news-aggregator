@@ -11,7 +11,7 @@ class StoreArticleRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class StoreArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'url' => 'required|string',
+            'image_url' => 'required|string',
+            'published_at' => 'date',
+            'content' => 'required|string',
+            'source_id' => 'required|exists:sources,id',
+            'author_id' => 'required|exists:authors,id',
+            'category_id' => 'required|exists:categories,id',
         ];
     }
 }
