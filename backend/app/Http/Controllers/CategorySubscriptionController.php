@@ -5,23 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategorySubscriptionRequest;
 use App\Http\Requests\UpdateCategorySubscriptionRequest;
 use App\Models\CategorySubscription;
+use App\Traits\HttpResponses;
 
 class CategorySubscriptionController extends Controller
 {
+    use HttpResponses;
+    
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(CategorySubscription::all());
     }
 
     /**
@@ -29,7 +24,9 @@ class CategorySubscriptionController extends Controller
      */
     public function store(StoreCategorySubscriptionRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $categorySubscription = CategorySubscription::create($request->all());
+        return $this->success($categorySubscription, 'Successfully subscribed to category');
     }
 
     /**
@@ -37,15 +34,7 @@ class CategorySubscriptionController extends Controller
      */
     public function show(CategorySubscription $categorySubscription)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(CategorySubscription $categorySubscription)
-    {
-        //
+        return $this->success($categorySubscription);
     }
 
     /**
@@ -53,7 +42,7 @@ class CategorySubscriptionController extends Controller
      */
     public function update(UpdateCategorySubscriptionRequest $request, CategorySubscription $categorySubscription)
     {
-        //
+        throw new \Exception('Not implemented');
     }
 
     /**
@@ -61,6 +50,7 @@ class CategorySubscriptionController extends Controller
      */
     public function destroy(CategorySubscription $categorySubscription)
     {
-        //
+        $categorySubscription->delete();
+        return $this->success(null, 'Successfully unsubscribed from category');
     }
 }

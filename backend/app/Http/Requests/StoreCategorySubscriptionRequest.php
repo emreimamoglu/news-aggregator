@@ -11,7 +11,7 @@ class StoreCategorySubscriptionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreCategorySubscriptionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'required|exists:categories,id',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }
