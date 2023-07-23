@@ -5,23 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSourceRequest;
 use App\Http\Requests\UpdateSourceRequest;
 use App\Models\Source;
+use App\Traits\HttpResponses;
 
 class SourceController extends Controller
 {
+    use HttpResponses;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return $this->success(Source::all());
     }
 
     /**
@@ -29,7 +24,9 @@ class SourceController extends Controller
      */
     public function store(StoreSourceRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $source = Source::create($request->all());
+        return $this->success($source, 'Source created successfully');
     }
 
     /**
@@ -37,15 +34,7 @@ class SourceController extends Controller
      */
     public function show(Source $source)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Source $source)
-    {
-        //
+        return $this->success($source);
     }
 
     /**
@@ -53,7 +42,9 @@ class SourceController extends Controller
      */
     public function update(UpdateSourceRequest $request, Source $source)
     {
-        //
+        $request->validated($request->all());
+        $source->update($request->all());
+        return $this->success($source, 'Source updated successfully');
     }
 
     /**
@@ -61,6 +52,7 @@ class SourceController extends Controller
      */
     public function destroy(Source $source)
     {
-        //
+        $source->delete();
+        return $this->success(null, 'Source deleted successfully');
     }
 }
