@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->string('content');
-            $table->string('url');
-            $table->string('image_url');
+            $table->text('title');
+            $table->longText('description')->nullable();
+            $table->longText('content');
+            $table->text('url');
+            $table->text('image_url');
             $table->string('published_at');
             $table->foreignId('source_id')->references('id')->on('sources')->onDelete('cascade');
             $table->foreignId('author_id')->references('id')->on('authors')->onDelete('cascade');

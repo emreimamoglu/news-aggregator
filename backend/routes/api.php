@@ -8,6 +8,8 @@ use App\Http\Controllers\SavedArticleController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
 use App\Http\Controllers\SourceSubscriptionController;
+use App\NewsUtils\NewsFetcher;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,3 +50,11 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
 
 });
+
+
+// Route::get('test', function () {
+//     $fetcher = new NewsFetcher();
+//     $fetcher->fetchAndStoreNews();
+    
+//     return response()->json(Carbon::now()->subDay()->toDateString());
+// });
