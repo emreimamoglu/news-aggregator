@@ -10,6 +10,8 @@ services:
       - ./backend:/app
     command: 'php artisan serve --host=0.0.0.0'
     tty: true
+    depends_on:
+      - postgres
     ports:
       - 8000:8000
 
@@ -25,13 +27,17 @@ services:
           PGDATA: /var/lib/postgresql/data
           
   frontend:
+    container_name: news-ui
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/app
+    command: npm run dev
     ports:
-      - "3000:3000"
-    container_name: news-ui
-    stdin_open: true
+      - "3003:3003"
+    environment:
+      NODE_ENV: development
 
 networks:
   news:
