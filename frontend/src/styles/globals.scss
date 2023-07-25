@@ -2,12 +2,16 @@
 
 :root {
 --main-background-color : #2B2B2B;
---text-primary : #D9D9D9CC;  
+--text-primary-low-emphasis : rgba(217, 217, 217, 0.80);
+--text-primary-super-low-emphasis : rgba(217, 217, 217, 0.60);
+--text-primary-high-emphasis : rgba(217, 217, 217, 1);
+--bookmark-icon-color : rgba(217, 217, 217, 1);  
 --side-bar-color : #212020;
 --side-bar-input-color : #D9D9D9CC;
 --side-bar-placeholder-text-color : rgba(0, 0, 0, 0.45);
 --side-bar-button-color : #2C619F;
 --side-bar-form-question-color : rgba(217, 217, 217, 0.80);
+--article-card-background-color : rgba(33, 32, 32, 0.70);
 }
 
 * {
