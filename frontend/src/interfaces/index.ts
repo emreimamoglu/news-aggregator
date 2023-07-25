@@ -8,6 +8,10 @@ export type ArticleCardProps = {
     article : Article;
 }
 
+export type ArticleReaderProps = {
+    article : Article;
+}
+
 export type Article = {
     id : string;
     title : string;
