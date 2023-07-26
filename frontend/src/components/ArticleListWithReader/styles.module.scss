@@ -1,4 +1,4 @@
-.container{
+.container {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -9,16 +9,50 @@
     //     flex-direction: column;
     // }
 
-    .articleList{
+    .articleList {
         display: flex;
         width: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 19px;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        & :global(.MuiFormControl-root) {
+            width: 300px;
+            border-bottom: none;
+        }
+
+        & :global(.MuiInput-root) {
+            border-bottom: 1px solid var(--text-primary-high-emphasis);
+            color: var(--text-primary-high-emphasis);
+        }
+
+        & :global(.MuiInput-root) {
+            border-bottom: 1px solid var(--text-primary-high-emphasis);
+        }
+
+        & :global(.MuiInput-root) {
+            border-bottom: 1px solid var(--text-primary-high-emphasis);
+        }
+
+        & :global(.MuiInput-root)::after {
+            border-bottom: none;
+        }
+
+        & :global(.MuiInputLabel-root){
+            color: var(--text-primary-high-emphasis);
+        }
+
+        & :global(.MuiInputAdornment-root){
+            color: var(--text-primary-high-emphasis);
+        }
     }
 
-    .articleReader{
+    .articleReader {
         width: 100%;
         margin-block-start: 53px;
     }

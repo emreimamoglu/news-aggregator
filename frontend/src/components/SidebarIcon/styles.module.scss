@@ -1,0 +1,17 @@
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-block-start: min(5vw,75px);
+    padding-inline-start: 45px;
+
+    .icon {
+        color: var(--text-primary-high-emphasis);
+        font-family: Rockwell;
+        font-size: 40px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}

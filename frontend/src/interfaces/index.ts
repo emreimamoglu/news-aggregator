@@ -1,4 +1,19 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
+
+export type UserContextProps = {
+    children?: ReactNode;
+};
+
+export type CreateUserContextProps = {
+    user : User | null;
+    setUser : Dispatch<SetStateAction<User | null>>;
+}
+
+export type User = {
+    name : string;
+    email : string;
+}
 
 export type LayoutProps = {
     children?: ReactNode;
@@ -28,4 +43,8 @@ export type ArticleReaderProps = {
 export type ArticleListWithReaderProps = {
     articles : Article[];
     enableSearch ?: boolean;
+}
+
+export type SidebarProfileProps = {
+    name : string;
 }

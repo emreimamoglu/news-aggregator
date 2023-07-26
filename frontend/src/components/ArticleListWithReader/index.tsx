@@ -3,10 +3,11 @@ import styles from './styles.module.scss';
 import ArticleCard from '../ArticleCard';
 import ArticleReader from '../ArticleReader';
 import { useState } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { FormControl, Input, InputAdornment, InputLabel, useMediaQuery } from '@mui/material';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
-const ArticleListWithReader = ({ articles, enableSearch }: ArticleListWithReaderProps) => {
+const ArticleListWithReader = ({ articles, enableSearch=true }: ArticleListWithReaderProps) => {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
     const md = useMediaQuery('(min-width: 1050px)');
@@ -14,6 +15,19 @@ const ArticleListWithReader = ({ articles, enableSearch }: ArticleListWithReader
     return (
         <div className={styles.container}>
             <div className={styles.articleList}>
+                {
+                    enableSearch && (
+                        <FormControl fullWidth variant="standard">
+                            <InputLabel htmlFor="standard-adornment-search">Search</InputLabel>
+                            <Input
+                                id="standard-adornment-search"
+                                startAdornment={<InputAdornment position="start">
+                                    <SearchOutlinedIcon />
+                                </InputAdornment>}
+                            />
+                        </FormControl>
+                    )
+                }
                 {articles.map((article) => (
                     <ArticleCard article={article} />
                 ))}

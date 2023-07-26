@@ -1,6 +1,13 @@
+import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
 
 const RegisterForm = () => {
+    const router = useRouter();
+
+    const handleAlreadyHaveClick = () => {
+        router.push('/');
+    }
+
     return (
         <form>
             <div className={styles.container}>
@@ -9,7 +16,7 @@ const RegisterForm = () => {
                 <input type="password" placeholder="Password" />
                 <input type="password" placeholder="Confirm Password" />
                 <button type="submit">Sign up</button>
-                <a onClick={() => console.log('clicked')}>{"Already have an account ?"}</a>
+                <a onClick={handleAlreadyHaveClick}>{"Already have an account ?"}</a>
             </div>
         </form>
     )
