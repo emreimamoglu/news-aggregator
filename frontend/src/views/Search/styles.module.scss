@@ -8,9 +8,13 @@
         margin-block-start: max(4vh, 40px);
         margin-block-end: max(2vh, 20px);
 
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 500;
         color: var(--text-primary-low-emphasis);
+
+        @media screen and (max-width: 1050px) {
+            font-size: 1rem;
+        }
     }
 
     .body {

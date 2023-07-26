@@ -20,6 +20,19 @@ export const sidebarMenuRoutes = [
         component: Home,
         name : 'Subscriptions'
     },
+    {
+        id: '4',
+        path: '/profile',
+        component: Home,
+        name : 'Profile'
+    },
+    {
+        id: '5',
+        path: '/settings',
+        component: Home,
+        name : 'Settings'
+    },
+
 
 ]
 

@@ -1,0 +1,33 @@
+.list{
+    background-color: var(--side-bar-color);
+
+    &:global(.MuiList-root){
+        min-width: 350px;
+        width: 100%;
+        max-width: 650px;
+        min-height: 400px;
+        max-height: 600px;
+        overflow: scroll;
+    }
+
+    li{
+        color: var(--text-primary-high-emphasis);
+    }
+
+    & :global(.MuiListSubheader-root){
+        background-color: var(--side-bar-color);
+
+        input{
+            color: var(--text-primary-high-emphasis);
+        }
+    }
+
+    :global(.MuiInputBase-root){
+        height: 35px;
+        border: 1px solid var(--text-primary-high-emphasis);
+        svg{
+            color: var(--text-primary-high-emphasis);
+            margin-inline-end: 10px;
+        }
+    }
+}

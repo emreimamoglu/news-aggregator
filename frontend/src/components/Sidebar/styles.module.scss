@@ -24,4 +24,12 @@
             align-items: center;
         }
     }
+
+    .logout{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-block-end: 30px;
+        color: var(--text-primary-high-emphasis);
+    }
 }

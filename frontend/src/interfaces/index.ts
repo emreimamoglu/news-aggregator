@@ -45,6 +45,21 @@ export type ArticleListWithReaderProps = {
     enableSearch ?: boolean;
 }
 
-export type SidebarProfileProps = {
+export type SidebarIconProps = {
+    name : string;
+}
+
+export type SectionListProps = {
+    type : 'category' | 'source';
+    items : Category[] | Source[];
+}
+
+export type Category = {
+    id : string;
+    name : string;
+} 
+
+export type Source = {
+    id : string;
     name : string;
 }

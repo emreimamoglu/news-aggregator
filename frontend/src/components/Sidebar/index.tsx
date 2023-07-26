@@ -3,9 +3,9 @@ import LoginForm from '../LoginForm';
 import RegisterForm from '../RegisterForm';
 import styles from './styles.module.scss';
 import { useUserContext } from '@/contexts/User';
-import SidebarProfile from '../SidebarProfile';
 import SidebarMenu from '../SidebarMenu';
-import SidebarIcon from '../SidebarIcon';
+import SidebarIcon from '../SidebarIconAndName';
+import { LogoutOutlined } from '@mui/icons-material';
 
 const Sidebar = () => {
     const { route } = useRouter();
@@ -16,9 +16,11 @@ const Sidebar = () => {
             {
                 user && (
                     <div className={styles.sidebarLoggedIn}>
-                        <SidebarIcon />
+                        <SidebarIcon name={user.name}/>
                         <SidebarMenu />
-                        <SidebarProfile name={user.name}/>
+                        <div className={styles.logout}>
+                            <LogoutOutlined />
+                        </div>
                     </div>
                 )
             }

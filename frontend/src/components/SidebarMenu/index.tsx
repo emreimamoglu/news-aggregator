@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { sidebarMenuRoutes } from '../routes';
+import { sidebarMenuRoutes } from '../../routes';
 import { useRouter } from 'next/router';
 
 const SidebarMenu = () => {
