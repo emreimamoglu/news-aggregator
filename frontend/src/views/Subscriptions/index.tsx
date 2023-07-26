@@ -4,7 +4,7 @@ const Subscriptions = () => {
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <h1>Search News</h1>
+                <h1>Subscriptions</h1>
             </div>
             <div className={styles.subscriptionsContainer}>
                 <div className={styles.sources}>

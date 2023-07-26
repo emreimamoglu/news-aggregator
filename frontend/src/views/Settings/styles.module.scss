@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-inline-start: 113px;
+    margin-block-start: 150px;
+
+    .settings {
+        color: var(--text-primary-high-emphasis);
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-block-end: 53px;
+    }
+}

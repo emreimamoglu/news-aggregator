@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    .text {
+        color: var(--text-primary-high-emphasis);
+        font-size: 16px;
+        font-weight: 500;
+        margin-block-end: 15px;
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .info {
+            width: 311px;
+            height: 50px;
+
+            input {
+                border-radius: 3px;
+                background: rgba(217, 217, 217, 0.85);
+                ;
+                color: rgbagba(0, 0, 0, 0.20);
+                ;
+                font-weight: 500;
+                font-size: 0.875rem;
+            }
+        }
+
+        .buttonContainer {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+
+            button {
+                width: 114px;
+                height: 48px;
+                border-radius: 3px;
+                background: #2C619F;
+                color: #FFFFFF;
+                border: none;
+
+                font-size: 1rem;
+                font-weight: 500;
+            }
+        }
+    }
+}

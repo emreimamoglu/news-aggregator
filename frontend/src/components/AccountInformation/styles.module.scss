@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    margin-block-end: 100px;
+
+    .text {
+        color: var(--text-primary-high-emphasis);
+        font-size: 16px;
+        font-weight: 500;
+        margin-block-end: 15px;
+    }
+
+    .infos {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .info {
+            width: 311px;
+            height: 50px;
+            
+            input {
+                border-radius: 3px;
+                background: rgba(217, 217, 217, 0.25);
+                color: rgba(217, 217, 217, 0.35);
+                font-weight: 300;
+                font-size: 0.875rem;
+            }
+        }
+    }
+}
