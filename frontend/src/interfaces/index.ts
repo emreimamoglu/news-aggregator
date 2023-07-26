@@ -4,14 +4,6 @@ export type LayoutProps = {
     children?: ReactNode;
 };
 
-export type ArticleCardProps = {
-    article : Article;
-}
-
-export type ArticleReaderProps = {
-    article : Article;
-}
-
 export type Article = {
     id : string;
     title : string;
@@ -21,6 +13,19 @@ export type Article = {
     category : string;
     source : string;
     url : string;
-    imate_url : string;
+    image_url : string;
     published_at : string;
+}
+
+export type ArticleCardProps = {
+    article : Article;
+}
+
+export type ArticleReaderProps = {
+    article : Article;
+}
+
+export type ArticleListWithReaderProps = {
+    articles : Article[];
+    enableSearch ?: boolean;
 }

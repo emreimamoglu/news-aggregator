@@ -6,8 +6,9 @@ const ArticleReader = ({ article }: ArticleReaderProps) => {
         <div className={styles.container}>
             <div className={styles.imageAndInfo}>
 
-                <img className={styles.image} src="https://picsum.photos/200/300" alt="article" />
-
+                <div className={styles.imageContainer}>
+                    <img className={styles.image} src="https://picsum.photos/200/300" alt="article" />
+                </div>
                 <div className={styles.info}>
                     <div className={styles.infoText}>Source</div>
                     <div className={styles.infoText}>2023-07-24</div>

@@ -1,21 +1,55 @@
-import ArticleCard from "@/components/ArticleCard";
-import ArticleReader from "@/components/ArticleReader";
+import ArticleListWithReader from '@/components/ArticleListWithReader';
+import styles from './styles.module.scss';
+import { Article } from '@/interfaces';
 
+
+const articles: Article[] = [
+    {
+        id: '1',
+        title: 'Article 1asdasdasdsadsadsdsadsadasdasdsadsadasdasd',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        image_url: 'https://picsum.photos/200/300',
+        source: 'Source 1',
+        published_at: '2023-07-24',
+        url: 'https://picsum.photos/200/300',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        author: 'Author 1',
+        category: 'Category 1',
+    },
+    {
+        id: '1',
+        title: 'Article 2',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        image_url: 'https://picsum.photos/200/300',
+        source: 'Source 1',
+        published_at: '2023-07-24',
+        url: 'https://picsum.photos/200/300',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        author: 'Author 1',
+        category: 'Category 1',
+    },
+    {
+        id: '1',
+        title: 'Article 3',
+        content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        image_url: 'https://picsum.photos/200/300',
+        source: 'Source 1',
+        published_at: '2023-07-24',
+        url: 'https://picsum.photos/200/300',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec euismod, nisl eget ultricies aliquam, nisl nisl aliquet nisl, vitae ali',
+        author: 'Author 1',
+        category: 'Category 1',
+    }
+]
 const Home = () => {
     return (
-        <div style={{width:'100%',height:'100%',display:'flex',justifyContent:'center',alignItems: 'center'}}>
-        <ArticleReader article={{
-            id: "1",
-            title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            description: "Desccccccc",
-            content: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias id eligendi nemo dolorum voluptatibus ratione, omnis veritatis sunt dolor beatae harum esse quibusdam earum, sequi cumque quasi tempore numquam consequuntur iusto itaque veniam eveniet explicabo ex. Ad excepturi eum dolorum ab nihil sapiente sed, enim provident. Quisquam, libero. Quas quae dolore reprehenderit. Quia impedit provident odio, odit repudiandae quos alias eum ab non voluptatem, necessitatibus culpa similique asperiores assumenda corrupti magni. Neque, eius expedita odit non, vero, sit et dolores eveniet ipsum dignissimos reiciendis est minus quia alias obcaecati vel odio maxime asperiores suscipit minima ad iure veniam dicta. Neque! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias id eligendi nemo dolorum voluptatibus ratione, omnis veritatis sunt dolor beatae harum esse quibusdam earum, sequi cumque quasi tempore numquam consequuntur iusto itaque veniam eveniet explicabo ex. Ad excepturi eum dolorum ab nihil sapiente sed, enim provident. Quisquam, libero. Quas quae dolore reprehenderit. Quia impedit provident odio, odit repudiandae quos alias eum ab non voluptatem, necessitatibus culpa similique asperiores assumenda corrupti magni. Neque, eius expedita odit non, vero, sit et dolores eveniet ipsum dignissimos reiciendis est minus quia alias obcaecati vel odio maxime asperiores suscipit minima ad iure veniam dicta. Neque!",
-            author: "Authoooooooor",
-            category: "Cateeeeeeeeeeeegory",
-            source: "Source",
-            url: "",
-            imate_url: "https://trendjackers.com/wp-content/uploads/2017/01/People-Per-Hour-How-To-Succeed-As-A-New-Freelancer.jpg",
-            published_at: "2023-07-24"
-        }}/>
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <h1>News</h1>
+            </div>
+            <div className={styles.body}>
+                <ArticleListWithReader articles={articles} />
+            </div>
         </div>
     )
 };

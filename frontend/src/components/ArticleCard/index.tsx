@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 const ArticleCard = ({ article }: ArticleCardProps) => {
     return (
         <div className={styles.card}>
-            <img src={article.imate_url} className={styles.cardImage} alt="article photo" />
+            <img src={article.image_url} className={styles.cardImage} alt="article photo" />
             <div className={styles.cardBody}>
                 <div className={styles.bookmark}>
                     <IconButton>

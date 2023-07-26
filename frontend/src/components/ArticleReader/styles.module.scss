@@ -1,48 +1,57 @@
 .container {
-    width: 504px;
-    height: 720px;
     display: flex;
+    width: 100%;
+    max-width: 504px;
+    min-width: 400px;
+    max-height: 720px;
     flex-direction: column;
     background-color: var(--article-card-background-color);
     border-radius: 7px;
     box-shadow: 0px 20px 40px 0px rgba(0, 0, 0, 0.15);
 
-    .image {
-        width: 456px;
-        height: 254px;
-        border-radius: 3px;
-        margin: 24px 24px 15px 24px;
-    }
+    .imageAndInfo {
+        width: 100%;
+        height: 100%;
 
-    .info {
-        margin: 0 25px 7px 25px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+        .imageContainer {
+            padding: 24px 24px 15px 24px;
+            .image {
+                width: 100%;
+                height: 100%;
+                max-width: 456px;
+                max-height: 254px;
+                border-radius: 3px;
+            }
+        }
+
+        .info {
+            margin: 0 25px 7px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
 
 
-        .infoText {
-            font-size: 0.875rem;
-            color: var(--text-primary-super-low-emphasis);
+            .infoText {
+                font-size: 0.875rem;
+                color: var(--text-primary-super-low-emphasis);
+            }
         }
     }
 
     .article {
         margin: 34px 65px;
-        height: 400px;
 
         .title {
             margin: 0 36px 35px 36px;
-            width: 303px;
-            height: 56px;
+
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary-low-emphasis);
+            line-break: anywhere;
         }
 
         .content {
-            width: 374px;
-            height: 260px;
+
             font-size: 1rem;
             color: var(--text-primary-super-low-emphasis);
             overflow-y: scroll;

@@ -1,0 +1,27 @@
+.container {
+    width: 100%;
+
+    .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-block-start: max(4vh, 40px);
+        margin-block-end: max(2vh, 20px);
+
+        font-size: 2rem;
+        font-weight: 500;
+        color: var(--text-primary-low-emphasis);
+    }
+
+    .body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-inline-start: 10px;
+        margin-inline-end: 30px;
+
+        @media screen and (max-width: 600px) {
+            margin-inline-end: 10px;
+        }
+    }
+}
