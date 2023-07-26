@@ -7,7 +7,7 @@ import { FormControl, Input, InputAdornment, InputLabel, useMediaQuery } from '@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 
-const ArticleListWithReader = ({ articles, enableSearch=true }: ArticleListWithReaderProps) => {
+const ArticleListWithReader = ({ articles, enableSearch }: ArticleListWithReaderProps) => {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
 
     const md = useMediaQuery('(min-width: 1050px)');

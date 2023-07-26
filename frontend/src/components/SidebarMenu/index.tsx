@@ -1,17 +1,20 @@
 import styles from './styles.module.scss';
+import { routes } from '../routes';
+import { useRouter } from 'next/router';
 
 const SidebarMenu = () => {
+    const router = useRouter();
     return (
         <ul className={styles.menu}>
-            <li>
-            <a>Home</a>
-            </li>
-            <li>
-            <a>Search</a>
-            </li>
-            <li>
-            <a>Subscriptions</a>
-            </li>
+            {
+                routes.map((route) => (
+                    <li key={route.id} onClick={() => {
+                        router.push(route.path);
+                    }}>
+                        <a>{route.name}</a>
+                    </li>
+                ))
+            }
         </ul>
     );
 };
