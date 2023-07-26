@@ -1,7 +1,7 @@
 import Home from "@/views/Home";
 import Search from "@/views/Search";
 
-export const routes = [
+export const sidebarMenuRoutes = [
     {
         id : '1',
         path: '/',
@@ -21,4 +21,21 @@ export const routes = [
         name : 'Subscriptions'
     },
 
+]
+
+export const sidebarProfileRoutes = [
+    {
+        id : '1',
+        path: '/profile',
+        name : 'Profile'
+    },
+    {
+        id : '2',
+        path: '/settings',
+        name : 'Settings'
+    },
+    {
+        id : '3',
+        name : 'Logout'
+    },
 ]

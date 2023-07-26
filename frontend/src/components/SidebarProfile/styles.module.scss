@@ -15,5 +15,9 @@
 
     svg{
         color: var(--text-primary-high-emphasis);
+
+        &:hover{
+            cursor: pointer;
+        }
     }
 }

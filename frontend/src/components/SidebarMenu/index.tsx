@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import { routes } from '../routes';
+import { sidebarMenuRoutes } from '../routes';
 import { useRouter } from 'next/router';
 
 const SidebarMenu = () => {
@@ -7,7 +7,7 @@ const SidebarMenu = () => {
     return (
         <ul className={styles.menu}>
             {
-                routes.map((route) => (
+                sidebarMenuRoutes.map((route) => (
                     <li key={route.id} onClick={() => {
                         router.push(route.path);
                     }}>
