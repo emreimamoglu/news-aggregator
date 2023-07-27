@@ -6,9 +6,9 @@ const PasswordChange = () => {
         <div className={styles.container}>
             <p className={styles.text}>Change your password</p>
             <div className={styles.infos}>
-                <TextField className={styles.info} placeholder='Current password' disabled/>
-                <TextField className={styles.info} placeholder="New password" disabled/>
-                <TextField className={styles.info} placeholder="Confirm new password" disabled/>
+                <TextField type='password' className={styles.info} placeholder='Current password' />
+                <TextField type='password' className={styles.info} placeholder="New password" />
+                <TextField type='password' className={styles.info} placeholder="Confirm new password" />
                 <div className={styles.buttonContainer}>
                     <button className={styles.button}>Save</button>
                 </div>
