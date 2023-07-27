@@ -34,7 +34,7 @@ class TheGuardianProvider implements INewsProvider {
         foreach ($newsData['response']['results'] as $item) {
 
             Source::firstOrCreate([
-                'name' => $item['sectionName'],
+                'name' => 'The Guardian',
             ]);
 
             Author::firstOrCreate([
