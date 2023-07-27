@@ -49,9 +49,6 @@ const LoginForm = () => {
         validateOnBlur: true,
     });
 
-    console.log(formik.errors);
-
-
     return (
         <FormikProvider value={formik}>
             <form onSubmit={formik.handleSubmit}>

@@ -15,12 +15,20 @@ const axiosInstance = axios.create({
     },
 });
 
+axiosInstance.interceptors.request.use((config) => {
+    const token = localStorage.getItem('access_token');
+    if (token && config.headers) {
+        config.headers.authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 axiosInstance.interceptors.response.use(
     (response) => {
         return response;
     },
     async (error) => {
-        if (error.status === 401 && error.status === 403) {
+        if (error.status === 401 || error.status === 403) {
             localStorage.removeItem('access_token');
             window.location.href = '/';
         }

@@ -79,3 +79,8 @@ export type RegisterFormData = {
     password : string;
     password_confirmation : string;
 };
+
+export type ArticleQueryParams = {
+    page ?: string;
+    search ?: string;
+}
