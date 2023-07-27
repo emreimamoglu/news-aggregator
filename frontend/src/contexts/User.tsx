@@ -9,10 +9,7 @@ const UserContext = createContext<CreateUserContextProps>({
 
 
 export function UserContextProvider({ children }: UserContextProps) {
-    const [user, setUser] = useState<User | null>({
-        name : 'Emre Imamoglu',
-        email : 'imamogluemree@gmail.com'
-    });
+    const [user, setUser] = useState<User | null>(null);
 
     return <UserContext.Provider value={{ user, setUser }}> {children} </UserContext.Provider>;
 }

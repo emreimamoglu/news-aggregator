@@ -26,7 +26,7 @@ const Sidebar = () => {
             }
             {
                 !user && route === '/register' ? <RegisterForm /> :
-                    !user && route === '/login' ? <LoginForm /> : null
+                    !user && route === '/' ? <LoginForm /> : null
             }
         </div>
     )

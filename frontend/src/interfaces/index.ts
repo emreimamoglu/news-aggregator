@@ -67,3 +67,15 @@ export type Source = {
 export type ArticleListProps = {
     articles : Article[];
 }
+
+export type LoginFormData = {
+    email : string;
+    password : string;
+};
+
+export type RegisterFormData = {
+    name : string;
+    email : string;
+    password : string;
+    password_confirmation : string;
+};
