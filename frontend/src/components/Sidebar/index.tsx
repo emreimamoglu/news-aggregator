@@ -16,7 +16,7 @@ const Sidebar = () => {
             {
                 user && (
                     <div className={styles.sidebarLoggedIn}>
-                        <SidebarIcon name={user.name}/>
+                        <SidebarIcon name={user.name} />
                         <SidebarMenu />
                         <div className={styles.logout}>
                             <LogoutOutlined />
@@ -26,7 +26,7 @@ const Sidebar = () => {
             }
             {
                 !user && route === '/register' ? <RegisterForm /> :
-                    !user && route === '/' ? <LoginForm /> : null
+                !user ? <LoginForm /> : null
             }
         </div>
     )

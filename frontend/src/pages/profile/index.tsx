@@ -1,3 +1,4 @@
-import Profile from "@/views/profile";
+import { withAuth } from "@/hocs/withAuth";
+import Profile from "@/views/Profile";
 
-export default Profile;
+export default withAuth(Profile);

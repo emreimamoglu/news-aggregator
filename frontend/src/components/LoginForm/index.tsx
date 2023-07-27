@@ -25,6 +25,10 @@ const LoginForm = () => {
 
     const handleSubmit = (values: LoginFormData) => {
         AuthService.getInstance().login(values).then((response) => {
+            if (typeof window !== "undefined") {
+                localStorage.setItem('access_token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+              }
             enqueueSnackbar('Login successful', { variant: 'success' });
             setUser(response.data.user);
         }).catch((error) => {

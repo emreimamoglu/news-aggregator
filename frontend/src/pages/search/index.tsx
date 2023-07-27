@@ -1,3 +1,4 @@
+import { withAuth } from "@/hocs/withAuth";
 import Search from "@/views/Search";
 
-export default Search;
+export default withAuth(Search);
