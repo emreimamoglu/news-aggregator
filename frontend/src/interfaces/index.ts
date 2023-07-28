@@ -92,6 +92,12 @@ export type RegisterFormData = {
     password_confirmation : string;
 };
 
+export type ChangePasswordFormData = {
+    current_password : string;
+    new_password : string;
+    new_password_confirmation : string;
+}
+
 export type ArticleQueryParams = {
     page ?: string;
     search ?: string;

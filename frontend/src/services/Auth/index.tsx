@@ -1,9 +1,10 @@
 import axios from '@/config/axios';
-import { LoginFormData, RegisterFormData } from '@/interfaces';
+import { ChangePasswordFormData, LoginFormData, RegisterFormData } from '@/interfaces';
 
 const endpoints = {
     LOGIN: '/login',
     REGISTER : '/register',
+    CHANGE_PASSWORD: '/change-password',
 };
 
 class AuthService {
@@ -28,6 +29,14 @@ class AuthService {
     public register(data: RegisterFormData) {
         return axios
             .post<any>(endpoints.REGISTER, data)
+            .then((res) => res.data)
+            .catch((err) => {
+            });
+    }
+
+    public changePassword(data: ChangePasswordFormData) {
+        return axios
+            .post<any>(endpoints.CHANGE_PASSWORD, data)
             .then((res) => res.data)
             .catch((err) => {
             });
