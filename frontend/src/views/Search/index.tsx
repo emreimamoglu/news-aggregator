@@ -3,7 +3,6 @@ import styles from './styles.module.scss';
 import { Article } from '@/interfaces';
 import ArticleService from '@/services/Article';
 import { useState, useEffect } from 'react';
-import { CircularProgress } from '@mui/material';
 
 const Search = () => {
     const [articles, setArticles] = useState<Article[]>([]);

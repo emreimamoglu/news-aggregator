@@ -34,7 +34,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
     return (
         <div className={styles.container}>
             <div className={styles.articleList}>
-                {
+                {/* {
                     enableSearch && (
                         <FormControl fullWidth variant="standard">
                             <InputLabel htmlFor="standard-adornment-search">Search</InputLabel>
@@ -47,7 +47,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
                             />
                         </FormControl>
                     )
-                }
+                } */}
                 {articles.map((article) => (
                     <ArticleCard article={article} savedArticles={savedArticles} fetchSavedArticles={fetchSavedArticles} setSelectedArticle={setSelectedArticle} />
                 ))}

@@ -59,9 +59,10 @@ class ArticleService {
             });
     }
 
-    public getCustomFeed(){
+    
+    public getCustomFeed(data: ArticleQueryParams) {
         return axios
-            .get<any>(`${endpoints.CUSTOM_FEED}`)
+            .get<any>(endpoints.CUSTOM_FEED, { params: data })
             .then((res) => res.data)
             .catch((err) => {
             });

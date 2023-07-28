@@ -25,7 +25,7 @@ const Home = () => {
             });
             setCurrentPage(page);
         } else {
-            ArticleService.getInstance().getCustomFeed().then((response) => {
+            ArticleService.getInstance().getCustomFeed({ page: page.toString() }).then((response) => {
                 setArticles(response.data.data);
                 setLastPage(response.data.last_page);
                 setLoading(false);
