@@ -16,7 +16,7 @@
         justify-content: center;
         align-items: center;
         gap: 19px;
-        max-height: 500px;
+        max-height: 600px;
         overflow: scroll;
 
         &::-webkit-scrollbar {
@@ -51,6 +51,15 @@
 
         & :global(.MuiInputAdornment-root){
             color: var(--text-primary-high-emphasis);
+        }
+
+        .pagination {
+            width: 100%;
+            max-width: 470px;
+            display: flex;
+            justify-content: flex-end;
+            margin-block-start: 10px;
+            margin-block-end: 20px;
         }
     }
 

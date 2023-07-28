@@ -1,0 +1,13 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span{
+        color: var(--text-primary-high-emphasis);
+    }
+
+    svg{
+        color: var(--text-primary-high-emphasis);
+    }
+}

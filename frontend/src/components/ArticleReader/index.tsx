@@ -15,8 +15,8 @@ const ArticleReader = ({ article }: ArticleReaderProps) => {
                 </div>
             </div>
             <div className={styles.article}>
-                <h3 className={styles.title}>{article.title}</h3>
-                <p className={styles.content}>{article.content}</p>
+                <h3 className={styles.title}>{article?.title || ''}</h3>
+                <p className={styles.content}>{article?.content || ''}</p>
             </div>
         </div>
     );

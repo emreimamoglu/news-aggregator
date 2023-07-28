@@ -11,8 +11,12 @@ export type CreateUserContextProps = {
 }
 
 export type User = {
+    id : string,
     name : string;
     email : string;
+    email_verified_at : string | null;
+    created_at : string;
+    updated_at : string;
 }
 
 export type LayoutProps = {
@@ -43,6 +47,10 @@ export type ArticleReaderProps = {
 export type ArticleListWithReaderProps = {
     articles : Article[];
     enableSearch ?: boolean;
+    currentPage : number;
+    lastPage : number;
+    callback : (page : number) => void;
+    setSearch ?: Dispatch<SetStateAction<string>>
 }
 
 export type SidebarIconProps = {
@@ -84,3 +92,28 @@ export type ArticleQueryParams = {
     page ?: string;
     search ?: string;
 }
+
+export type SubscribeCategoryParams = {
+    category_id : string;
+    user_id : string;
+}
+
+
+export type SubscribeSourceParams = {
+    source_id : string;
+    user_id : string;
+}
+
+export type UnsubscribeCategoryParams = {
+    category_id : string;
+}
+
+export type UnsubscribeSourceParams = {
+    source_id : string;
+}
+
+export type PaginationProps = {
+    currentPage : number;
+    callback : (page : number) => void;
+    lastPage : number;
+};

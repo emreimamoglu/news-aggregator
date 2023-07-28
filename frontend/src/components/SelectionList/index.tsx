@@ -1,4 +1,3 @@
-import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -7,32 +6,73 @@ import Switch from '@mui/material/Switch';
 import { TextField } from '@mui/material';
 import styles from './styles.module.scss';
 import { SearchRounded } from '@mui/icons-material';
-import { SectionListProps } from '@/interfaces';
+import { Category, SectionListProps, Source } from '@/interfaces';
+import { useEffect, useState } from 'react';
+import SubscriptionService from '@/services/Subscription';
+import { useUserContext } from '@/contexts/User';
+import { useSnackbar } from 'notistack';
 
 const SelectionList = ({ type, items }: SectionListProps) => {
+    const [checked, setChecked] = useState<string[]>([]);
+    const [search, setSearch] = useState<string>('');
 
-    const [checked, setChecked] = React.useState(['wifi']);
+    const { user } = useUserContext();
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleTextChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = event.target;
+        setSearch(value);
+    };
 
     const handleToggle = (value: string) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
         if (currentIndex === -1) {
+            if (type === 'source' && user)
+                SubscriptionService.getInstance().subscribeToSource({ user_id: user.id, source_id: value }).then((res) => {
+                    enqueueSnackbar("Successfully subscribed to the source", { variant: 'success' });
+                });
+            if (type === 'category' && user)
+                SubscriptionService.getInstance().subscribeToCategory({ user_id: user.id, category_id: value }).then((res) => {
+                    enqueueSnackbar("Successfully subscribed to the category", { variant: 'success' });
+                });;
             newChecked.push(value);
         } else {
             newChecked.splice(currentIndex, 1);
+            if (type === 'source' && user)
+                SubscriptionService.getInstance().unsubscribeFromSource({ source_id: value }).then((res) => {
+                    enqueueSnackbar("Successfully unsubscribed from the source", { variant: 'success' });
+                });;
+            if (type === 'category' && user)
+                SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: value }).then((res) => {
+                    enqueueSnackbar("Successfully unsubscribed from the category", { variant: 'success' });
+                }
+                );;
         }
 
         setChecked(newChecked);
     };
 
+    useEffect(() => {
+        if (type === 'source' && user) {
+            SubscriptionService.getInstance().getSourceSubscriptions().then((res) => {
+                setChecked(res.data.map((source : Source) => source.id));
+            });
+        }
+        if (type === 'category' && user) {
+            SubscriptionService.getInstance().getCategorySubscriptions().then((res) => {
+                setChecked(res.data.map((category : Category) => category.id));
+            });
+        }
+    }, []);
 
     return (
         <List
             className={styles.list}
             subheader={<ListSubheader>
                 <p>Select {type}</p>
-                <TextField placeholder={`Search ${type}`} InputProps={{
+                <TextField onChange={handleTextChange} placeholder={`Search ${type}`} InputProps={{
                     startAdornment: (
                         <SearchRounded />
                     )
@@ -40,13 +80,13 @@ const SelectionList = ({ type, items }: SectionListProps) => {
             </ListSubheader>}
         >
             {
-                items.map((item) => (
+                items.filter(i => i.name.includes(search)).map((item) => (
                     <ListItem>
                         <ListItemText id={`search-list-item-${item.id}`} primary={item.name} />
                         <Switch
                             edge="end"
-                            onChange={handleToggle(item.name)}
-                            checked={checked.indexOf(item.name) !== -1}
+                            onChange={handleToggle(item.id)}
+                            checked={checked.indexOf(item.id) !== -1}
                         />
                     </ListItem>
                 ))

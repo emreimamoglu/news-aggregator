@@ -28,4 +28,17 @@
             margin-inline-end: 10px;
         }
     }
+
+    .circular{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 300px;
+        
+        svg{
+            color: var(--side-bar-color);
+        }
+    }
 }

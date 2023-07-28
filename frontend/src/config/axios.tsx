@@ -28,8 +28,10 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        if (error.status === 401 || error.status === 403) {
-            localStorage.removeItem('access_token');
+        console.log(error);
+        
+        if (error.response.status === 401 || error.response.status === 403) {
+            clearLocalStorage();
             window.location.href = '/';
         }
         return Promise.reject(error);
