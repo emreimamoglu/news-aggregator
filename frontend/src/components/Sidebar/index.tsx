@@ -6,10 +6,16 @@ import { useUserContext } from '@/contexts/User';
 import SidebarMenu from '../SidebarMenu';
 import SidebarIcon from '../SidebarIconAndName';
 import { LogoutOutlined } from '@mui/icons-material';
+import { clearLocalStorage } from '@/config/axios';
 
 const Sidebar = () => {
-    const { route } = useRouter();
+    const { route,push } = useRouter();
     const { user } = useUserContext()
+
+    const handleLogout = () => {
+        clearLocalStorage();
+        push('/');
+    };
 
     return (
         <div className={styles.container}>
@@ -18,7 +24,7 @@ const Sidebar = () => {
                     <div className={styles.sidebarLoggedIn}>
                         <SidebarIcon name={user.name} />
                         <SidebarMenu />
-                        <div className={styles.logout}>
+                        <div className={styles.logout} onClick={handleLogout}>
                             <LogoutOutlined />
                         </div>
                     </div>

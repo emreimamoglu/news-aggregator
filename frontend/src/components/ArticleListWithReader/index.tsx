@@ -7,17 +7,21 @@ import { FormControl, Input, InputAdornment, InputLabel, useMediaQuery } from '@
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Pagination from '../Pagination';
 import ArticleService from '@/services/Article';
+import { useUserContext } from '@/contexts/User';
 
 
 const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, callback, setSearch }: ArticleListWithReaderProps) => {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
     const [savedArticles, setSavedArticles] = useState<SavedArticle[]>([]);
 
+    const { user } = useUserContext();
+
     const md = useMediaQuery('(min-width: 1050px)');
 
-    const handleChange = (event : ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearch?.(event.target.value)
+    const handleChange = (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearch?.(event.target.value)
 
     const fetchSavedArticles = async () => {
+        if (!user) return;
         ArticleService.getInstance().getSavedArticleIds().then((response) => {
             setSavedArticles(response.data);
         });
@@ -25,7 +29,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
 
     useEffect(() => {
         fetchSavedArticles();
-    },[])
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -45,7 +49,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
                     )
                 }
                 {articles.map((article) => (
-                    <ArticleCard article={article} savedArticles={savedArticles} fetchSavedArticles={fetchSavedArticles} setSelectedArticle={setSelectedArticle}/>
+                    <ArticleCard article={article} savedArticles={savedArticles} fetchSavedArticles={fetchSavedArticles} setSelectedArticle={setSelectedArticle} />
                 ))}
                 <div className={styles.pagination}>
                     <Pagination currentPage={currentPage} lastPage={lastPage} callback={callback} />
