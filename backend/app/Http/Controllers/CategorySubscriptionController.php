@@ -16,7 +16,7 @@ class CategorySubscriptionController extends Controller
      */
     public function index()
     {
-        return $this->success(CategorySubscription::all());
+        return $this->success(CategorySubscription::all()->where('user_id', auth()->user()->id));
     }
 
     /**

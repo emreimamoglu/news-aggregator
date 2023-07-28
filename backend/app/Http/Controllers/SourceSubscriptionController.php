@@ -16,7 +16,7 @@ class SourceSubscriptionController extends Controller
      */
     public function index()
     {
-        return $this->success(SourceSubscription::all());
+        return $this->success(SourceSubscription::all()->where('user_id', auth()->user()->id));
     }
 
     /**

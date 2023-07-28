@@ -41,7 +41,6 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
 
     # API Resources
 
-    Route::apiResource('articles', ArticleController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('sources', SourceController::class);
     Route::apiResource('authors', AuthorController::class);
@@ -50,6 +49,8 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
 
 });
+
+Route::apiResource('articles', ArticleController::class);
 
 
 // Route::get('test', function () {
