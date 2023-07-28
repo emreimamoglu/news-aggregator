@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSavedArticleRequest;
 use App\Http\Requests\UpdateSavedArticleRequest;
 use App\Models\SavedArticle;
 use App\Traits\HttpResponses;
+use Illuminate\Support\Facades\DB;
 
 class SavedArticleController extends Controller
 {
@@ -43,5 +44,18 @@ class SavedArticleController extends Controller
     {
         $savedArticle->delete();
         return $this->success(null, 'Article deleted successfully');
+    }
+
+    /**
+     * Returns saved articles for the authenticated user.
+     */
+     
+    public function userSavedArticles(){
+        $savedArticles = DB::table('saved_articles')
+        ->join('articles', 'articles.id', '=', 'saved_articles.article_id')
+        ->select('saved_articles.id AS saved_articles_saved_article_id', 'articles.*')
+        ->get();
+
+    return $this->success($savedArticles);
     }
 }

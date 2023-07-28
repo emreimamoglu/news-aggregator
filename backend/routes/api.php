@@ -35,7 +35,7 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 
 # Protected Routes
 
-Route::group(['middleware' => ['auth:sanctum']],function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('delete-account', [AuthController::class, 'deleteAccount']);
 
@@ -47,15 +47,16 @@ Route::group(['middleware' => ['auth:sanctum']],function () {
     Route::apiResource('category-subscriptions', CategorySubscriptionController::class, ['except' => ['update']]);
     Route::apiResource('source-subscriptions', SourceSubscriptionController::class, ['except' => ['update']]);
     Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
-
+    Route::apiResource('articles', ArticleController::class)->except(['index', 'show']);
+    Route::get('user-saved-articles', [SavedArticleController::class, 'userSavedArticles']);
 });
 
-Route::apiResource('articles', ArticleController::class);
+Route::apiResource('articles', ArticleController::class)->except(['destroy', 'update', 'store']);
 
 
 // Route::get('test', function () {
 //     $fetcher = new NewsFetcher();
 //     $fetcher->fetchAndStoreNews();
-    
+
 //     return response()->json(Carbon::now()->subDay()->toDateString());
 // });
