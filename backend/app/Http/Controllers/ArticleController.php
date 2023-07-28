@@ -74,17 +74,25 @@ class ArticleController extends Controller
     public function customFeed(Request $request)
     {
         $user = $request->user();
-
+        $page = $request->input('page', 1);
+        $searchTerm = $request->input('search');
+    
         $articlesByCategory = Article::join('category_subscriptions', 'articles.category_id', '=', 'category_subscriptions.category_id')
             ->where('category_subscriptions.user_id', $user->id)
             ->orderBy('published_at', 'desc');
-
+    
         $articlesBySource = Article::join('source_subscriptions', 'articles.source_id', '=', 'source_subscriptions.source_id')
             ->where('source_subscriptions.user_id', $user->id)
             ->orderBy('published_at', 'desc');
-
+    
         $merged = $articlesByCategory->union($articlesBySource);
-
-        return $this->success($merged->paginate(3));
+    
+        if ($searchTerm) {
+            $merged->where('title', 'LIKE', '%' . $searchTerm . '%');
+        }
+    
+        $articles = $merged->paginate(3, ['*'], 'page', $page);
+    
+        return $this->success($articles);
     }
 }
