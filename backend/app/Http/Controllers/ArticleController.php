@@ -18,11 +18,23 @@ class ArticleController extends Controller
     {
         $page = $request->input('page', 1);
         $searchTerm = $request->input('search');
+        $categoryIds = $request->input('category_ids');
+        $sourceIds = $request->input('source_ids');
 
         $query = Article::orderBy('published_at', 'desc');
 
         if ($searchTerm) {
             $query->where('title', 'LIKE', '%' . $searchTerm . '%');
+        }
+
+        if ($categoryIds) {
+            $categoryIdsArray = explode(',', $categoryIds);
+            $query->whereIn('category_id', $categoryIdsArray);
+        }
+    
+        if ($sourceIds) {
+            $sourceIdsArray = explode(',', $sourceIds);
+            $query->whereIn('source_id', $sourceIdsArray);
         }
 
         $articles = $query->paginate(3, ['*'], 'page', $page);
