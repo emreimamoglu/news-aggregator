@@ -6,7 +6,7 @@ import Switch from '@mui/material/Switch';
 import { TextField } from '@mui/material';
 import styles from './styles.module.scss';
 import { SearchRounded } from '@mui/icons-material';
-import { Category, SectionListProps, Source } from '@/interfaces';
+import { Category, CategorySubscriptions, SectionListProps, Source, SourceSubscriptions } from '@/interfaces';
 import { useEffect, useState } from 'react';
 import SubscriptionService from '@/services/Subscription';
 import { useUserContext } from '@/contexts/User';
@@ -15,6 +15,8 @@ import { useSnackbar } from 'notistack';
 const SelectionList = ({ type, items }: SectionListProps) => {
     const [checked, setChecked] = useState<string[]>([]);
     const [search, setSearch] = useState<string>('');
+    const [sources, setSources] = useState<Source[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
 
     const { user } = useUserContext();
     const { enqueueSnackbar } = useSnackbar();
@@ -41,11 +43,14 @@ const SelectionList = ({ type, items }: SectionListProps) => {
         } else {
             newChecked.splice(currentIndex, 1);
             if (type === 'source' && user)
-                SubscriptionService.getInstance().unsubscribeFromSource({ source_id: value }).then((res) => {
+                // @ts-ignore
+                SubscriptionService.getInstance().unsubscribeFromSource({ source_id: sources.find((s : any) => s.source_id === value).id}).then((res) => {
                     enqueueSnackbar("Successfully unsubscribed from the source", { variant: 'success' });
                 });;
             if (type === 'category' && user)
-                SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: value }).then((res) => {
+            console.log(categories,value);
+                // @ts-ignore
+                SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: categories.find((s : any) => s.category_id === value).id}).then((res) => {
                     enqueueSnackbar("Successfully unsubscribed from the category", { variant: 'success' });
                 }
                 );;
@@ -57,12 +62,14 @@ const SelectionList = ({ type, items }: SectionListProps) => {
     useEffect(() => {
         if (type === 'source' && user) {
             SubscriptionService.getInstance().getSourceSubscriptions().then((res) => {
-                setChecked(res.data.map((source : Source) => source.id));
+                setSources(res.data);
+                setChecked(res.data.map((source : SourceSubscriptions) => source.source_id));
             });
         }
         if (type === 'category' && user) {
             SubscriptionService.getInstance().getCategorySubscriptions().then((res) => {
-                setChecked(res.data.map((category : Category) => category.id));
+                setCategories(res.data);
+                setChecked(res.data.map((category : CategorySubscriptions) => category.category_id));
             });
         }
     }, []);

@@ -5,6 +5,7 @@ const endpoints = {
     ARTICLES: '/articles',
     SAVED_ARTICLES: '/saved-articles',
     SAVED_ARTICLES_LIST: '/user-saved-articles',
+    CUSTOM_FEED : '/custom-feed'
 };
 
 class ArticleService {
@@ -53,6 +54,14 @@ class ArticleService {
     public getSavedArticlesList(){
         return axios
             .get<any>(`${endpoints.SAVED_ARTICLES_LIST}`)
+            .then((res) => res.data)
+            .catch((err) => {
+            });
+    }
+
+    public getCustomFeed(){
+        return axios
+            .get<any>(`${endpoints.CUSTOM_FEED}`)
             .then((res) => res.data)
             .catch((err) => {
             });

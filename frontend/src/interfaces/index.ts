@@ -138,3 +138,15 @@ export type SavedArticle ={
     article_id : string;
     user_id : string;
 }
+
+export type SourceSubscriptions = {
+    id : string;
+    source_id : string;
+    user_id : string;
+}
+
+export type CategorySubscriptions = {
+    id : string;
+    category_id : string;
+    user_id : string;
+}
