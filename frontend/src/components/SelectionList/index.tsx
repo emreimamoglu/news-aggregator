@@ -48,7 +48,6 @@ const SelectionList = ({ type, items }: SectionListProps) => {
                     enqueueSnackbar("Successfully unsubscribed from the source", { variant: 'success' });
                 });;
             if (type === 'category' && user)
-            console.log(categories,value);
                 // @ts-ignore
                 SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: categories.find((s : any) => s.category_id === value).id}).then((res) => {
                     enqueueSnackbar("Successfully unsubscribed from the category", { variant: 'success' });
