@@ -38,6 +38,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
     }
 
     const fetchCategoriesAndSources = () => {
+        if (!user) return;
         SubscriptionService.getInstance().getCategories().then((response) => {
             setCategories(response.data);
         });
