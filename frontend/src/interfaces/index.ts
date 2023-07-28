@@ -38,6 +38,9 @@ export type Article = {
 
 export type ArticleCardProps = {
     article : Article;
+    savedArticles : SavedArticle[];
+    fetchSavedArticles : () => Promise<void>;
+    setSelectedArticle ?: Dispatch<SetStateAction<Article | null>>;
 }
 
 export type ArticleReaderProps = {
@@ -74,6 +77,7 @@ export type Source = {
 
 export type ArticleListProps = {
     articles : Article[];
+    fetchSavedArticles : () => Promise<void>;
 }
 
 export type LoginFormData = {
@@ -117,3 +121,14 @@ export type PaginationProps = {
     callback : (page : number) => void;
     lastPage : number;
 };
+
+export type SaveArticleParams = {
+    article_id : string;
+    user_id : string;
+};
+
+export type SavedArticle ={
+    id : string;
+    article_id : string;
+    user_id : string;
+}

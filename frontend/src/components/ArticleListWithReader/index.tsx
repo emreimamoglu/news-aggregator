@@ -1,19 +1,31 @@
-import { Article, ArticleListWithReaderProps } from '@/interfaces';
+import { Article, ArticleListWithReaderProps, SavedArticle } from '@/interfaces';
 import styles from './styles.module.scss';
 import ArticleCard from '../ArticleCard';
 import ArticleReader from '../ArticleReader';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { FormControl, Input, InputAdornment, InputLabel, useMediaQuery } from '@mui/material';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Pagination from '../Pagination';
+import ArticleService from '@/services/Article';
 
 
 const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, callback, setSearch }: ArticleListWithReaderProps) => {
     const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+    const [savedArticles, setSavedArticles] = useState<SavedArticle[]>([]);
 
     const md = useMediaQuery('(min-width: 1050px)');
 
     const handleChange = (event : ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => setSearch?.(event.target.value)
+
+    const fetchSavedArticles = async () => {
+        ArticleService.getInstance().getSavedArticleIds().then((response) => {
+            setSavedArticles(response.data);
+        });
+    }
+
+    useEffect(() => {
+        fetchSavedArticles();
+    },[])
 
     return (
         <div className={styles.container}>
@@ -33,7 +45,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
                     )
                 }
                 {articles.map((article) => (
-                    <ArticleCard article={article} />
+                    <ArticleCard article={article} savedArticles={savedArticles} fetchSavedArticles={fetchSavedArticles} setSelectedArticle={setSelectedArticle}/>
                 ))}
                 <div className={styles.pagination}>
                     <Pagination currentPage={currentPage} lastPage={lastPage} callback={callback} />
@@ -41,7 +53,7 @@ const ArticleListWithReader = ({ articles, enableSearch, currentPage, lastPage, 
             </div>
             {
                 md && <div className={styles.articleReader}>
-                    <ArticleReader article={selectedArticle ?? articles[0]} />
+                    <ArticleReader article={selectedArticle ? selectedArticle : articles[0]} />
                 </div>
             }
         </div>
