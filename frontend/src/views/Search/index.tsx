@@ -10,10 +10,13 @@ const Search = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [lastPage, setLastPage] = useState<number>(1);
     const [search, setSearch] = useState<string>("");
+    const [categoryIds, setCategoryIds] = useState<string[]>([]);
+    const [sourceIds, setSourceIds] = useState<string[]>([]);
+
 
     const fetchArticles = async (page: number) => {
         setLoading(true);
-        ArticleService.getInstance().getArticles({ page: page.toString(), search: search }).then((response) => {
+        ArticleService.getInstance().getArticles({ page: page.toString(), search: search, category_ids: categoryIds.toString(), source_ids : sourceIds.toString() }).then((response) => {
             setArticles(response.data.data);
             setLastPage(response.data.total);
             setLoading(false);
@@ -23,7 +26,7 @@ const Search = () => {
 
     useEffect(() => {
         fetchArticles(currentPage);
-    }, [search]);
+    }, [search,categoryIds,sourceIds]);
 
     return (
         <div className={styles.container}>
@@ -31,7 +34,7 @@ const Search = () => {
                 <h1>Search News</h1>
             </div>
             <div className={styles.body}>
-                <ArticleListWithReader enableSearch articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} setSearch={setSearch} />
+                <ArticleListWithReader enableSearch articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} setSearch={setSearch} setCategoryIds={setCategoryIds} setSourceIds={setSourceIds}/>
             </div>
         </div>
     )

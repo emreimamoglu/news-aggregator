@@ -54,6 +54,8 @@ export type ArticleListWithReaderProps = {
     lastPage : number;
     callback : (page : number) => void;
     setSearch ?: Dispatch<SetStateAction<string>>
+    setCategoryIds ?: Dispatch<SetStateAction<string[]>>
+    setSourceIds ?: Dispatch<SetStateAction<string[]>>
 }
 
 export type SidebarIconProps = {
@@ -101,6 +103,8 @@ export type ChangePasswordFormData = {
 export type ArticleQueryParams = {
     page ?: string;
     search ?: string;
+    category_ids ?: string;
+    source_ids ?: string;
 }
 
 export type SubscribeCategoryParams = {
