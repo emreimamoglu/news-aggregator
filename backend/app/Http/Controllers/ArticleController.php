@@ -66,4 +66,25 @@ class ArticleController extends Controller
         $article->delete();
         return $this->success(null, 'Article deleted successfully');
     }
+
+    /**
+     * Returns a custom feed for the authenticated user.
+     */
+
+    public function customFeed(Request $request)
+    {
+        $user = $request->user();
+
+        $articlesByCategory = Article::join('category_subscriptions', 'articles.category_id', '=', 'category_subscriptions.category_id')
+            ->where('category_subscriptions.user_id', $user->id)
+            ->orderBy('published_at', 'desc');
+
+        $articlesBySource = Article::join('source_subscriptions', 'articles.source_id', '=', 'source_subscriptions.source_id')
+            ->where('source_subscriptions.user_id', $user->id)
+            ->orderBy('published_at', 'desc');
+
+        $merged = $articlesByCategory->union($articlesBySource);
+
+        return $this->success($merged->paginate(3));
+    }
 }

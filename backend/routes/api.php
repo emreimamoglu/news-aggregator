@@ -50,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
     Route::apiResource('articles', ArticleController::class)->except(['index', 'show']);
     Route::get('user-saved-articles', [SavedArticleController::class, 'userSavedArticles']);
+    Route::get('custom-feed', [ArticleController::class, 'customFeed']);
     
 });
 
