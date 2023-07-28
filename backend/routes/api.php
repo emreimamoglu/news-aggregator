@@ -38,6 +38,7 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('delete-account', [AuthController::class, 'deleteAccount']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
 
     # API Resources
 
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('saved-articles', SavedArticleController::class, ['except' => ['update']]);
     Route::apiResource('articles', ArticleController::class)->except(['index', 'show']);
     Route::get('user-saved-articles', [SavedArticleController::class, 'userSavedArticles']);
+    
 });
 
 Route::apiResource('articles', ArticleController::class)->except(['destroy', 'update', 'store']);

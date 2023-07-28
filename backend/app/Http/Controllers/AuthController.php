@@ -80,4 +80,23 @@ class AuthController extends Controller
         Auth::user()->delete();
         return $this->success(null, 'Account deleted successfully');
     }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        if (Hash::check($request->current_password, $user->password)) {
+            $user->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+            return $this->success(null, 'Password changed successfully');
+        } else {
+            return $this->error(null, 'Current password is incorrect', 422);
+        }
+    }
 }
