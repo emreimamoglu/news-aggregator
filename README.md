@@ -50,6 +50,13 @@ THE_GUARDIAN_API_ROUTE=<GUARDIAN_NEWS_API>
 OPEN_NEWS_ORG_API_ROUTE=<OPEN_NEWS_ORG_API>
 OPEN_NEWS_AI_API_ROUTE=<OPEN_NEWS_AI_API>
 
+DB_CONNECTION=pgsql
+DB_HOST=<HOST>
+DB_PORT=5432
+DB_DATABASE=<DB>
+DB_USERNAME=<USERNAME>
+DB_PASSWORD=<PASSWORD>
+
 MAIL_MAILER=smtp
 MAIL_HOST=<>
 MAIL_PORT=<>
@@ -63,7 +70,14 @@ MAIL_FROM_NAME=<>
 Start the scheduler :
 
 ```bash
-php artisan schedule:work
+docker exec news-api php artisan news:synchronize
+docker exec news-api php artisan schedule:work
+```
+
+Start Using UI by going :
+
+```bash
+http://localhost:3003
 ```
 
 Registered fetchers can be found in the constructor of the fetcher :
