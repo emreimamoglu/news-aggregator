@@ -5,11 +5,12 @@ import { useEffect, useState } from 'react';
 import { Article, SavedArticle } from '@/interfaces';
 import SavedArticleList from '@/components/SavedArticleList';
 import { useRouter } from 'next/router';
-import { IconButton } from '@mui/material';
+import { CircularProgress, IconButton } from '@mui/material';
 import ArticleService from '@/services/Article';
 
 const Profile = () => {
     const [articles, setArticles] = useState<Article[]>([]);
+    const [loading,setLoading] = useState<boolean>(true);
 
     const { user } = useUserContext();
     const router = useRouter();
@@ -22,6 +23,8 @@ const Profile = () => {
     const fetchSavedArticles = async () => {
         ArticleService.getInstance().getSavedArticlesList().then((response) => {
             setArticles(response.data);
+        }).finally(() => {
+            setLoading(false);
         });
     }
 
@@ -40,7 +43,9 @@ const Profile = () => {
                 <h2>Saved News</h2>
             </div>
             <div className={styles.body}>
-                <SavedArticleList articles={articles} fetchSavedArticles={fetchSavedArticles}/>
+                {
+                    loading ? <div className={styles.loading}><CircularProgress/></div> : <SavedArticleList articles={articles} fetchSavedArticles={fetchSavedArticles}/>
+                }
             </div>
         </div>
     )

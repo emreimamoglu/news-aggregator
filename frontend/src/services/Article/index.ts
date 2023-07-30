@@ -1,5 +1,5 @@
 import axios from '@/config/axios';
-import { ArticleQueryParams, SaveArticleParams } from '@/interfaces';
+import { ArticleQueryParams, GetArticleParams, SaveArticleParams } from '@/interfaces';
 
 const endpoints = {
     ARTICLES: '/articles',
@@ -22,6 +22,14 @@ class ArticleService {
     public getArticles(data: ArticleQueryParams) {
         return axios
             .get<any>(endpoints.ARTICLES, { params: data })
+            .then((res) => res.data)
+            .catch((err) => {
+            });
+    }
+
+    public getArticle(data: GetArticleParams) {
+        return axios
+            .get<any>(`${endpoints.ARTICLES}/${data.article_id}`)
             .then((res) => res.data)
             .catch((err) => {
             });

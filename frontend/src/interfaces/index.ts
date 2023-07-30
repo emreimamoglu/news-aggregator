@@ -107,6 +107,10 @@ export type ArticleQueryParams = {
     source_ids ?: string;
 }
 
+export type GetArticleParams = {
+    article_id : string;
+}
+
 export type SubscribeCategoryParams = {
     category_id : string;
     user_id : string;

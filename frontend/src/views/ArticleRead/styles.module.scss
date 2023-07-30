@@ -1,0 +1,32 @@
+.container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .header{
+        width: 100%;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        cursor: pointer;
+        padding-inline-start: 25px;
+
+        button{
+            color: var(--text-primary-high-emphasis);
+            font-size: 1rem;
+        }
+    }
+
+    .article{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 15px;
+        svg{
+            color: var(--text-primary-high-emphasis);
+        }
+    }
+}

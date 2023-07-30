@@ -52,5 +52,18 @@
 
     .body {
         width: 100%;
+
+        .loading{
+            width: 100%;
+            min-height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            svg{
+                color: var(--text-primary-high-emphasis);
+                font-size: 1rem;
+            }
+        }
     }
 }

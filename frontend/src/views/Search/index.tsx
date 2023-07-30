@@ -3,10 +3,11 @@ import styles from './styles.module.scss';
 import { Article } from '@/interfaces';
 import ArticleService from '@/services/Article';
 import { useState, useEffect } from 'react';
+import { CircularProgress } from '@mui/material';
 
 const Search = () => {
     const [articles, setArticles] = useState<Article[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [lastPage, setLastPage] = useState<number>(1);
     const [search, setSearch] = useState<string>("");
@@ -15,8 +16,7 @@ const Search = () => {
 
 
     const fetchArticles = async (page: number) => {
-        setLoading(true);
-        ArticleService.getInstance().getArticles({ page: page.toString(), search: search, category_ids: categoryIds.toString(), source_ids : sourceIds.toString() }).then((response) => {
+        ArticleService.getInstance().getArticles({ page: page.toString(), search: search, category_ids: categoryIds.toString(), source_ids: sourceIds.toString() }).then((response) => {
             setArticles(response.data.data);
             setLastPage(response.data.total);
             setLoading(false);
@@ -26,7 +26,7 @@ const Search = () => {
 
     useEffect(() => {
         fetchArticles(currentPage);
-    }, [search,categoryIds,sourceIds]);
+    }, [search, categoryIds, sourceIds]);
 
     return (
         <div className={styles.container}>
@@ -34,7 +34,9 @@ const Search = () => {
                 <h1>Search News</h1>
             </div>
             <div className={styles.body}>
-                <ArticleListWithReader enableSearch articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} setSearch={setSearch} setCategoryIds={setCategoryIds} setSourceIds={setSourceIds}/>
+                {
+                    loading ? <div className={styles.loading}><CircularProgress /></div> : <ArticleListWithReader enableSearch articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} setSearch={setSearch} setCategoryIds={setCategoryIds} setSourceIds={setSourceIds} />
+                }
             </div>
         </div>
     )

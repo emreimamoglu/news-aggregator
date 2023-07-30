@@ -8,14 +8,11 @@ import { CircularProgress } from '@mui/material';
 
 const Home = () => {
     const [articles, setArticles] = useState<Article[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
     const [currentPage, setCurrentPage] = useState<number>(1);
     const [lastPage, setLastPage] = useState<number>(1);
 
-    const { user } = useUserContext();
-
     const fetchArticles = async (page: number) => {
-        setLoading(true);
         const user = localStorage.getItem('user');
         if (!user) {
             ArticleService.getInstance().getArticles({ page: page.toString() }).then((response) => {
@@ -44,7 +41,9 @@ const Home = () => {
                 <h1>News</h1>
             </div>
             <div className={styles.body}>
-                <ArticleListWithReader articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} />
+                {
+                    loading ? <div className={styles.loading}><CircularProgress /></div> : <ArticleListWithReader articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} />
+                }
             </div>
         </div>
     )

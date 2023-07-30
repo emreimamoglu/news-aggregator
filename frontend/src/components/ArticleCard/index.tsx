@@ -1,17 +1,22 @@
 import { ArticleCardProps } from "@/interfaces";
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined';
 import styles from './styles.module.scss';
-import { IconButton } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 import ArticleService from "@/services/Article";
 import { useSnackbar } from "notistack";
 import { useUserContext } from "@/contexts/User";
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import { useRouter } from "next/router";
+import { format, parseISO } from "date-fns";
 
 const ArticleCard = ({ article,savedArticles, fetchSavedArticles, setSelectedArticle }: ArticleCardProps) => {
     const {enqueueSnackbar} = useSnackbar();
     const {user} = useUserContext();
+    const router = useRouter();
+    const md = useMediaQuery('(min-width: 1050px)');
 
     const savedArticle = savedArticles.find(s => s.article_id === article.id);
+
 
     const handleArticleSaveClick = () => {
         if(savedArticle)
@@ -28,8 +33,11 @@ const ArticleCard = ({ article,savedArticles, fetchSavedArticles, setSelectedArt
     };
     
     const handleCardClick = () => {
-        if(setSelectedArticle)
+        if(setSelectedArticle && md)
         setSelectedArticle(article);
+
+        if(!md)
+        router.push(`/article-read/${article.id}`);
     }
     
 
@@ -47,7 +55,7 @@ const ArticleCard = ({ article,savedArticles, fetchSavedArticles, setSelectedArt
                 <h5 className={styles.title}>{article.title}</h5>
                 <div className={styles.info}>
                     <p className={styles.infoText}>{article.source}</p>
-                    <p className={styles.infoText}>{article.published_at}</p>
+                    <p className={styles.infoText}>{format(parseISO(article.published_at), 'yyyy/MM/dd')}</p>
                 </div>
             </div>
         </div>

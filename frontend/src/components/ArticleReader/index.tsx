@@ -1,5 +1,7 @@
 import { ArticleReaderProps } from '@/interfaces';
 import styles from './styles.module.scss';
+import format from 'date-fns/format';
+import { parseISO } from 'date-fns';
 
 const ArticleReader = ({ article }: ArticleReaderProps) => {
     return (
@@ -11,7 +13,7 @@ const ArticleReader = ({ article }: ArticleReaderProps) => {
                 </div>
                 <div className={styles.info}>
                     <div className={styles.infoText}>Source</div>
-                    <div className={styles.infoText}>2023-07-24</div>
+                    <div className={styles.infoText}>{format(parseISO(article.published_at), 'yyyy/MM/dd')}</div>
                 </div>
             </div>
             <div className={styles.article}>
