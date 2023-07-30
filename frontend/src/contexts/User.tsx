@@ -1,17 +1,22 @@
 import { CreateUserContextProps, User, UserContextProps } from '@/interfaces';
-import { createContext, useState, useContext,} from 'react';
+import { createContext, useState, useContext, useMemo } from 'react';
 
-
-const UserContext = createContext<CreateUserContextProps>({
-    user: null,
-    setUser: () => null,
-});
-
+const UserContext = createContext<CreateUserContextProps | null>(null);
 
 export function UserContextProvider({ children }: UserContextProps) {
-    const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-    return <UserContext.Provider value={{ user, setUser }}> {children} </UserContext.Provider>;
+  const contextValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+  return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>;
 }
 
-export const useUserContext = () => useContext(UserContext);
+export const useUserContext = () => {
+  const contextValue = useContext(UserContext);
+
+  if (!contextValue) {
+    throw new Error('useUserContext must be used within a UserContextProvider');
+  }
+
+  return contextValue;
+};
