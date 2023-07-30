@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Traits\HttpResponses;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -91,11 +92,14 @@ class ArticleController extends Controller
     
         $articlesByCategory = Article::join('category_subscriptions', 'articles.category_id', '=', 'category_subscriptions.category_id')
             ->where('category_subscriptions.user_id', $user->id)
-            ->orderBy('published_at', 'desc');
+            ->orderBy('published_at', 'desc')
+            ->select('articles.*', DB::raw('null as source_name'));
     
         $articlesBySource = Article::join('source_subscriptions', 'articles.source_id', '=', 'source_subscriptions.source_id')
+            ->join('sources', 'articles.source_id', '=', 'sources.id')
             ->where('source_subscriptions.user_id', $user->id)
-            ->orderBy('published_at', 'desc');
+            ->orderBy('published_at', 'desc')
+            ->select('articles.*', 'sources.name as source_name');
     
         $merged = $articlesByCategory->union($articlesBySource);
     
