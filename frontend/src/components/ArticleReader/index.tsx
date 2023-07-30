@@ -12,7 +12,7 @@ const ArticleReader = ({ article }: ArticleReaderProps) => {
                     <img className={styles.image} src="https://picsum.photos/200/300" alt="article" />
                 </div>
                 <div className={styles.info}>
-                    <div className={styles.infoText}>Source</div>
+                    <div className={styles.infoText}>{article.source_name}</div>
                     <div className={styles.infoText}>{format(parseISO(article.published_at), 'yyyy/MM/dd')}</div>
                 </div>
             </div>

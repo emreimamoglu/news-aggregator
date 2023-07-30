@@ -54,7 +54,7 @@ const ArticleCard = ({ article,savedArticles, fetchSavedArticles, setSelectedArt
                 </div>
                 <h5 className={styles.title}>{article.title}</h5>
                 <div className={styles.info}>
-                    <p className={styles.infoText}>{article.source}</p>
+                    <p className={styles.infoText}>{article.source_name}</p>
                     <p className={styles.infoText}>{format(parseISO(article.published_at), 'yyyy/MM/dd')}</p>
                 </div>
             </div>

@@ -26,11 +26,18 @@
     }
 
     .logout{
+        width: 100%;
+        height: 85px;
         display: flex;
-        justify-content: center;
         align-items: center;
-        margin-block-end: 30px;
+        padding-inline-start: 45px;
         color: var(--text-primary-high-emphasis);
+        font-size: 1.5rem;
+        font-weight: 500;
+
+        &:hover,&:focus,&:active {
+            background-color: var(--menu-item-focused);
+        }
 
         cursor: pointer;
     }

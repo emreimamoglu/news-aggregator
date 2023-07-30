@@ -29,8 +29,7 @@ export type Article = {
     description : string;
     content : string;
     author : string;
-    category : string;
-    source : string;
+    source_name : string;
     url : string;
     image_url : string;
     published_at : string;

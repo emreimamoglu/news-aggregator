@@ -3,7 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Switch from '@mui/material/Switch';
-import { TextField } from '@mui/material';
+import { CircularProgress, TextField } from '@mui/material';
 import styles from './styles.module.scss';
 import { SearchRounded } from '@mui/icons-material';
 import { Category, CategorySubscriptions, SectionListProps, Source, SourceSubscriptions } from '@/interfaces';
@@ -17,6 +17,7 @@ const SelectionList = ({ type, items }: SectionListProps) => {
     const [search, setSearch] = useState<string>('');
     const [sources, setSources] = useState<Source[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     const { user } = useUserContext();
     const { enqueueSnackbar } = useSnackbar();
@@ -44,12 +45,12 @@ const SelectionList = ({ type, items }: SectionListProps) => {
             newChecked.splice(currentIndex, 1);
             if (type === 'source' && user)
                 // @ts-ignore
-                SubscriptionService.getInstance().unsubscribeFromSource({ source_id: sources.find((s : any) => s.source_id === value).id}).then((res) => {
+                SubscriptionService.getInstance().unsubscribeFromSource({ source_id: sources.find((s: any) => s.source_id === value).id }).then((res) => {
                     enqueueSnackbar("Successfully unsubscribed from the source", { variant: 'success' });
                 });;
             if (type === 'category' && user)
                 // @ts-ignore
-                SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: categories.find((s : any) => s.category_id === value).id}).then((res) => {
+                SubscriptionService.getInstance().unsubscribeFromCategory({ category_id: categories.find((s: any) => s.category_id === value).id }).then((res) => {
                     enqueueSnackbar("Successfully unsubscribed from the category", { variant: 'success' });
                 }
                 );;
@@ -62,13 +63,17 @@ const SelectionList = ({ type, items }: SectionListProps) => {
         if (type === 'source' && user) {
             SubscriptionService.getInstance().getSourceSubscriptions().then((res) => {
                 setSources(res.data);
-                setChecked(res.data.map((source : SourceSubscriptions) => source.source_id));
+                setChecked(res.data.map((source: SourceSubscriptions) => source.source_id));
+            }).finally(() => {
+                setLoading(false);
             });
         }
         if (type === 'category' && user) {
             SubscriptionService.getInstance().getCategorySubscriptions().then((res) => {
                 setCategories(res.data);
-                setChecked(res.data.map((category : CategorySubscriptions) => category.category_id));
+                setChecked(res.data.map((category: CategorySubscriptions) => category.category_id));
+            }).finally(() => {
+                setLoading(false);
             });
         }
     }, []);
@@ -86,16 +91,18 @@ const SelectionList = ({ type, items }: SectionListProps) => {
             </ListSubheader>}
         >
             {
-                items.filter(i => i.name.includes(search)).map((item) => (
-                    <ListItem>
-                        <ListItemText id={`search-list-item-${item.id}`} primary={item.name} />
-                        <Switch
-                            edge="end"
-                            onChange={handleToggle(item.id)}
-                            checked={checked.indexOf(item.id) !== -1}
-                        />
-                    </ListItem>
-                ))
+                loading ? <div className={styles.loading}><CircularProgress /></div> : (
+                    items.filter(i => i.name.includes(search)).map((item) => (
+                        <ListItem>
+                            <ListItemText id={`search-list-item-${item.id}`} primary={item.name} />
+                            <Switch
+                                edge="end"
+                                onChange={handleToggle(item.id)}
+                                checked={checked.indexOf(item.id) !== -1}
+                            />
+                        </ListItem>
+                    ))
+                )
             }
         </List>
     );
