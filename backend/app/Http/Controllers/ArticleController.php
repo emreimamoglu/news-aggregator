@@ -22,7 +22,9 @@ class ArticleController extends Controller
         $categoryIds = $request->input('category_ids');
         $sourceIds = $request->input('source_ids');
 
-        $query = Article::orderBy('published_at', 'desc');
+        $query = Article::join('sources', 'articles.source_id', '=', 'sources.id')
+        ->orderBy('published_at', 'desc')
+        ->select('articles.*', 'sources.name as source_name');
 
         if ($searchTerm) {
             $query->where('title', 'LIKE', '%' . $searchTerm . '%');
