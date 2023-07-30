@@ -7,6 +7,7 @@ News aggregator is an app for gathering news from different sources and serving 
 - Searching and Filtering the news data
 - Subscribing to sources(ex: BBC, The Guardian)
 - Subscribing to categories
+- Customized news feed based on subscriptions
 
 The scheduled task by default works at every midnight to collect the news of the previous day. The frequency can be adjustable.
 
