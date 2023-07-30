@@ -5,6 +5,7 @@ import { parseISO } from 'date-fns';
 
 const ArticleReader = ({ article }: ArticleReaderProps) => {
     return (
+        article &&
         <div className={styles.container}>
             <div className={styles.imageAndInfo}>
 
@@ -21,6 +22,7 @@ const ArticleReader = ({ article }: ArticleReaderProps) => {
                 <p className={styles.content}>{article?.content || ''}</p>
             </div>
         </div>
+
     );
 };
 
