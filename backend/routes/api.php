@@ -55,11 +55,3 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 Route::apiResource('articles', ArticleController::class)->except(['destroy', 'update', 'store']);
-
-
-// Route::get('test', function () {
-//     $fetcher = new NewsFetcher();
-//     $fetcher->fetchAndStoreNews();
-
-//     return response()->json(Carbon::now()->subDay()->toDateString());
-// });
