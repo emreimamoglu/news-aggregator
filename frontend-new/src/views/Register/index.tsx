@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 
 const Register = () => {
     return (
-        <>
+        <div className={styles.container}>
             <section className={styles.registerSection}>
                 <BrandIcon />
                 <RegisterForm />
@@ -16,7 +16,7 @@ const Register = () => {
                     <button>Sign In</button>
                 </div>
             </section>
-        </>
+        </div>
     );
 };
 

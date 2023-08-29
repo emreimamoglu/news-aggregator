@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 const Login = () => {
     return(
-        <>
+        <div className={styles.container}>
         <section className={styles.loginSection}>
             <BrandIcon/>
             <LoginForm/>
@@ -16,7 +16,7 @@ const Login = () => {
                 <button>Sign Up</button>
             </div>
         </section>
-        </>
+        </div>
     )
 }
 
