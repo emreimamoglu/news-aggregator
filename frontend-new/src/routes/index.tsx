@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../views/Login";
 import Register from "../views/Register";
+import Home from "../views/Home";
 
 export enum Routes {
     HOME = "/",
@@ -11,7 +12,7 @@ export enum Routes {
 export const router = createBrowserRouter([
     {
         path: Routes.HOME,
-        element: <Login/>,
+        element: <Home/>,
     },
     {
         path: Routes.LOGIN,

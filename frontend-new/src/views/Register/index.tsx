@@ -6,7 +6,9 @@ const Register = () => {
     return (
         <div className={styles.container}>
             <section className={styles.registerSection}>
-                <BrandIcon />
+                <div className={styles.brandIcon}>
+                    <BrandIcon />
+                </div>
                 <RegisterForm />
             </section>
             <section className={styles.welcomeSection}>

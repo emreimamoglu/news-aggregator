@@ -1,21 +1,9 @@
 .brandIcon {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-inline-start: 3.31rem;
-    margin-block-start: 2.56rem;
-
-    @media screen and (max-width: 768px) {
-        margin-inline-start: 0;
-        justify-content: center;
-    }
-
-    h2 {
-        color: var(--main-dark, #119C59);
-        text-align: center;
-        font-size: 1.5625rem;
-        font-weight: 700;
-        letter-spacing: 0.0125rem;
-        text-transform: uppercase;
-    }
+    display: inline;
+    color: var(--main-dark, #119C59);
+    text-align: center;
+    font-size: 1.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.0125rem;
+    text-transform: uppercase;
 }
