@@ -1,4 +1,5 @@
-.sidebar{
+.sidebar {
+    width: 25%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -6,9 +7,17 @@
     padding-block-start: 1.75rem;
     height: 100%;
     background: var(--color-background-and-disabled-background-dark, #F4F3F1);
+    transition: transform 200ms ease;
+    transform: translateX(-100%);
 
-
-    @media screen and (max-width: 835px) {
-        display: none;
+    @media screen and (max-width: 836px) {
+        position: fixed;
+        z-index: 100;
+        width: auto;
+        padding-inline-end: 1rem;
     }
+}
+
+.sidebarOpen {
+    transform: translateX(0);
 }

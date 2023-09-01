@@ -1,9 +1,22 @@
+import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { useViewport } from '../../hooks/useViewport';
 import BrandIcon from '../BrandIcon';
 import styles from './styles.module.scss';
+import classnames from 'classnames';
 
-const Sidebar = () => {
+export interface SidebarProps {
+    open: boolean;
+    closeSidebar: () => void;
+};
+
+const Sidebar = ({open,closeSidebar} : SidebarProps) => {
+    const ref = useOutsideClick(closeSidebar);
+    const {width} = useViewport();
+
     return (
-        <aside className={styles.sidebar}>
+        <aside ref={ref} className={classnames(styles.sidebar,{
+            [styles.sidebarOpen]: (open || (width && width > 835))
+        })}>
             <div className={styles.brandlogo}>
                 <BrandIcon />
             </div>

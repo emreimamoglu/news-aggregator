@@ -1,5 +1,38 @@
-.container{
+.container {
     height: 4.8125rem;
     width: 100%;
-    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-inline: clamp(0.5rem, 0.4rem + 4vw, 2.25rem);
+    top: 0;
+
+    .topbar {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .menuIcon {
+            cursor: pointer;
+        }
+
+        .profile {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: var(--color-primary, #14B86E);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+            text-align: center;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 128.571%;
+            letter-spacing: 0.00625rem;
+        }
+    }
 }

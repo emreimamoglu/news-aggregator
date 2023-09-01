@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import Home from "../views/Home";
+import Layout from "../components/Layout";
 
 export enum Routes {
     HOME = "/",
@@ -9,17 +10,31 @@ export enum Routes {
     REGISTER = "/register",
 }
 
-export const router = createBrowserRouter([
+const routesForAuthenticatedOnly = [
     {
-        path: Routes.HOME,
-        element: <Home/>,
+        path: "/",
+        element: <Layout />,
+        children: [
+            {
+                path: Routes.HOME,
+                element: <Home />,
+            }
+        ],
     },
+];
+
+const publicRoutes = [
     {
         path: Routes.LOGIN,
-        element: <Login/>,
+        component: Login,
     },
     {
         path: Routes.REGISTER,
-        element: <Register/>,
+        component: Register,
     },
+];
+
+export const router = createBrowserRouter([
+    ...publicRoutes,
+    ...routesForAuthenticatedOnly,
 ]);

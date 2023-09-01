@@ -2,16 +2,22 @@ import menuIcon from '../../assets/menu.svg';
 import BrandIcon from '../BrandIcon';
 import styles from './styles.module.scss';
 
-const Topbar = () => {
+export interface TopbarProps {
+    toggleSidebar: () => void
+};
+
+const Topbar = ({ toggleSidebar }: TopbarProps) => {
 
     return (
         <div className={styles.container}>
             <div className={styles.topbar}>
-                <img src={menuIcon} alt="menu" />
+                <img className={styles.menuIcon} src={menuIcon} alt="menu" onClick={toggleSidebar}/>
                 <div className={styles.brandIcon}>
                     <BrandIcon />
                 </div>
-                <div className={styles.settings} />
+                <button className={styles.profile}>
+                    EI
+                </button>
             </div>
         </div>
     )
