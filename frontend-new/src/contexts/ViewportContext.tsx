@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import { ViewportContext } from '../types/ViewportContext';
 import throttle from 'lodash.throttle';
 
@@ -27,8 +27,11 @@ export const ViewportProvider = ({ children }: {
     };
   }, []);
 
+
+  const value = useMemo(() => ({ width, height }), [width, height]);
+
   return (
-    <viewportContext.Provider value={{ width, height }}>
+    <viewportContext.Provider value={value}>
       {children}
     </viewportContext.Provider>
   );

@@ -3,8 +3,9 @@ import Sidebar from '../../components/Sidebar';
 import Topbar from '../../components/Topbar';
 import styles from './styles.module.scss';
 import { useViewport } from '../../hooks/useViewport';
+import { Outlet } from 'react-router-dom';
 
-const Layout = ({ children }: any) => {
+const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { width } = useViewport();
 
@@ -28,7 +29,7 @@ const Layout = ({ children }: any) => {
                     <Topbar toggleSidebar={toggleSidebar} />
                 )
             }
-            {children}
+            <Outlet />
         </div>
     );
 };
