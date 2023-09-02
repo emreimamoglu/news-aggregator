@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-inline-start: clamp(0.1rem, 0.1rem + 1vw, 2.81rem);
     padding-block-start: 1.75rem;
     height: 100%;
     background: var(--color-background-and-disabled-background-dark, #F4F3F1);
@@ -16,8 +15,92 @@
         width: auto;
         padding-inline-end: 1rem;
     }
+
+    .brandlogo {
+        width: 100%;
+        padding-inline-start: clamp(0.1rem, 0.1rem + 1vw, 2.81rem);
+    }
+
+    .sidebarOptions {
+        width: 100%;
+    }
+
 }
 
 .sidebarOpen {
     transform: translateX(0);
+}
+
+.menuOptions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-block-start: 7.12rem;
+
+    .menuOption {
+        cursor: pointer;
+
+        &:hover {
+            background: var(--color-hover, #E5E5E5);
+        }
+
+        padding-inline-end: 2.19rem;
+
+        .menuOptionItem {
+            padding-inline-start: clamp(0.1rem, 0.1rem + 1vw, 2.81rem);
+            max-width: 17.4375rem;
+            height: 2.625rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            p {
+                color: var(--main-dark, #119C59);
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 150%;
+                letter-spacing: 0.00625rem;
+            }
+        }
+    }
+
+    .menuOptionSubs {
+        .subHeader {
+            padding-inline-start: clamp(0.1rem, 0.1rem + 1vw, 2.81rem);
+            max-width: 14.3125rem;
+            height: 1.5rem;
+            margin-block-start: 2.25rem;
+
+            p {
+                color: var(--main-dark, #119C59);
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 150%;
+                letter-spacing: 0.00625rem;
+            }
+        }
+
+        .menuSubItem{
+            width: 100%;
+            cursor: pointer;
+            height: 2.47669rem;
+            display: flex;
+            align-items: center;
+            padding-inline-start: clamp(0.1rem, 0.1rem + 1vw, 2.81rem);
+            padding-inline-end: 2.94rem;
+
+            &:hover {
+                background: var(--color-hover, #E5E5E5);
+            }
+
+            .menuSubItemInner{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                max-width: 16.625rem;
+            }
+        }
+    }
 }
