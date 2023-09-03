@@ -6,7 +6,7 @@ const Searchbar = () => {
         <div className={styles.container}>
             <label id='search'>
                 <input type="text" placeholder=' ' />
-                <span>Type to search</span>
+                <span>Search</span>
                 <img src={searchIcon} alt='search icon'/>
             </label>
         </div>

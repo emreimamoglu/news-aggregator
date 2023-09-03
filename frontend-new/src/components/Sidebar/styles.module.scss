@@ -8,6 +8,22 @@
     background: var(--color-background-and-disabled-background-dark, #F4F3F1);
     transition: transform 200ms ease;
     transform: translateX(-100%);
+    overflow-y: auto;
+
+    /* width */
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: var(--color-inactive-states);
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: var(--color-primary-dark);
+    }
 
     @media screen and (max-width: 836px) {
         width: 40%;
@@ -18,7 +34,9 @@
 
     .brandlogo {
         width: 100%;
-        padding-inline-start: clamp(1rem, 0.8rem + 1vw, 2.81rem);
+        display: flex;
+        justify-content: flex-start;
+        padding-inline-start: clamp(0rem, 0.1rem + 1.5vw, 2.81rem);
     }
 
     .sidebarOptions {
@@ -67,6 +85,8 @@
     }
 
     .menuOptionSubs {
+        margin-block-end: 5rem;
+
         .subHeader {
             padding-inline-start: clamp(1rem, 0.8rem + 1vw, 2.81rem);
             max-width: 14.3125rem;

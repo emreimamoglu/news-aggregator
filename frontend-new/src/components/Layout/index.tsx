@@ -29,7 +29,9 @@ const Layout = () => {
                     <Topbar toggleSidebar={toggleSidebar} />
                 )
             }
-            <Outlet />
+            <div className={styles.outlet}>
+                <Outlet />
+            </div>
         </div>
     );
 };

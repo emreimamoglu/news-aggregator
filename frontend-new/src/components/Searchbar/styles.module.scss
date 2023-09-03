@@ -46,7 +46,7 @@
     input:not(:placeholder-shown)+span {
         color: var(--color-secondary-text, #52575C);
         opacity: 1;
-        transform: scale(0.687) translateY(-2.81rem) translateX(-2.4rem);
+        transform: scale(0.687) translateY(-2rem) translateX(-2.4rem);
         line-height: 127.273%;
         letter-spacing: 0.0125rem;
     }
@@ -56,7 +56,7 @@
     input:not(:-ms-input-placeholder)+span {
         color: var(--color-secondary-text, #52575C);
         opacity: 1;
-        transform: scale(0.687) translateY(-2.81rem) translateX(-2.4rem);
+        transform: scale(0.687) translateY(-2rem) translateX(-2.4rem);
         line-height: 127.273%;
         letter-spacing: 0.0125rem;
     }

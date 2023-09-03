@@ -1,0 +1,60 @@
+.subscriptions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2.06rem 0;
+
+    @media screen and (max-width: 1060px) {
+        justify-content: center;
+    }
+
+    .subscription {
+        width: 22.5rem;
+        height: 2.625rem;
+        display: flex;
+        justify-content: space-between;
+        padding-inline-start: 2.75rem;
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+
+            p:first-child {
+                color: var(--color-primary-black, #25282B);
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 150%;
+                letter-spacing: 0.00625rem;
+            }
+
+            p:last-child {
+                color: var(--color-inactive-states, #A0A4A8);
+                font-size: 0.75rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 133.333%;
+                letter-spacing: 0.0125rem;
+            }
+        }
+
+        .button {
+            button {
+                padding: 0.625rem 1.875rem;
+                border-radius: 2.25rem;
+                background: var(--color-primary-dark, #119C59);
+
+                color: #FFF;
+                text-align: center;
+                font-size: 0.8125rem;
+                font-weight: 600;
+                line-height: 123.077%;
+                letter-spacing: 0.0125rem;
+
+                cursor: pointer;
+            }
+        }
+    }
+}
