@@ -18,6 +18,8 @@ export enum Routes {
     CATEGORIES = "/categories",
     NEWS = "/news",
     READ_LATER = "/read-later",
+    ACCOUNT = "/account",
+    APPEARANCE = "/appearance",
 }
 
 const routesForAuthenticatedOnly = [

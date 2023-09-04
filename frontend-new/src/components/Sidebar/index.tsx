@@ -6,6 +6,7 @@ import classnames from 'classnames';
 import newsIcon from '../../assets/news.svg';
 import myNewsIcon from '../../assets/mynews.svg';
 import readLaterIcon from '../../assets/saved.svg';
+import BackIcon from '../../assets/back.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';
 
@@ -78,11 +79,36 @@ const SidebarMenu = () => {
 };
 
 const SidebarSettingsMenu = () => {
+
+    const route = useLocation();
+    const navigate = useNavigate();
+
+    const navigateTo = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault();
+        const targetRoute = e.currentTarget.getAttribute('data-route');
+        if (targetRoute) {
+            navigate(targetRoute as Routes);
+        }
+    }
+
     return (
-        <div className={styles.settingOptions}>
-            <div className={styles.settingOption}>
-                <p>News</p>
-                <img src={newsIcon} alt="News" />
+        <div className={styles.settingsOptions}>
+            <div className={styles.backIcon} onClick={() => {
+                navigate(-1)
+            }}>
+                <img src={BackIcon} alt="Back" />
+                <p>Back</p>
+            </div>
+            <div className={styles.settingsOption}>
+                <div className={classnames(styles.header, {
+                    [styles.active]: route.pathname === Routes.SETTINGS
+                })} data-route={Routes.SETTINGS} onClick={navigateTo}><h3>Settings</h3></div>
+                <div className={classnames(styles.item, {
+                    [styles.active]: route.pathname === Routes.ACCOUNT
+                })} data-route={Routes.ACCOUNT} onClick={navigateTo}><p>Account</p></div>
+                <div className={classnames(styles.item, {
+                    [styles.active]: route.pathname === Routes.APPEARANCE
+                })} data-route={Routes.APPEARANCE} onClick={navigateTo}><p>Apperance</p></div>
             </div>
 
         </div>

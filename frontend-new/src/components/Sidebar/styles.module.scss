@@ -129,6 +129,66 @@
     }
 }
 
+.settingsOptions {
+    width: 100%;
+
+    .backIcon {
+        display: flex;
+        gap: 0.62rem;
+        margin-block-start: 1.56rem;
+        margin-block-end: 3.37rem;
+        padding-inline-start: clamp(0rem, 0.1rem + 1.5vw, 2.81rem);
+        cursor: pointer;
+    }
+
+    .settingsOption {
+        width: 100%;
+
+        .header {
+            padding-inline-start: clamp(1rem, 0.8rem + 1vw, 2.81rem);
+            max-width: 14.3125rem;
+            height: 2.47669rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                background: var(--color-hover, #E5E5E5);
+            }
+
+            h3 {
+                color: var(--color-primary-dark, #119C59);
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 150%;
+                letter-spacing: 0.00625rem;
+            }
+        }
+
+        .item {
+            height: 2.47669rem;
+            padding-inline-start: clamp(1rem, 0.8rem + 1vw, 2.81rem);
+            max-width: 14.3125rem;
+            margin-block-start: 0.5rem;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                background: var(--color-hover, #E5E5E5);
+            }
+
+            p {
+                color: var(--color-primary-black, #25282B);
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 150%;
+                letter-spacing: 0.00625rem;
+            }
+        }
+    }
+}
+
 .active {
     max-width: 20.125rem;
     width: 100%;
