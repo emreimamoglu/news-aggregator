@@ -1,0 +1,93 @@
+.article {
+    max-width: 43.6875rem;
+    width: 100%;
+    height: 7.0625rem;
+    display: flex;
+    gap: 1.06rem;
+
+    @media screen and (max-width: 600px) {
+        gap: 0.84rem;
+        height: 4.9375rem;
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        gap: 0.44rem;
+
+        @media screen and (max-width: 600px) {
+            justify-content: space-between;
+        }
+
+        h3 {
+            color: var(--color-primary-black, #25282B);
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 133.333%;
+            letter-spacing: 0.0125rem;
+
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+
+            @media screen and (max-width: 600px) {
+                color: var(--color-primary-black, #25282B);
+                font-size: 0.75rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 133.333%;
+                letter-spacing: 0.0125rem;
+            }
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+
+            .infos {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                width: 100%;
+                max-width: 19rem;
+
+                p {
+                    color: var(--color-secondary-text, #52575C);
+                    font-size: 0.75rem;
+                    font-weight: 500;
+                    line-height: 133.333%;
+                    letter-spacing: 0.0125rem;
+
+                    @media screen and (max-width: 600px) {
+                        color: var(--color-secondary-text, #52575C);
+                        font-size: 0.5rem;
+                        font-weight: 500;
+                        line-height: 200%;
+                        letter-spacing: 0.0125rem;
+                    }
+                }
+            }
+
+            .icons {
+                display: flex;
+                gap: 0.44rem;
+            }
+        }
+    }
+
+    .image {
+        width: 100%;
+
+        img {
+            width: 11.625rem;
+            height: 7rem;
+            object-fit: cover;
+
+            @media screen and (max-width: 600px) {
+                width: 6.6875rem;
+                height: 4.9375rem;
+            }
+        }
+    }
+}
