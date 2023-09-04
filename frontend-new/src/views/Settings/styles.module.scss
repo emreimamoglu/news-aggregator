@@ -3,6 +3,11 @@
     margin-block-start: 8.75rem;
     margin-inline-start: 6.81rem;
 
+    @media screen and (max-width: 836px) {
+        margin-inline-start: 2rem;
+        margin-block-start: 3rem;
+    }
+
     h1 {
         position: relative;
         margin-block-end: 5.5rem;
@@ -27,6 +32,11 @@
     .settings {
         display: flex;
         gap: 1.625rem;
+
+        @media screen and (max-width: 370px) {
+            flex-direction: column;
+            align-items: flex-start;
+        }
 
         .settingsOption {
             display: flex;
