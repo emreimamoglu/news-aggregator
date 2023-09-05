@@ -84,7 +84,8 @@
         height: 100%;
         display: flex;
         flex-direction: column;
-        padding: 2rem;
+        padding-inline: 2rem;
+        padding-block-start: 1rem;
         position: fixed;
         top: 0;
         right: 0;
@@ -93,11 +94,72 @@
         background: var(--color-background-and-disabled-background-dark, #F4F3F1);
         box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.3);
 
+
+
         @media screen and (max-width: 836px) {
             width: 40%;
             min-width: 250px;
             position: fixed;
             z-index: 100;
+        }
+
+        .header {
+            display: flex;
+            margin-block-end: 2.5rem;
+            position: relative;
+
+            &::after {
+                content: '';
+                width: 100%;
+                height: 1px;
+                background-color: var(--color-inactive-states);
+                position: absolute;
+                bottom: -10px;
+            }
+
+            h2 {
+                margin: 0 auto;
+            }
+        }
+
+        .filterSections {
+            width: 100%;
+            overflow-y: auto;
+
+            /* width */
+            &::-webkit-scrollbar {
+                width: 5px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background: var(--color-inactive-states);
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background: var(--color-primary-dark);
+            }
+
+            .filterSection {
+                width: 100%;
+                margin-block-end: 2rem;
+
+                h3 {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    line-height: 130%;
+                    letter-spacing: 0.0125rem;
+                    color: var(--color-primary-black, #25282B);
+                    margin-block-end: 1rem;
+                }
+
+                .chips {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 0.25rem;
+                }
+            }
         }
     }
 
@@ -108,7 +170,7 @@
     @media only screen and (max-width: 600px) {
         .filterSidebar {
             width: 100%;
-            height: 35%;
+            height: 45%;
             bottom: 0;
             border-radius: 30px 30px 0 0;
             right: auto;

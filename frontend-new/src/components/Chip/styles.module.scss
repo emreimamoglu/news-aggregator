@@ -1,0 +1,42 @@
+.chip {
+    width: fit-content;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+
+    &.active {
+        background-color: #e0e0e0;
+    }
+
+    p {
+        color: var(--color-primary-black, #25282B);
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        line-height: 133.333%;
+        letter-spacing: 0.0125rem;
+    }
+}
+
+.selected{
+    background-color: var(--color-primary, #119C59);
+    
+    p{
+        color: var(--color-background-and-disabled-background-buttons);
+    }
+
+    &:hover{
+        background-color: var(--color-primary-dark, #119C59);
+    }
+
+    &.active{
+        background-color: var(--color-primary-dark, #119C59);
+    }
+}
