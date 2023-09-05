@@ -9,7 +9,7 @@ const ArticleList = () => {
     return (
         <div className={styles.articleList}>
             {Array.from({ length: 30 }).map((_, index) => (
-                <ArticleListItem article={article}/>
+                <ArticleListItem article={article} key={index}/>
             ))}
         </div>
     )

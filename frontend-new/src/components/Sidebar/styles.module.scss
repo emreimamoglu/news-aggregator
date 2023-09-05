@@ -9,6 +9,7 @@
     transition: transform 200ms ease;
     transform: translateX(-100%);
     overflow-y: auto;
+    box-shadow: 0px -10px 10px rgba(0, 0, 0, 0.3);
 
     /* width */
     &::-webkit-scrollbar {
