@@ -9,9 +9,11 @@ const Categories = () => {
 
     const { width } = useViewport();
 
+    const handleSearch = (query: string) => { };
+
     return (
         <div className={styles.container}>
-            <Header />
+            {width && width > 835 && <Header searchFn={handleSearch}/>}
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h1>Categories</h1>

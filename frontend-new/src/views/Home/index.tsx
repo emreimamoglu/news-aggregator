@@ -1,6 +1,5 @@
 import Searchbar from '../../components/Searchbar';
 import { useViewport } from '../../hooks/useViewport';
-import filterIcon from '../../assets/filter.svg';
 import styles from './styles.module.scss';
 import ArticleList from '../../components/ArticleList';
 import Header from '../../components/Header';
@@ -9,9 +8,11 @@ const Home = () => {
 
     const { width } = useViewport();
 
+    const handleSearch = (query: string) => { };
+
     return (
         <div className={styles.container}>
-            <Header />
+            {width && width > 835 && <Header searchFn={handleSearch}/>}
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h1>My News</h1>

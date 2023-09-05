@@ -9,9 +9,11 @@ const News = () => {
 
     const { width } = useViewport();
 
+    const handleSearch = (query: string) => { };
+
     return (
         <div className={styles.container}>
-            <Header />
+            {width && width > 835 && <Header searchFn={handleSearch}/>}
             <div className={styles.content}>
                 <div className={styles.title}>
                     <h1>News</h1>
@@ -21,7 +23,7 @@ const News = () => {
                     </div>
                 </div>
                 <div className={styles.news}>
-                    <ArticleList/>
+                    <ArticleList />
                 </div>
 
             </div>
