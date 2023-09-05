@@ -8,6 +8,8 @@ import Sources from "../views/Sources";
 import Categories from "../views/Categories";
 import News from "../views/News";
 import ReadLater from "../views/ReadLater";
+import AccountSettings from "../views/AccountSettings";
+import AppearanceSettings from "../views/AppearanceSettings";
 
 export enum Routes {
     HOME = "/",
@@ -50,6 +52,14 @@ const routesForAuthenticatedOnly = [
             {
                 path: Routes.READ_LATER,
                 element: <ReadLater />,
+            },
+            {
+                path: Routes.ACCOUNT,
+                element: <AccountSettings />,
+            },
+            {
+                path: Routes.APPEARANCE,
+                element: <AppearanceSettings />,
             }
         ],
     },

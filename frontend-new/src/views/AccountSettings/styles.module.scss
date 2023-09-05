@@ -1,0 +1,269 @@
+.container {
+    max-width: 54.25rem;
+    width: 100%;
+    margin-block-start: 8.75rem;
+    margin-inline-start: 6.81rem;
+    padding-inline-start: 1.94rem;
+
+    @media screen and (max-width: 836px) {
+        margin-block-start: 3rem;
+        margin-inline-start: 0;
+        padding-inline: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .title {
+        margin-block-end: 4.41rem;
+
+        @media screen and (max-width: 836px) {
+            margin-block-end: 0;
+            max-width: 27.875rem;
+        }
+
+        h1 {
+            position: relative;
+            margin-block-end: 5.5rem;
+            color: var(--color-primary-black, #25282B);
+            font-size: 3.25rem;
+            font-weight: 300;
+            line-height: 123.077%;
+            letter-spacing: 0.0125rem;
+
+            &::after {
+                position: absolute;
+                content: '';
+                height: 0.1875rem;
+                bottom: -0.688rem;
+                left: 0;
+                right: 0;
+                width: 28.25rem;
+                background: var(--color-primary);
+
+                @media screen and (max-width: 836px) {
+                    width: 14.5rem;
+                }
+            }
+
+            @media screen and (max-width: 836px) {
+                color: var(--color-primary-black, #25282B);
+                font-size: 1.625rem;
+                font-weight: 500;
+                line-height: 123.077%;
+                letter-spacing: 0.0125rem;
+            }
+        }
+    }
+
+    .formAndImage {
+        display: flex;
+        gap: 7.688rem;
+
+        @media screen and (max-width: 1040px) {
+            flex-direction: column-reverse;
+            max-width: 27.875rem;
+            gap: 3.06rem;
+        }
+
+        .form {
+            max-width: 27.875rem;
+            width: 100%;
+
+            form {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                label {
+                    width: 100%;
+                    position: relative;
+                    display: inline-block;
+                }
+
+                &>label:first-child {
+                    margin-block-end: 3.44rem;
+                }
+
+                input {
+                    color: var(--color-secondary-text, #52575C);
+                    border-bottom: 3px solid var(--secondary-text, #A0A4A8);
+                    width: 100%;
+                    padding-block-end: 0.63rem;
+                    padding-inline-start: 1.56rem;
+                }
+
+                input:focus {
+                    border-bottom: 3px solid var(--color-primary-dark);
+                }
+
+                span {
+                    color: var(--color-secondary-text, #52575C);
+                    font-size: 1rem;
+                    line-height: 112.5%;
+                    letter-spacing: 0.0125rem;
+                    pointer-events: none;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    transition: 0.2s;
+                    transition-timing-function: ease;
+                    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+                    opacity: 0.5;
+                    padding-inline-start: 1.56rem;
+                }
+
+                input:focus+span,
+                input:not(:placeholder-shown)+span {
+                    color: var(--color-secondary-text, #52575C);
+                    opacity: 1;
+                    transform: scale(0.687) translateY(-2.81rem) translateX(-2.4rem);
+                    line-height: 127.273%;
+                    letter-spacing: 0.0125rem;
+                }
+
+                /* For IE Browsers*/
+                input:focus+span,
+                input:not(:-ms-input-placeholder)+span {
+                    color: var(--color-secondary-text, #52575C);
+                    opacity: 1;
+                    transform: scale(0.687) translateY(-2.81rem) translateX(-2.4rem);
+                    line-height: 127.273%;
+                    letter-spacing: 0.0125rem;
+                }
+
+                .nameField {
+                    width: 100%;
+                    display: flex;
+                    gap: 0.5rem;
+                }
+
+                .dateFields {
+                    width: 100%;
+                    display: flex;
+                    gap: 0.5rem;
+                    margin-block: 3.06rem;
+                }
+
+                .emailPasswordField {
+                    margin-block-start: 4.56rem;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 3.06rem;
+                }
+
+                select {
+                    width: 100%;
+                    border-bottom: 3px solid var(--color-inactive-states);
+                    padding-block-end: 0.62rem;
+                    padding-inline-start: 1.56rem;
+
+                    color: var(--color-inactive-states, #52575C);
+                    font-size: 1rem;
+                    line-height: 112.5%;
+                    letter-spacing: 0.0125rem;
+
+                    background-image: url("../../assets/dropdown.svg");
+                    background-size: 1.5rem;
+                    background-position: calc(100% - 1.5rem) calc(100% - 0.3rem);
+                    background-repeat: no-repeat;
+
+                    cursor: pointer;
+
+                    &:hover {
+                        border-bottom: 3px solid var(--color-primary-dark);
+                    }
+                }
+
+                .buttons {
+                    margin-block-start: 2.432rem;
+                    margin-block-end: 4rem;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+
+                    button:first-child {
+                        color: #F00;
+                        font-size: 1rem;
+                        line-height: 150%;
+                        letter-spacing: 0.00625rem;
+                        cursor: pointer;
+                    }
+
+                    button:last-child {
+                        height: 3.625rem;
+                        cursor: pointer;
+                        width: 100%;
+                        background-color: var(--color-primary);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: 2.25rem;
+                        color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+                        text-align: center;
+                        font-size: 0.875rem;
+                        font-weight: 600;
+                        line-height: 128.571%;
+                        letter-spacing: 0.0125rem;
+                        max-width: 10rem;
+
+                        &:hover {
+                            background: var(--color-primary-dark);
+                        }
+                    }
+                }
+            }
+        }
+
+        .profilePicture {
+            display: flex;
+            flex-direction: column;
+            gap: 1.13rem;
+
+            @media screen and (max-width: 1040px) {
+                justify-content: center;
+                align-items: center;
+            }
+
+            button {
+                cursor: pointer;
+                width: 100%;
+                color: var(--color-primary-black, #FAF9F7);
+                text-align: center;
+                font-size: 0.875rem;
+                font-weight: 600;
+                line-height: 128.571%;
+                letter-spacing: 0.0125rem;
+                text-decoration: underline;
+
+                &:hover {
+                    color: var(--color-primary-dark, #119C59);
+                }
+            }
+
+            .profile {
+                width: 8.75rem;
+                height: 8.75rem;
+                border-radius: 50%;
+                background-color: var(--color-primary, #14B86E);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+                text-align: center;
+                font-size: 2rem;
+                font-weight: 600;
+                line-height: 131.25%;
+                letter-spacing: 0.00625rem;
+
+            }
+        }
+    }
+}

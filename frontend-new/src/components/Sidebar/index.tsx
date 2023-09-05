@@ -129,7 +129,7 @@ const Sidebar = ({ open, closeSidebar }: SidebarProps) => {
             </div>
             <div className={styles.sidebarOptions}>
                 {
-                    location.pathname !== Routes.SETTINGS ? <SidebarMenu /> : <SidebarSettingsMenu />
+                    ![Routes.SETTINGS,Routes.ACCOUNT,Routes.APPEARANCE].includes(location.pathname as Routes) ? <SidebarMenu /> : <SidebarSettingsMenu />
                 }
             </div>
         </aside>
