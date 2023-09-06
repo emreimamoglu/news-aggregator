@@ -15,7 +15,7 @@ const Home = () => {
             {width && width > 835 && <Header searchFn={handleSearch}/>}
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <h1>My Newss</h1>
+                    <h1>My Newsss</h1>
                     <div className={styles.searchAndFilter}>
                         {width && width < 836 && <Searchbar />}
                     </div>
