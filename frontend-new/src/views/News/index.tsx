@@ -15,7 +15,7 @@ const News = () => {
     const { width } = useViewport();
     const ref = useOutsideClick(() => setFilterOpen(false));
 
-    const handleSearch = (query: string) => { };
+    const handleSearch = () => { };
 
     const toggleFilter = () => {
         setFilterOpen((prev) => !prev);

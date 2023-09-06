@@ -9,7 +9,7 @@ const Categories = () => {
 
     const { width } = useViewport();
 
-    const handleSearch = (query: string) => { };
+    const handleSearch = () => { };
 
     return (
         <div className={styles.container}>
