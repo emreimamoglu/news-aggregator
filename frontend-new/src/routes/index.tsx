@@ -68,11 +68,11 @@ const routesForAuthenticatedOnly = [
 const publicRoutes = [
     {
         path: Routes.LOGIN,
-        component: Login,
+        element: <Login />,
     },
     {
         path: Routes.REGISTER,
-        component: Register,
+        element: <Register />,
     },
 ];
 
