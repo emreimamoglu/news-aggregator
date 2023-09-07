@@ -25,19 +25,6 @@ services:
           POSTGRES_USER: postgres
           POSTGRES_DB: postgres
           PGDATA: /var/lib/postgresql/data
-          
-  frontend:
-    container_name: news-ui
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    volumes:
-      - ./frontend:/app
-    command: npm run dev
-    ports:
-      - "3003:3003"
-    environment:
-      NODE_ENV: development
 
 networks:
   news:
