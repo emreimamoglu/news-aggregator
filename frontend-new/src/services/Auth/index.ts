@@ -22,24 +22,18 @@ class AuthService {
         return axios
             .post<any>(endpoints.LOGIN, data)
             .then((res) => res.data)
-            .catch((err) => {
-            });
     }
 
     public register(data: RegisterFormData) {
         return axios
             .post<any>(endpoints.REGISTER, data)
             .then((res) => res.data)
-            .catch((err) => {
-            });
     }
 
     public changePassword(data: ChangePasswordFormData) {
         return axios
             .post<any>(endpoints.CHANGE_PASSWORD, data)
             .then((res) => res.data)
-            .catch((err) => {
-            });
     }
 }
 

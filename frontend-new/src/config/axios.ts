@@ -5,7 +5,7 @@ export const clearLocalStorage = () => {
     localStorage.removeItem('user');
 };
 
-const baseUrl = process.env.NEWS_APP_URL || 'http://localhost:8000/api';
+const baseUrl = import.meta.env.NEWS_APP_URL || 'http://localhost:8000/api';
 
 const axiosInstance = axios.create({
     baseURL: baseUrl,
@@ -23,16 +23,16 @@ axiosInstance.interceptors.request.use((config) => {
     return config;
 });
 
-axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
-        if (error.response.status === 401 || error.response.status === 403) {
-            clearLocalStorage();
-            window.location.href = '/';
-        }
-        return Promise.reject(error);
-    })
+// axiosInstance.interceptors.response.use(
+//     (response) => {
+//         return response;
+//     },
+//     async (error) => {
+//         if (error.response.status === 401 || error.response.status === 403) {
+//             clearLocalStorage();
+//             window.location.href = '/';
+//         }
+//         return Promise.reject(error);
+//     })
 
 export default axiosInstance;
