@@ -28,6 +28,18 @@
             }
         }
 
+        .errorContainer {
+            width: 100%;
+            margin-inline: 2.5rem;
+            min-height: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-error);
+            color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+            margin-block: 1rem;
+        }
+
         form {
             width: 100%;
             display: flex;
@@ -75,6 +87,14 @@
                 padding-inline-start: 1.56rem;
             }
 
+            .errorSpan {
+                color: var(--color-error) !important;
+            }
+
+            .errorInput {
+                border-bottom: 3px solid var(--color-error) !important;
+            }
+
             input:focus+span,
             input:not(:placeholder-shown)+span {
                 color: var(--color-secondary-text, #52575C);
@@ -116,6 +136,16 @@
                 }
             }
 
+            .disabledButton {
+                background-color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+                color: var(--color-disabled-text, #A0A4A8);
+                cursor: not-allowed;
+
+                &:hover {
+                    background: unset;
+                }
+            }
+
             .nameField {
                 width: 100%;
                 display: flex;
@@ -148,7 +178,7 @@
 
                 cursor: pointer;
 
-                &:hover{
+                &:hover {
                     border-bottom: 3px solid var(--color-primary-dark);
                 }
             }
