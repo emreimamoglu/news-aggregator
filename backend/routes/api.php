@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\SavedArticleController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
@@ -31,6 +32,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 
 # Protected Routes
