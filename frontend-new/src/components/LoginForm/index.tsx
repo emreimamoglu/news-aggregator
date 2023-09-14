@@ -34,6 +34,12 @@ const LoginForm = () => {
         validateOnBlur: true,
     });
 
+    const handleGoogleClick = () => {
+        AuthService.getInstance().googleLogin().then((res) => {
+            window.location.href = res.data.url;
+        });
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.formContainer}>
@@ -90,7 +96,9 @@ const LoginForm = () => {
                     <button className={classnames(
                         styles.socialMediaButton,
                         styles.googleButton
-                    )}><img src={googleIcon} />Google</button>
+                    )}
+                    onClick={handleGoogleClick}
+                    ><img src={googleIcon} />Google</button>
                 </div>
             </div>
         </div>

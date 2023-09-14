@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        justify-content: center;
+        align-items: center;
+
+        h1 {
+            color: var(--color-secondary-text);
+            font-size: clamp(1rem, 2vw, 2.5rem);
+            font-weight: 600;
+            line-height: 131.25%;
+            letter-spacing: 0.00625rem;
+        }
+    }
+}

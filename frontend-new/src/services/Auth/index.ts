@@ -5,6 +5,8 @@ const endpoints = {
     LOGIN: '/login',
     REGISTER : '/register',
     CHANGE_PASSWORD: '/change-password',
+    GOOGLE_LOGIN: '/auth/google',
+    GOOGLE_CALLBACK: '/auth/google/callback',
 };
 
 class AuthService {
@@ -35,6 +37,18 @@ class AuthService {
             .post<any>(endpoints.CHANGE_PASSWORD, data)
             .then((res) => res.data)
     }
+
+    public googleLogin() {
+        return axios
+            .get<any>(endpoints.GOOGLE_LOGIN)
+            .then((res) => res.data)
+    };
+
+    public googleCallback(query: string) {
+        return axios
+            .get<any>(`${endpoints.GOOGLE_CALLBACK}${query}`)
+            .then((res) => res.data)
+    };
 }
 
 export default AuthService;

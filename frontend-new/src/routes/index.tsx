@@ -10,6 +10,7 @@ import News from "../views/News";
 import ReadLater from "../views/ReadLater";
 import AccountSettings from "../views/AccountSettings";
 import AppearanceSettings from "../views/AppearanceSettings";
+import GoogleCallback from "../components/GoogleCallback";
 
 export enum Routes {
     HOME = "/",
@@ -22,6 +23,7 @@ export enum Routes {
     READ_LATER = "/read-later",
     ACCOUNT = "/account",
     APPEARANCE = "/appearance",
+    GOOGLE_CALLBACK = "/auth/google",
 }
 
 const routesForAuthenticatedOnly = [
@@ -74,6 +76,10 @@ const publicRoutes = [
         path: Routes.REGISTER,
         element: <Register />,
     },
+    {
+        path : Routes.GOOGLE_CALLBACK,
+        element : <GoogleCallback/>
+    }
 ];
 
 export const router = createBrowserRouter([

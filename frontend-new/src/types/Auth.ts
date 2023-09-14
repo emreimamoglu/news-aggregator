@@ -12,7 +12,9 @@ export type CreateUserContextProps = {
 
 export type User = {
     id : string,
+    google_id : string | null;
     name : string;
+    avatar : string | null;
     email : string;
     email_verified_at : string | null;
     created_at : string;

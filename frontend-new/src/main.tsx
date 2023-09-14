@@ -8,13 +8,16 @@ import "./styles/globals.scss";
 import { ViewportProvider } from './contexts/ViewportContext';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from './config/queryClient';
+import { UserContextProvider } from './contexts/UserContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <ViewportProvider>
-        <RouterProvider router={router} />
-      </ViewportProvider>
+      <UserContextProvider>
+        <ViewportProvider>
+          <RouterProvider router={router} />
+        </ViewportProvider>
+      </UserContextProvider>
     </QueryClientProvider>
   </React.StrictMode>,
 )
