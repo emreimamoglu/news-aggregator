@@ -7,13 +7,23 @@ import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
 import AuthService from '../../services/Auth';
 import * as yup from 'yup';
 import { useMutation } from 'react-query';
+import { useUserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../routes';
 
 const LoginForm = () => {
+    const { setUser } = useUserContext();
+    const navigate = useNavigate();
 
     const { mutate, isError, isLoading } = useMutation({
         mutationFn: AuthService.getInstance().login,
+        onSuccess: (data) => {
+            localStorage.setItem('token', data.data.token);
+            setUser(data.data.user);
+            navigate(Routes.HOME);
+        },
     });
-    
+
     const handleSubmit = (values: any) => {
         mutate(values);
     };
@@ -97,7 +107,7 @@ const LoginForm = () => {
                         styles.socialMediaButton,
                         styles.googleButton
                     )}
-                    onClick={handleGoogleClick}
+                        onClick={handleGoogleClick}
                     ><img src={googleIcon} />Google</button>
                 </div>
             </div>

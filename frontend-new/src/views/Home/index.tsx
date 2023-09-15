@@ -3,16 +3,11 @@ import { useViewport } from '../../hooks/useViewport';
 import styles from './styles.module.scss';
 import ArticleList from '../../components/ArticleList';
 import Header from '../../components/Header';
-import { useEffect } from 'react';
-import { useUserContext } from '../../contexts/UserContext';
 
 const Home = () => {
 
     const { width } = useViewport();
-    const { user } = useUserContext();
     const handleSearch = () => { };
-
-    console.log(user);
 
     return (
         <div className={styles.container}>

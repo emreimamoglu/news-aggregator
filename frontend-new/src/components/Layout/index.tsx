@@ -1,13 +1,15 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Sidebar from '../../components/Sidebar';
 import Topbar from '../../components/Topbar';
 import styles from './styles.module.scss';
 import { useViewport } from '../../hooks/useViewport';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { Routes } from '../../routes';
 
 const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { width } = useViewport();
+    const navigate = useNavigate();
 
 
     const toggleSidebar = useCallback(() => {
@@ -18,6 +20,13 @@ const Layout = () => {
         setIsSidebarOpen(false);
     }, []);
 
+    useEffect(() => {
+        const tokenFromLocalStorage = localStorage.getItem('token');
+
+        if (!tokenFromLocalStorage) {
+            navigate(Routes.LOGIN);
+        }
+    }, []);
 
     return (
         <div className={styles.container}>

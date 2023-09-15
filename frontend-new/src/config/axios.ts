@@ -16,23 +16,23 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('token');
     if (token && config.headers) {
         config.headers.authorization = `Bearer ${token}`;
     }
     return config;
 });
 
-// axiosInstance.interceptors.response.use(
-//     (response) => {
-//         return response;
-//     },
-//     async (error) => {
-//         if (error.response.status === 401 || error.response.status === 403) {
-//             clearLocalStorage();
-//             window.location.href = '/';
-//         }
-//         return Promise.reject(error);
-//     })
+axiosInstance.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error) => {
+        if (error.response.status === 401) {
+            clearLocalStorage();
+            window.location.href = '/';
+        }
+        return Promise.reject(error);
+    })
 
 export default axiosInstance;

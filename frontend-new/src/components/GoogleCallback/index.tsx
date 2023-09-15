@@ -17,6 +17,7 @@ const GoogleCallback = () => {
     }, {
         onSuccess: (data) => {
             setUser(data.data.user);
+            localStorage.setItem('token', data.data.token);
             navigate(Routes.HOME);
         },
     });
