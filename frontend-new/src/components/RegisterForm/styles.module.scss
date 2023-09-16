@@ -59,6 +59,10 @@
                 margin-block-end: 3.44rem;
             }
 
+            &>label:nth-child(2) {
+                margin-block-end: 3.44rem;
+            }
+
             input {
                 color: var(--color-secondary-text, #52575C);
                 border-bottom: 3px solid var(--secondary-text, #A0A4A8);

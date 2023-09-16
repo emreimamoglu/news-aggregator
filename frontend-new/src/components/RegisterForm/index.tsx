@@ -22,6 +22,7 @@ const RegisterForm = () => {
     const validationSchema = yup.object().shape({
         email: yup.string().email().required('Email*'),
         password: yup.string().min(8, "The password field must be at least 8 characters.").required('Password*'),
+        password_confirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
         name: yup.string().required('Name*'),
         surname: yup.string().required('Surname*'),
         month: yup.string().required('Month*').test('is-valid-month', 'Invalid month', function (value) {
@@ -55,6 +56,7 @@ const RegisterForm = () => {
         validateOnChange: false,
         validateOnBlur: true,
     });
+    console.log(formik.errors);
 
     return (
         <div className={styles.container}>
@@ -86,6 +88,16 @@ const RegisterForm = () => {
                                         [styles.errorInput]: meta.touched && meta.error,
                                     })} />
                                     {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your password</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <Field name="password_validation">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='password_validation_label'>
+                                    <input type="password" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Validate your password</span>}
                                 </label>
                             )}
                         </Field>
