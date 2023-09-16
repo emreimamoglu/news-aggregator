@@ -91,9 +91,9 @@ const RegisterForm = () => {
                                 </label>
                             )}
                         </Field>
-                        <Field name="password_validation">
+                        <Field name="password_confirmation">
                             {({ field, meta }: FieldProps) => (
-                                <label id='password_validation_label'>
+                                <label id='password_confirmation_label'>
                                     <input type="password" placeholder=' ' {...field} className={classnames({
                                         [styles.errorInput]: meta.touched && meta.error,
                                     })} />
