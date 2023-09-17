@@ -40,6 +40,18 @@
             margin-block: 1rem;
         }
 
+        .successContainer {
+            width: 100%;
+            margin-inline: 2.5rem;
+            min-height: 5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--color-primary);
+            color: var(--color-background-and-disabled-background-buttons, #FAF9F7);
+            margin-block: 1rem;
+        }
+
         form {
             width: 100%;
             display: flex;

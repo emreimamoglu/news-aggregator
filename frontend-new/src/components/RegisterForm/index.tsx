@@ -7,16 +7,32 @@ import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
 import { useMutation } from 'react-query';
 import AuthService from '../../services/Auth';
 import * as yup from 'yup';
-import { isValidDate } from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../routes';
+import { useEffect, useRef, useState } from 'react';
 
 const RegisterForm = () => {
+    const [registered, setRegistered] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
-    const { mutate, isError, isLoading } = useMutation({
+    const navigate = useNavigate();
+    const { mutateAsync, isError, isLoading } = useMutation({
         mutationFn: AuthService.getInstance().register,
     });
 
-    const handleSubmit = (values: any) => {
-        mutate(values);
+    const handleSubmit = async (values: any) => {
+        const newValues = {
+            name: `${values.name} ${values.surname}`,
+            email: values.email,
+            password: values.password,
+            password_confirmation: values.password_confirmation
+        }
+        await mutateAsync(newValues);
+        setRegistered(true);
+
+        timerRef.current = setTimeout(() => {
+            navigate(Routes.LOGIN);
+        }, 2000);
     };
 
     const validationSchema = yup.object().shape({
@@ -25,19 +41,6 @@ const RegisterForm = () => {
         password_confirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
         name: yup.string().required('Name*'),
         surname: yup.string().required('Surname*'),
-        month: yup.string().required('Month*').test('is-valid-month', 'Invalid month', function (value) {
-            const { year, day } = this.parent;
-            return isValidDate(year, value, day);
-        }),
-        day: yup.string().required('Day*').test('is-valid-day', 'Invalid day', function (value) {
-            const { year, month } = this.parent;
-            return isValidDate(year, month, value);
-        }),
-        year: yup.string().required('Year*').test('is-valid-year', 'Invalid year', function (value) {
-            const { month, day } = this.parent;
-            return isValidDate(value, month, day);
-        }),
-        location: yup.string().required('Location*'),
     });
 
     const formik = useFormik({
@@ -56,7 +59,12 @@ const RegisterForm = () => {
         validateOnChange: false,
         validateOnBlur: true,
     });
-    console.log(formik.errors);
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerRef.current);
+        }
+    }, [])
 
     return (
         <div className={styles.container}>
@@ -67,6 +75,11 @@ const RegisterForm = () => {
                 {
                     isError && <div className={styles.errorContainer}>
                         <span>Invalid Content</span>
+                    </div>
+                }
+                {
+                    registered && <div className={styles.successContainer}>
+                        <span>Registered Successfully,Redirecting</span>
                     </div>
                 }
                 <FormikProvider value={formik}>
@@ -123,42 +136,6 @@ const RegisterForm = () => {
                                 )}
                             </Field>
                         </div>
-                        <div className={styles.dateFields}>
-                            <Field name="month">
-                                {({ field, meta }: FieldProps) => (
-                                    <label id='month'>
-                                        <input type="text" placeholder=' ' {...field} className={classnames({
-                                            [styles.errorInput]: meta.touched && meta.error,
-                                        })} />
-                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Month</span>}
-                                    </label>
-                                )}
-                            </Field>
-                            <Field name="day">
-                                {({ field, meta }: FieldProps) => (
-                                    <label id='day'>
-                                        <input type="text" placeholder=' ' {...field} className={classnames({
-                                            [styles.errorInput]: meta.touched && meta.error,
-                                        })} />
-                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Day</span>}
-                                    </label>
-                                )}
-                            </Field>
-                            <Field name="year">
-                                {({ field, meta }: FieldProps) => (
-                                    <label id='year'>
-                                        <input type="text" placeholder=' ' {...field} className={classnames({
-                                            [styles.errorInput]: meta.touched && meta.error,
-                                        })} />
-                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Year</span>}
-                                    </label>
-                                )}
-                            </Field>
-                        </div>
-                        <Field name="location" as="select">
-                            <option disabled>Select Location</option>
-                            <option value="usa" defaultChecked>USA</option>
-                        </Field>
                         <button type='submit' disabled={isLoading} className={classnames({
                             [styles.disabledButton]: isLoading,
                         })}>Sign Up</button>
