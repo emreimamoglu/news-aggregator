@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Traits\HttpResponses;
-use Auth;
 use GuzzleHttp\Exception\ClientException;
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
@@ -17,7 +15,7 @@ class GoogleAuthController extends Controller
     {
         return $this->success([
             'url' => Socialite::driver('google')->stateless()->redirect()->getTargetUrl(),
-        ], 'Auth url', 200);
+        ], null, 200);
     }
 
     public function handleGoogleCallback()
@@ -25,7 +23,7 @@ class GoogleAuthController extends Controller
         try {
             $socialiteUser = Socialite::driver('google')->stateless()->user();
         } catch (ClientException $e) {
-            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+            return $this->error(null, 'Invalid credentials provided', 422);
         }
 
         /** @var User $user */
@@ -42,10 +40,9 @@ class GoogleAuthController extends Controller
                 ]
             );
 
-        return response()->json([
+        return $this->success([
+            'token' => $user->createToken('API_TOKEN')->plainTextToken,
             'user' => $user,
-            'access_token' => $user->createToken('google-token')->plainTextToken,
-            'token_type' => 'Bearer',
-        ]);
+        ], "Google authentication successful", 200);
     }
 }
