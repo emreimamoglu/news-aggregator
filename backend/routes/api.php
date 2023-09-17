@@ -9,6 +9,7 @@ use App\Http\Controllers\SavedArticleController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
 use App\Http\Controllers\SourceSubscriptionController;
+use App\Http\Controllers\TwitterAuthController;
 use App\NewsUtils\NewsFetcher;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
+Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
 
 
 # Protected Routes
