@@ -35,8 +35,8 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
-Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
+// Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
+// Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
 
 
 # Protected Routes
