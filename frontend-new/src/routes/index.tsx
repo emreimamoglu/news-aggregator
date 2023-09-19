@@ -11,6 +11,8 @@ import ReadLater from "../views/ReadLater";
 import AccountSettings from "../views/AccountSettings";
 import AppearanceSettings from "../views/AppearanceSettings";
 import GoogleCallback from "../components/GoogleCallback";
+import TwitterCallback from "../components/TwitterCallback";
+import MetaCallback from "../components/MetaCallback";
 
 export enum Routes {
     HOME = "/",
@@ -24,6 +26,8 @@ export enum Routes {
     ACCOUNT = "/account",
     APPEARANCE = "/appearance",
     GOOGLE_CALLBACK = "/auth/google",
+    TWITTER_CALLBACK = "/auth/twitter",
+    META_CALLBACK = "/auth/meta",
 }
 
 const routesForAuthenticatedOnly = [
@@ -77,8 +81,16 @@ const publicRoutes = [
         element: <Register />,
     },
     {
-        path : Routes.GOOGLE_CALLBACK,
-        element : <GoogleCallback/>
+        path: Routes.GOOGLE_CALLBACK,
+        element: <GoogleCallback />
+    },
+    {
+        path: Routes.TWITTER_CALLBACK,
+        element: <TwitterCallback />
+    },
+    {
+        path: Routes.META_CALLBACK,
+        element: <MetaCallback />,
     }
 ];
 

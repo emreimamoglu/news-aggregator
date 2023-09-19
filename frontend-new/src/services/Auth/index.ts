@@ -7,6 +7,10 @@ const endpoints = {
     CHANGE_PASSWORD: '/change-password',
     GOOGLE_LOGIN: '/auth/google',
     GOOGLE_CALLBACK: '/auth/google/callback',
+    TWITTER_LOGIN: '/auth/twitter',
+    TWITTER_CALLBACK: '/auth/twitter/callback',
+    META_LOGIN: '/auth/meta',
+    META_CALLBACK: '/auth/meta/callback',
 };
 
 class AuthService {
@@ -47,6 +51,30 @@ class AuthService {
     public googleCallback(query: string) {
         return axios
             .get<any>(`${endpoints.GOOGLE_CALLBACK}${query}`)
+            .then((res) => res.data)
+    };
+
+    public twitterLogin() {
+        return axios
+            .get<any>(endpoints.TWITTER_LOGIN)
+            .then((res) => res.data)
+    };
+
+    public twitterCallback(query: string) {
+        return axios
+            .get<any>(`${endpoints.TWITTER_CALLBACK}${query}`)
+            .then((res) => res.data)
+    };
+
+    public metaLogin() {
+        return axios
+            .get<any>(endpoints.META_LOGIN)
+            .then((res) => res.data)
+    };
+
+    public metaCallback(query: string) {
+        return axios
+            .get<any>(`${endpoints.META_CALLBACK}${query}`)
             .then((res) => res.data)
     };
 }

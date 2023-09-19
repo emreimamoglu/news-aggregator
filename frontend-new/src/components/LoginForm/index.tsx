@@ -44,8 +44,27 @@ const LoginForm = () => {
         validateOnBlur: true,
     });
 
+    function extractCodeChallenge(url: string) {
+        let urlObj = new URL(url);
+        let params = new URLSearchParams(urlObj.search);
+        return params.get('code_challenge');
+    }
+
     const handleGoogleClick = () => {
         AuthService.getInstance().googleLogin().then((res) => {
+            window.location.href = res.data.url;
+        });
+    };
+
+    const handleTwitterClick = () => {
+        AuthService.getInstance().twitterLogin().then((res) => {
+            localStorage.setItem('twitter_code_challenge', extractCodeChallenge(res.data.url) as string);
+            window.location.href = res.data.url;
+        });
+    };
+
+    const handleFacebookClick = () => {
+        AuthService.getInstance().metaLogin().then((res) => {
             window.location.href = res.data.url;
         });
     };
@@ -98,11 +117,15 @@ const LoginForm = () => {
                     <button className={classnames(
                         styles.socialMediaButton,
                         styles.twitterButton
-                    )}><img src={twitterIcon} />Twitter</button>
+                    )}
+                        onClick={handleTwitterClick}
+                    ><img src={twitterIcon} />Twitter</button>
                     <button className={classnames(
                         styles.socialMediaButton,
                         styles.facebookButton
-                    )}><img src={facebookIcon} />Facebook</button>
+                    )}
+                    onClick={handleFacebookClick}
+                    ><img src={facebookIcon} />Facebook</button>
                     <button className={classnames(
                         styles.socialMediaButton,
                         styles.googleButton
