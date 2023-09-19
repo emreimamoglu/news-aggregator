@@ -9,11 +9,18 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 import classnames from 'classnames';
 import Chip from '../../components/Chip';
 import closeIcon from '../../assets/close.svg';
+import { useQuery } from 'react-query';
+import ArticleService from '../../services/Article';
+import { ArticleQueryParams } from '../../types/Article';
 
 const News = () => {
     const [filterOpen, setFilterOpen] = useState(false);
     const { width } = useViewport();
     const ref = useOutsideClick(() => setFilterOpen(false));
+    const { data } = useQuery({
+        queryKey: ["news"],
+        queryFn: () => ArticleService.getInstance().getArticles({} as ArticleQueryParams),
+    })
 
     const handleSearch = () => { };
 
@@ -21,6 +28,8 @@ const News = () => {
         setFilterOpen((prev) => !prev);
     };
 
+    console.log(data);
+    
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch} />}
@@ -32,9 +41,9 @@ const News = () => {
                         <img src={filterIcon} alt='filter icon' onClick={toggleFilter} />
                     </div>
                 </div>
-                <div className={styles.news}>
-                    <ArticleList />
-                </div>
+                {data && <div className={styles.news}>
+                    <ArticleList articles={data.data.data}/>
+                </div>}
             </div>
             <aside className={classnames(styles.filterSidebar, {
                 [styles.filterSidebarOpen]: filterOpen
