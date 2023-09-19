@@ -21,6 +21,7 @@ class ArticleController extends Controller
         $searchTerm = $request->input('search');
         $categoryIds = $request->input('category_ids');
         $sourceIds = $request->input('source_ids');
+        $page_size = $request->input('page_size', 10);
 
         $query = Article::join('sources', 'articles.source_id', '=', 'sources.id')
         ->orderBy('published_at', 'desc')
@@ -40,7 +41,7 @@ class ArticleController extends Controller
             $query->whereIn('source_id', $sourceIdsArray);
         }
 
-        $articles = $query->paginate(3, ['*'], 'page', $page);
+        $articles = $query->paginate($page_size, ['*'], 'page', $page);
 
         return $this->success($articles);
     }
@@ -91,6 +92,7 @@ class ArticleController extends Controller
         $user = $request->user();
         $page = $request->input('page', 1);
         $searchTerm = $request->input('search');
+        $page_size = $request->input('page_size', 10);
     
         $articlesByCategory = Article::join('category_subscriptions', 'articles.category_id', '=', 'category_subscriptions.category_id')
             ->where('category_subscriptions.user_id', $user->id)
@@ -109,7 +111,7 @@ class ArticleController extends Controller
             $merged->where('title', 'LIKE', '%' . $searchTerm . '%');
         }
     
-        $articles = $merged->paginate(3, ['*'], 'page', $page);
+        $articles = $merged->paginate($page_size, ['*'], 'page', $page);
     
         return $this->success($articles);
     }
