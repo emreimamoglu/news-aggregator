@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\MetaAuthController;
 use App\Http\Controllers\SavedArticleController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
@@ -37,7 +38,8 @@ Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 // Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
 // Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback'])->middleware(\Illuminate\Session\Middleware\StartSession::class);
-
+Route::get('auth/meta', [MetaAuthController::class, 'redirectToMeta']);
+Route::get('auth/meta/callback', [MetaAuthController::class, 'handleMetaCallback']);
 
 # Protected Routes
 
