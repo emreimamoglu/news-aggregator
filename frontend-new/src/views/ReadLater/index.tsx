@@ -21,7 +21,7 @@ const ReadLater = () => {
                     </div>
                 </div>
                 <div className={styles.news}>
-                    <ArticleList />
+                    <ArticleList articles={[]}/>
                 </div>
 
             </div>
