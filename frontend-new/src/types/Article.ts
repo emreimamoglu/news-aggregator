@@ -55,7 +55,6 @@ export type Source = {
 
 export type ArticleListProps = {
     articles : Article[];
-    fetchSavedArticles : () => Promise<void>;
 }
 
 export type ArticleQueryParams = {
@@ -63,6 +62,7 @@ export type ArticleQueryParams = {
     search ?: string;
     category_ids ?: string;
     source_ids ?: string;
+    page_size ?: string;
 }
 
 export type GetArticleParams = {
