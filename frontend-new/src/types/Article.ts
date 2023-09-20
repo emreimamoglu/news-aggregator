@@ -69,25 +69,6 @@ export type GetArticleParams = {
     article_id : string;
 }
 
-export type SubscribeCategoryParams = {
-    category_id : string;
-    user_id : string;
-}
-
-
-export type SubscribeSourceParams = {
-    source_id : string;
-    user_id : string;
-}
-
-export type UnsubscribeCategoryParams = {
-    category_id : string;
-}
-
-export type UnsubscribeSourceParams = {
-    source_id : string;
-}
-
 export type PaginationProps = {
     currentPage : number;
     callback : (page : number) => void;
@@ -102,17 +83,5 @@ export type SaveArticleParams = {
 export type SavedArticle ={
     id : string;
     article_id : string;
-    user_id : string;
-}
-
-export type SourceSubscriptions = {
-    id : string;
-    source_id : string;
-    user_id : string;
-}
-
-export type CategorySubscriptions = {
-    id : string;
-    category_id : string;
     user_id : string;
 }

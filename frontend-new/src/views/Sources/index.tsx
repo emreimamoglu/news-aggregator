@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query';
 import Header from '../../components/Header';
 import Searchbar from '../../components/Searchbar';
 import SubscriptionList from '../../components/SubscriptionList';
@@ -10,7 +11,7 @@ const Sources = () => {
     const { width } = useViewport();
 
     const handleSearch = () => { };
-
+    
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch} />}
