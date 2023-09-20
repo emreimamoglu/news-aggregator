@@ -12,7 +12,7 @@ const Home = () => {
     const { width } = useViewport();
     const handleSearch = () => { };
 
-    const { data } = useQuery({
+    const { data, isSuccess } = useQuery({
         queryKey: ["my-news"],
         queryFn: () => ArticleService.getInstance().getCustomFeed({} as ArticleQueryParams),
     })
@@ -27,7 +27,7 @@ const Home = () => {
                         {width && width < 836 && <Searchbar />}
                     </div>
                 </div>
-                {data && <div className={styles.news}>
+                {isSuccess && <div className={styles.news}>
                     <ArticleList articles={data.data.data} />
                 </div>}
 
