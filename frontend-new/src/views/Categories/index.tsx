@@ -1,7 +1,9 @@
+import { useQuery } from 'react-query';
 import Header from '../../components/Header';
 import Searchbar from '../../components/Searchbar';
 import SubscriptionList from '../../components/SubscriptionList';
 import { useViewport } from '../../hooks/useViewport';
+import SubscriptionService from '../../services/Subscription';
 import styles from './styles.module.scss';
 
 
@@ -11,6 +13,11 @@ const Categories = () => {
 
     const handleSearch = () => { };
 
+    const { data, isSuccess } = useQuery({
+        queryKey: ["categories"],
+        queryFn: () => SubscriptionService.getInstance().getCategories(),
+    })
+    
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch}/>}
@@ -19,7 +26,7 @@ const Categories = () => {
                     <h1>Categories</h1>
                     {width && width < 836 && <Searchbar />}
                 </div>
-                <SubscriptionList />
+                {isSuccess && <SubscriptionList data={data.data}/>}
             </div>
         </div>
     )
