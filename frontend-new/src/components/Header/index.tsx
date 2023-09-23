@@ -16,7 +16,7 @@ const Header = ({ searchFn }: HeaderProps) => {
                 [styles.noSearch]: !searchFn
             })}>
                 {searchFn && <div className={styles.search}>
-                    <Searchbar />
+                    <Searchbar searchFn={searchFn}/>
                 </div>}
                 { width && width > 835 && 
                     (false ? (<></>) : (
