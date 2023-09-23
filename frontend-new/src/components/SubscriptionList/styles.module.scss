@@ -45,6 +45,7 @@
                 padding: 0.625rem 1.875rem;
                 border-radius: 2.25rem;
                 background: var(--color-primary-dark, #119C59);
+                min-width: 8rem;
 
                 color: #FFF;
                 text-align: center;
@@ -65,12 +66,21 @@
                 border-radius: 36px;
                 border: 1px solid var(--color-primary-dark, #119C59);
                 background: var(--color-background-and-disabled-background-buttons, #FAF9F7);
-
+                
                 color: var(--color-primary-dark, #119C59);
                 font-size: 0.8125rem;
                 font-weight: 600;
                 line-height: 123.077%;
                 letter-spacing: 0.0125rem;
+            }
+        }
+    }
+
+    .loading{
+        .button{
+            button{
+                padding-block: 0;
+                min-height: 2.249rem;
             }
         }
     }
