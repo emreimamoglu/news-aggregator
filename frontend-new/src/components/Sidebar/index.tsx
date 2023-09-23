@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import classnames from 'classnames';
 import newsIcon from '../../assets/news.svg';
 import myNewsIcon from '../../assets/mynews.svg';
-import readLaterIcon from '../../assets/saved.svg';
+import readLaterIcon from '../../assets/readlater.svg';
 import BackIcon from '../../assets/back.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';
