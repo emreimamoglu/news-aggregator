@@ -3,12 +3,30 @@ import { useViewport } from '../../hooks/useViewport';
 import styles from './styles.module.scss';
 import ArticleList from '../../components/ArticleList';
 import Header from '../../components/Header';
+import { useQuery } from 'react-query';
+import ArticleService from '../../services/Article';
+import { Article } from '../../types/Article';
+import { ExtendedArticle } from '../../components/ArticleListItem';
 
 const ReadLater = () => {
 
     const { width } = useViewport();
 
     const handleSearch = () => { };
+
+    const { data } = useQuery({
+        queryKey: ["saved-articles"],
+        queryFn: () => ArticleService.getInstance().getSavedArticlesList(),
+    })
+
+    const addSavedField = (articles: Article[]) : ExtendedArticle[] => {
+        return articles.map(article => {
+            return {
+                ...article,
+                isSaved: true
+            }
+        })
+    };
 
     return (
         <div className={styles.container}>
@@ -20,9 +38,9 @@ const ReadLater = () => {
                         {width && width < 836 && <Searchbar />}
                     </div>
                 </div>
-                <div className={styles.news}>
-                    <ArticleList articles={[]}/>
-                </div>
+                {data && <div className={styles.news}>
+                    <ArticleList articles={addSavedField(data.data)} />
+                </div>}
 
             </div>
         </div>
