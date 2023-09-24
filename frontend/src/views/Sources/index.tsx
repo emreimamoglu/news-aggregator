@@ -82,6 +82,12 @@ const Sources = () => {
     }
 
 
+    // const filtered = sources.data.filter((source: Source) => {
+    //     return source.name.toLowerCase().includes(searchTerm.toLowerCase())
+    // })
+
+    // console.log(sources.data);
+    
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch} />}
@@ -90,7 +96,7 @@ const Sources = () => {
                     <h1>Sources</h1>
                     {width && width < 836 && <Searchbar />}
                 </div>
-                {sources && subscribedSources && <SubscriptionList data={addSubscriptionData(sources.data)} subscribeFn={subscribeUnsubscribeSource} />}
+                {sources && subscribedSources && <SubscriptionList data={addSubscriptionData((sources.data))} subscribeFn={subscribeUnsubscribeSource} />}
             </div>
         </div>
     )

@@ -1,16 +1,37 @@
-import AccountInformation from '@/components/AccountInformation';
+import { useNavigate } from 'react-router-dom';
+import profileIcon from '../../assets/mynews.svg';
+import tileIcon from '../../assets/tile.svg';
+
 import styles from './styles.module.scss';
-import PasswordChange from '@/components/PasswordChange';
+import { Routes } from '../../routes';
 
 const Settings = () => {
-    return (
+
+    const navigate = useNavigate();
+
+    const navigateTo = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault();
+        const targetRoute = e.currentTarget.getAttribute('data-route');
+        if (targetRoute) {
+            navigate(targetRoute as Routes);
+        }
+    }
+
+    return(
         <div className={styles.container}>
-            <p className={styles.settings}>Settings</p>
-            <AccountInformation/>
-            <PasswordChange/>
+            <h1>Settings</h1>
+            <div className={styles.settings}>
+                <div className={styles.settingsOption} data-route={Routes.ACCOUNT} onClick={navigateTo}>
+                    <img src={profileIcon} alt="Account" />
+                    <p>Account</p>
+                </div>
+                <div className={styles.settingsOption} data-route={Routes.APPEARANCE} onClick={navigateTo}>
+                    <img src={tileIcon} alt="Appearance" />
+                    <p>Appearance</p>
+                </div>
+            </div>
         </div>
     )
 };
-
 
 export default Settings;

@@ -1,43 +1,80 @@
 .container {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-block-start: max(4vh, 40px);
-        margin-block-end: max(2vh, 20px);
+    .content {
+        width: 100%;
+        margin-block-start: 4.56rem;
 
-        font-size: 1.5rem;
-        font-weight: 500;
-        color: var(--text-primary-low-emphasis);
-
-        @media screen and (max-width: 1050px) {
-            font-size: 1rem;
-        }
-    }
-
-    .body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-inline-start: 10px;
-        margin-inline-end: 30px;
-
-        @media screen and (max-width: 600px) {
-            margin-inline-end: 10px;
-        }
-
-        .loading{
-            width: 100%;
-            min-height: 450px;
-            display: flex;
+        @media screen and (max-width: 836px) {
+            margin-block-start: 0;
             justify-content: center;
             align-items: center;
+        }
 
-            svg{
-                color: var(--text-primary-high-emphasis);
-                font-size: 1rem;
+        display: flex;
+        flex-direction: column;
+        max-width: 54.25rem;
+        padding: 1rem 2.06rem 0 1.81rem;
+
+        .title {
+            width: 100%;
+            margin-block-end: 2.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            max-width: 41.6875rem;
+
+            @media screen and (max-width: 836px) {
+                max-width: 25rem;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-end;
+                max-width: none;
+                gap: 1rem;
+            }
+
+            @media screen and (max-width: 400px) {
+                gap: 1rem;
+            }
+
+            h1 {
+                color: var(--color-primary-black, #25282B);
+                font-size: 3.25rem;
+                font-weight: 300;
+                line-height: 123.077%;
+                letter-spacing: 0.0125rem;
+
+                @media screen and (max-width: 836px) {
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    line-height: 130%;
+                    letter-spacing: 0.0125rem;
+                }
+            }
+
+            .searchAndFilter {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                @media screen and (max-width: 836px) {
+                    width: 100%;
+                    max-width: 42rem;
+                    gap: 6rem;
+                    justify-content: space-between;
+                }
+
+                img {
+                    width: 1.68731rem;
+                    height: 1.4765rem;
+                    color: #119C59;
+                }
             }
         }
     }

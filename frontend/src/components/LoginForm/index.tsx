@@ -1,93 +1,141 @@
-import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
-import AuthService from '@/services/Auth';
-import { Field, FieldProps, FormikHelpers, FormikProps, FormikProvider, useFormik } from 'formik';
+import twitterIcon from '../../assets/twitter.svg';
+import facebookIcon from '../../assets/facebook.svg';
+import googleIcon from '../../assets/google.svg';
+import classnames from 'classnames';
+import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
+import AuthService from '../../services/Auth';
 import * as yup from 'yup';
-import { LoginFormData } from '@/interfaces';
-import { useState } from 'react';
-import { useUserContext } from '@/contexts/User';
-import { TextField } from '@mui/material';
-import { useSnackbar } from 'notistack';
+import { useMutation } from '@tanstack/react-query';
+import { useUserContext } from '../../contexts/UserContext';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../routes';
 
 const LoginForm = () => {
-    const [formData, setFormData] = useState<LoginFormData>({
-        email: '',
-        password: '',
-    });
-
-    const router = useRouter();
     const { setUser } = useUserContext();
-    const { enqueueSnackbar } = useSnackbar();
+    const navigate = useNavigate();
 
-    const handleCreateAccountClick = () => {
-        router.push('/register');
-    };
-
-    const handleSubmit = (values: LoginFormData) => {
-        AuthService.getInstance().login(values).then((response) => {
-            if (typeof window !== "undefined") {
-                localStorage.setItem('access_token', response.data.token);
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-              }
-            enqueueSnackbar('Login successful', { variant: 'success' });
-            setUser(response.data.user);
-        }).catch((error) => {
-            enqueueSnackbar('Login failed', { variant: 'error' });
-        });
-    };
-
-    const validationSchema = yup.object({
-        email: yup.string().required("Email is required"),
-        password: yup.string().required("Password is required"),
+    const { mutate, isError, isLoading } = useMutation({
+        mutationFn: AuthService.getInstance().login,
+        onSuccess: (data) => {
+            localStorage.setItem('token', data.data.token);
+            setUser(data.data.user);
+            navigate(Routes.HOME);
+        },
     });
 
-    const formik: FormikProps<LoginFormData> = useFormik<LoginFormData>({
-        initialValues: formData,
-        validationSchema,
+    const handleSubmit = (values: any) => {
+        mutate(values);
+    };
+
+    const validationSchema = yup.object().shape({
+        email: yup.string().email().required('Email*'),
+        password: yup.string().min(8, "The password field must be at least 8 characters.").required('Password*'),
+    });
+
+    const formik = useFormik({
+        initialValues: {
+            email: undefined,
+            password: undefined,
+        },
         onSubmit: handleSubmit,
-        validateOnMount: false,
+        validationSchema: validationSchema,
+        validateOnChange: false,
         validateOnBlur: true,
     });
 
+    function extractCodeChallenge(url: string) {
+        let urlObj = new URL(url);
+        let params = new URLSearchParams(urlObj.search);
+        return params.get('code_challenge');
+    }
+
+    const handleGoogleClick = () => {
+        AuthService.getInstance().googleLogin().then((res) => {
+            window.location.href = res.data.url;
+        });
+    };
+
+    const handleTwitterClick = () => {
+        AuthService.getInstance().twitterLogin().then((res) => {
+            localStorage.setItem('twitter_code_challenge', extractCodeChallenge(res.data.url) as string);
+            window.location.href = res.data.url;
+        });
+    };
+
+    const handleFacebookClick = () => {
+        AuthService.getInstance().metaLogin().then((res) => {
+            window.location.href = res.data.url;
+        });
+    };
+
     return (
-        <FormikProvider value={formik}>
-            <form onSubmit={formik.handleSubmit}>
-                <div className={styles.container}>
-                    <Field name="email">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="email"
-                                placeholder="Email"
-                                variant="outlined"
-                                value={formik.values.email}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
-                    <Field name="password">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="password"
-                                placeholder="Password"
-                                type='password'
-                                variant="outlined"
-                                value={formik.values.password}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
-                    <button type="submit">Log in</button>
-                    <a onClick={handleCreateAccountClick}>{"Create new account >"}</a>
+        <div className={styles.container}>
+            <div className={styles.formContainer}>
+                <div className={styles.loginText}>
+                    <h1>Login</h1>
                 </div>
-            </form>
-        </FormikProvider>
-    )
+                {
+                    isError && <div className={styles.errorContainer}>
+                        <span>Invalid email or password</span>
+                    </div>
+                }
+                <FormikProvider value={formik}>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Field name="email">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='email_label'>
+                                    <input type="text" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your email address</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <Field name="password">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='password_label'>
+                                    <input type="password" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your password</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <button type='submit' disabled={isLoading} className={classnames({
+                            [styles.disabledButton]: isLoading,
+                        })}>Login</button>
+                    </form>
+                </FormikProvider>
+
+                <div className={styles.forgotPasswordOrUseAccount}>
+                    <a>Forgot Password?</a>
+                    <p>or use account</p>
+                </div>
+
+                <div className={styles.socialMediaButtons}>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.twitterButton
+                    )}
+                        onClick={handleTwitterClick}
+                    ><img src={twitterIcon} />Twitter</button>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.facebookButton
+                    )}
+                    onClick={handleFacebookClick}
+                    ><img src={facebookIcon} />Facebook</button>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.googleButton
+                    )}
+                        onClick={handleGoogleClick}
+                    ><img src={googleIcon} />Google</button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default LoginForm;

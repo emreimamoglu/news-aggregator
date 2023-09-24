@@ -1,125 +1,167 @@
-import { useRouter } from 'next/router';
 import styles from './styles.module.scss';
-import { RegisterFormData } from '@/interfaces';
-import AuthService from '@/services/Auth';
+import classnames from 'classnames';
+import twitterIcon from '../../assets/twitter.svg';
+import facebookIcon from '../../assets/facebook.svg';
+import googleIcon from '../../assets/google.svg';
+import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
+import { useMutation } from '@tanstack/react-query';
+import AuthService from '../../services/Auth';
 import * as yup from 'yup';
-import { Field, FieldProps, FormikProps, FormikProvider, useFormik } from 'formik';
-import { useState } from 'react';
-import { useSnackbar } from 'notistack';
-import { TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../routes';
+import { useEffect, useRef, useState } from 'react';
 
 const RegisterForm = () => {
-    const [formData, setFormData] = useState<RegisterFormData>({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+    const [registered, setRegistered] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setTimeout>>();
+
+    const navigate = useNavigate();
+    const { mutateAsync, isError, isLoading } = useMutation({
+        mutationFn: AuthService.getInstance().register,
     });
 
-    const router = useRouter();
-    const { enqueueSnackbar } = useSnackbar();
+    const handleSubmit = async (values: any) => {
+        const newValues = {
+            name: `${values.name} ${values.surname}`,
+            email: values.email,
+            password: values.password,
+            password_confirmation: values.password_confirmation
+        }
+        await mutateAsync(newValues);
+        setRegistered(true);
 
-    const handleAlreadyHaveClick = () => {
-        router.push('/');
-    }
-
-    const handleSubmit = (values: RegisterFormData) => {
-        AuthService.getInstance().register(values).then((response) => {
-            enqueueSnackbar('Register successful', { variant: 'success' });
-            router.push('/');
-        }).catch((error) => {
-            enqueueSnackbar('Register failed', { variant: 'error' });
-        });
+        timerRef.current = setTimeout(() => {
+            navigate(Routes.LOGIN);
+        }, 2000);
     };
 
-    const validationSchema = yup.object({
-        name: yup.string().required("Name is required"),
-        email: yup.string().required("Email is required"),
-        password: yup.string()
-            .required("Please enter a password")
-            .min(8, "Password must have at least 8 characters"),
-        password_confirmation: yup.string()
-            .required("Please re-type your password")
-            .oneOf([yup.ref("password")], "Passwords does not match"),
+    const validationSchema = yup.object().shape({
+        email: yup.string().email().required('Email*'),
+        password: yup.string().min(8, "The password field must be at least 8 characters.").required('Password*'),
+        password_confirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
+        name: yup.string().required('Name*'),
+        surname: yup.string().required('Surname*'),
     });
 
-    const formik: FormikProps<RegisterFormData> = useFormik<RegisterFormData>({
-        initialValues: formData,
-        validationSchema,
+    const formik = useFormik({
+        initialValues: {
+            email: undefined,
+            password: undefined,
+            name: undefined,
+            surname: undefined,
+            month: undefined,
+            day: undefined,
+            year: undefined,
+            location: undefined,
+        },
         onSubmit: handleSubmit,
-        validateOnMount: false,
+        validationSchema: validationSchema,
         validateOnChange: false,
         validateOnBlur: true,
     });
 
-    return (
-        <FormikProvider value={formik}>
-            <form onSubmit={formik.handleSubmit}>
-                <div className={styles.container}>
-                    <Field name="name">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="name"
-                                placeholder="Name"
-                                variant="outlined"
-                                value={formik.values.name}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
+    useEffect(() => {
+        return () => {
+            clearTimeout(timerRef.current);
+        }
+    }, [])
 
-                    <Field name="email">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="email"
-                                placeholder="Email"
-                                variant="outlined"
-                                value={formik.values.email}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
-                    <Field name="password">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="password"
-                                placeholder="Password"
-                                type='password'
-                                variant="outlined"
-                                value={formik.values.password}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
-                    <Field name="password_confirmation">
-                        {({ form: { handleChange }, meta }: FieldProps) => (
-                            <TextField
-                                id="password_confirmation"
-                                placeholder="Confirm Password"
-                                variant="outlined"
-                                type='password'
-                                value={formik.values.password_confirmation}
-                                onChange={handleChange}
-                                InputLabelProps={{ shrink: true }}
-                                error={meta.touched && Boolean(meta.error)}
-                                helperText={meta.touched && meta.error}
-                            />
-                        )}
-                    </Field>
-                    <button type="submit">Sign up</button>
-                    <a onClick={handleAlreadyHaveClick}>{"Already have an account ?"}</a>
+    return (
+        <div className={styles.container}>
+            <div className={styles.formContainer}>
+                <div className={styles.registerText}>
+                    <h1>Create Your Account</h1>
                 </div>
-            </form>
-        </FormikProvider>
+                {
+                    isError && <div className={styles.errorContainer}>
+                        <span>Invalid Content</span>
+                    </div>
+                }
+                {
+                    registered && <div className={styles.successContainer}>
+                        <span>Registered Successfully,Redirecting</span>
+                    </div>
+                }
+                <FormikProvider value={formik}>
+                    <form onSubmit={formik.handleSubmit}>
+                        <Field name="email">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='email_label'>
+                                    <input type="text" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your email address</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <Field name="password">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='password_label'>
+                                    <input type="password" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your password</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <Field name="password_confirmation">
+                            {({ field, meta }: FieldProps) => (
+                                <label id='password_confirmation_label'>
+                                    <input type="password" placeholder=' ' {...field} className={classnames({
+                                        [styles.errorInput]: meta.touched && meta.error,
+                                    })} />
+                                    {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Validate your password</span>}
+                                </label>
+                            )}
+                        </Field>
+                        <div className={styles.nameField}>
+                            <Field name="name">
+                                {({ field, meta }: FieldProps) => (
+                                    <label id='first_name'>
+                                        <input type="text" placeholder=' ' {...field} className={classnames({
+                                            [styles.errorInput]: meta.touched && meta.error,
+                                        })} />
+                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>First name</span>}
+                                    </label>
+                                )}
+                            </Field>
+                            <Field name="surname">
+                                {({ field, meta }: FieldProps) => (
+                                    <label id='surname'>
+                                        <input type="text" placeholder=' ' {...field} className={classnames({
+                                            [styles.errorInput]: meta.touched && meta.error,
+                                        })} />
+                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Last name</span>}
+                                    </label>
+                                )}
+                            </Field>
+                        </div>
+                        <button type='submit' disabled={isLoading} className={classnames({
+                            [styles.disabledButton]: isLoading,
+                        })}>Sign Up</button>
+                    </form>
+                </FormikProvider>
+
+                <div className={styles.forgotPasswordOrUseAccount}>
+                    <p>or use account</p>
+                </div>
+
+                <div className={styles.socialMediaButtons}>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.twitterButton
+                    )}><img src={twitterIcon} />Twitter</button>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.facebookButton
+                    )}><img src={facebookIcon} />Facebook</button>
+                    <button className={classnames(
+                        styles.socialMediaButton,
+                        styles.googleButton
+                    )}><img src={googleIcon} />Google</button>
+                </div>
+            </div>
+        </div>
     )
 };
 

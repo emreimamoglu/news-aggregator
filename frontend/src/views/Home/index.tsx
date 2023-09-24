@@ -1,53 +1,46 @@
-import ArticleListWithReader from '@/components/ArticleListWithReader';
+import Searchbar from '../../components/Searchbar';
+import { useViewport } from '../../hooks/useViewport';
 import styles from './styles.module.scss';
-import { Article } from '@/interfaces';
-import { useEffect, useState } from 'react';
-import ArticleService from '@/services/Article';
-import { useUserContext } from '@/contexts/User';
-import { CircularProgress } from '@mui/material';
+import ArticleList from '../../components/ArticleList';
+import Header from '../../components/Header';
+import { useQuery } from '@tanstack/react-query';
+import ArticleService from '../../services/Article';
+import { ArticleQueryParams } from '../../types/Article';
+import { useState } from 'react';
 
 const Home = () => {
-    const [articles, setArticles] = useState<Article[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const [currentPage, setCurrentPage] = useState<number>(1);
-    const [lastPage, setLastPage] = useState<number>(1);
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
-    const fetchArticles = async (page: number) => {
-        const user = localStorage.getItem('user');
-        if (!user) {
-            ArticleService.getInstance().getArticles({ page: page.toString() }).then((response) => {
-                setArticles(response.data.data);
-                setLastPage(response.data.last_page);
-                setLoading(false);
-            });
-            setCurrentPage(page);
-        } else {
-            ArticleService.getInstance().getCustomFeed({ page: page.toString() }).then((response) => {
-                setArticles(response.data.data);
-                setLastPage(response.data.last_page);
-                setLoading(false);
-            });
-            setCurrentPage(page);
-        }
+    const { width } = useViewport();
+
+    const { data, isSuccess } = useQuery({
+        queryKey: ["my-news",searchTerm],
+        queryFn: () => ArticleService.getInstance().getCustomFeed({
+            ...(searchTerm.length > 0 ? { search: searchTerm } : {}),
+        } as ArticleQueryParams),
+    })
+
+    const handleSearch = (term : string) => { 
+        setSearchTerm(term);
     };
-
-    useEffect(() => {
-        fetchArticles(currentPage);
-    }, []);
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <h1>News</h1>
-            </div>
-            <div className={styles.body}>
-                {
-                    loading ? <div className={styles.loading}><CircularProgress /></div> : <ArticleListWithReader articles={articles} currentPage={currentPage} lastPage={lastPage} callback={fetchArticles} />
-                }
+            {width && width > 835 && <Header searchFn={handleSearch} />}
+            <div className={styles.content}>
+                <div className={styles.title}>
+                    <h1>My News</h1>
+                    <div className={styles.searchAndFilter}>
+                        {width && width < 836 && <Searchbar searchFn={handleSearch}/>}
+                    </div>
+                </div>
+                {isSuccess && <div className={styles.news}>
+                    <ArticleList articles={data.data.data} />
+                </div>}
+
             </div>
         </div>
     )
 };
-
 
 export default Home;
