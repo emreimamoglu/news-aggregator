@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Header from '../../components/Header';
 import Searchbar from '../../components/Searchbar';
 import SubscriptionList, { ExtendedCategory } from '../../components/SubscriptionList';
@@ -27,14 +27,14 @@ const Categories = () => {
         queryKey: ["subscribed-categories"],
         queryFn: () => SubscriptionService.getInstance().getCategorySubscriptions(),
     })
-    
+
     const { mutateAsync: subscribe } = useMutation({
         mutationFn: ({ user_id, category_id }: SubscribeCategoryParams) => SubscriptionService.getInstance().subscribeToCategory({
             category_id: category_id,
             user_id: user_id
         }),
         onSuccess: () => {
-            queryClient.invalidateQueries("subscribed-categories");
+            queryClient.invalidateQueries({ queryKey: ["subscribed-categories"] });
         },
     })
 
@@ -44,10 +44,10 @@ const Categories = () => {
             category_id: subscribedCategories.data.find((category: any) => category.category_id === category_id).id as string,
         }),
         onSuccess: () => {
-            queryClient.invalidateQueries("subscribed-categories");
+            queryClient.invalidateQueries({ queryKey: ["subscribed-categories"] });
         },
     })
-    
+
     const subscribeUnsubscribeCategory = async (id: string, subscribed: boolean) => {
 
         try {

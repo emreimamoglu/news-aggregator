@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import Header from '../../components/Header';
 import Searchbar from '../../components/Searchbar';
 import SubscriptionList, { ExtendedSource } from '../../components/SubscriptionList';
@@ -8,16 +8,15 @@ import SubscriptionService from '../../services/Subscription';
 import { Source } from '../../types/Article';
 import { useUserContext } from '../../contexts/UserContext';
 import { SubscribeSourceParams } from '../../types/Subscription';
+import { useState } from 'react';
 
 
 const Sources = () => {
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
     const { width } = useViewport();
     const { user } = useUserContext();
     const queryClient = useQueryClient();
-
-    const handleSearch = () => { };
-
 
     const { data: sources } = useQuery({
         queryKey: ["sources"],
@@ -30,35 +29,35 @@ const Sources = () => {
     })
 
 
-    const { mutateAsync : subscribe } = useMutation({
+    const { mutateAsync: subscribe } = useMutation({
         mutationFn: ({ user_id, source_id }: SubscribeSourceParams) => SubscriptionService.getInstance().subscribeToSource({
             source_id: source_id,
             user_id: user_id
         }),
         onSuccess: () => {
-            queryClient.invalidateQueries("subscribed-sources");
+            queryClient.invalidateQueries({ queryKey: ["subscribed-sources"] });
         },
     })
-    
 
-    const { mutateAsync : unsubscribe } = useMutation({
+
+    const { mutateAsync: unsubscribe } = useMutation({
         mutationFn: ({ source_id }: SubscribeSourceParams) => SubscriptionService.getInstance().unsubscribeFromSource({
-            source_id: subscribedSources.data.find((source : any) => source.source_id === source_id).id as string,
+            source_id: subscribedSources.data.find((source: any) => source.source_id === source_id).id as string,
         }),
         onSuccess: () => {
-            queryClient.invalidateQueries("subscribed-sources");
+            queryClient.invalidateQueries({ queryKey: ["subscribed-sources"] });
         },
     })
 
-    const subscribeUnsubscribeSource = async (id: string, subscribed : boolean) => {
+    const subscribeUnsubscribeSource = async (id: string, subscribed: boolean) => {
 
         try {
-            if(subscribed){
+            if (subscribed) {
                 await unsubscribe({
                     user_id: user?.id as string,
                     source_id: id
                 });
-            }else{
+            } else {
                 await subscribe({
                     user_id: user?.id as string,
                     source_id: id
@@ -69,15 +68,20 @@ const Sources = () => {
         }
     };
 
-    const addSubscriptionData = (data: Source[]) : ExtendedSource[] => {
-            return data.map((source) => {
-                return {
-                    ...source,
-                    isSubscribed: [].some((subscribedSource : any) => subscribedSource.source_id === source.id)
-                }
-            })
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+    };
+
+    const addSubscriptionData = (data: Source[]): ExtendedSource[] => {
+        return data.map((source) => {
+            return {
+                ...source,
+                isSubscribed: [].some((subscribedSource: any) => subscribedSource.source_id === source.id)
+            }
+        })
     }
-    
+
+
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch} />}

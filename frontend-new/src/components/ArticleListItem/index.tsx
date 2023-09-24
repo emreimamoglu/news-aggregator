@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import saveIcon from '../../assets/save.svg';
 import savedIcon from '../../assets/saved.svg';
 import shareIcon from '../../assets/share.svg';

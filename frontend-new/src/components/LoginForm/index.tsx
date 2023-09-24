@@ -6,7 +6,7 @@ import classnames from 'classnames';
 import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
 import AuthService from '../../services/Auth';
 import * as yup from 'yup';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useUserContext } from '../../contexts/UserContext';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';

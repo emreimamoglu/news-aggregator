@@ -4,7 +4,7 @@ import twitterIcon from '../../assets/twitter.svg';
 import facebookIcon from '../../assets/facebook.svg';
 import googleIcon from '../../assets/google.svg';
 import { Field, FieldProps, FormikProvider, useFormik } from 'formik';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import AuthService from '../../services/Auth';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';

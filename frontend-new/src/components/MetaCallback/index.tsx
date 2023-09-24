@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
 import styles from "./styles.module.scss";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import AuthService from "../../services/Auth";
 import { useUserContext } from "../../contexts/UserContext";
 import { Routes } from "../../routes";
@@ -12,7 +12,7 @@ const MetaCallback = () => {
     const { setUser } = useUserContext();
     const navigate = useNavigate();
 
-    const { isLoading, error } = useQuery("metaCallback", () => {
+    const { isLoading, error } = useQuery(["metaCallback"], () => {
         return AuthService.getInstance().metaCallback(`${location.search}`);
     }, {
         onSuccess: (data) => {

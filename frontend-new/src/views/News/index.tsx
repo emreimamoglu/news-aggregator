@@ -9,7 +9,7 @@ import { useOutsideClick } from '../../hooks/useOutsideClick';
 import classnames from 'classnames';
 import Chip from '../../components/Chip';
 import closeIcon from '../../assets/close.svg';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import ArticleService from '../../services/Article';
 import { ArticleQueryParams, Category, Source } from '../../types/Article';
 import SubscriptionService from '../../services/Subscription';

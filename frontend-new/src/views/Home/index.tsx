@@ -3,7 +3,7 @@ import { useViewport } from '../../hooks/useViewport';
 import styles from './styles.module.scss';
 import ArticleList from '../../components/ArticleList';
 import Header from '../../components/Header';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import ArticleService from '../../services/Article';
 import { ArticleQueryParams } from '../../types/Article';
 import { useState } from 'react';

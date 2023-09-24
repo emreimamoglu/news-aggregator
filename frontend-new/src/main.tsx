@@ -6,7 +6,7 @@ import { router } from './routes'
 import "./styles/reset.scss";
 import "./styles/globals.scss";
 import { ViewportProvider } from './contexts/ViewportContext';
-import { QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './config/queryClient';
 import { UserContextProvider } from './contexts/UserContext';
 
