@@ -6,16 +6,23 @@ import Header from '../../components/Header';
 import { useQuery } from 'react-query';
 import ArticleService from '../../services/Article';
 import { ArticleQueryParams } from '../../types/Article';
+import { useState } from 'react';
 
 const Home = () => {
+    const [searchTerm, setSearchTerm] = useState<string>("");
 
     const { width } = useViewport();
-    const handleSearch = () => { };
 
     const { data, isSuccess } = useQuery({
-        queryKey: ["my-news"],
-        queryFn: () => ArticleService.getInstance().getCustomFeed({} as ArticleQueryParams),
+        queryKey: ["my-news",searchTerm],
+        queryFn: () => ArticleService.getInstance().getCustomFeed({
+            ...(searchTerm.length > 0 ? { search: searchTerm } : {}),
+        } as ArticleQueryParams),
     })
+
+    const handleSearch = (term : string) => { 
+        setSearchTerm(term);
+    };
 
     return (
         <div className={styles.container}>
@@ -24,7 +31,7 @@ const Home = () => {
                 <div className={styles.title}>
                     <h1>My News</h1>
                     <div className={styles.searchAndFilter}>
-                        {width && width < 836 && <Searchbar />}
+                        {width && width < 836 && <Searchbar searchFn={handleSearch}/>}
                     </div>
                 </div>
                 {isSuccess && <div className={styles.news}>
