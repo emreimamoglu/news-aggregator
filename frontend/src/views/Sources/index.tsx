@@ -8,19 +8,28 @@ import SubscriptionService from '../../services/Subscription';
 import { Source } from '../../types/Article';
 import { useUserContext } from '../../contexts/UserContext';
 import { SubscribeSourceParams } from '../../types/Subscription';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 
 const Sources = () => {
-    const [searchTerm, setSearchTerm] = useState<string>("");
+    const [searchTerm, setSearchTerm] = useState<string | null>(null);
 
     const { width } = useViewport();
     const { user } = useUserContext();
     const queryClient = useQueryClient();
 
+    const searchSource = useCallback(
+        (sources: Source[]) => {
+            if (!searchTerm) return sources;
+            return sources.filter((source) => source.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        },
+        [searchTerm]
+    );
+
     const { data: sources } = useQuery({
         queryKey: ["sources"],
         queryFn: () => SubscriptionService.getInstance().getSources(),
+        select : searchSource
     })
 
     const { data: subscribedSources } = useQuery({
@@ -76,18 +85,11 @@ const Sources = () => {
         return data.map((source) => {
             return {
                 ...source,
-                isSubscribed: [].some((subscribedSource: any) => subscribedSource.source_id === source.id)
+                isSubscribed: subscribedSources.data.some((subscribedSource: any) => subscribedSource.source_id === source.id)
             }
         })
     }
 
-
-    // const filtered = sources.data.filter((source: Source) => {
-    //     return source.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // })
-
-    // console.log(sources.data);
-    
     return (
         <div className={styles.container}>
             {width && width > 835 && <Header searchFn={handleSearch} />}
@@ -96,7 +98,7 @@ const Sources = () => {
                     <h1>Sources</h1>
                     {width && width < 836 && <Searchbar />}
                 </div>
-                {sources && subscribedSources && <SubscriptionList data={addSubscriptionData((sources.data))} subscribeFn={subscribeUnsubscribeSource} />}
+                {sources && subscribedSources && <SubscriptionList data={addSubscriptionData((sources))} subscribeFn={subscribeUnsubscribeSource} />}
             </div>
         </div>
     )

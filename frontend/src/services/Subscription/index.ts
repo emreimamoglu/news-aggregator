@@ -1,5 +1,7 @@
+import { AxiosResponse } from 'axios';
 import axios from '../../config/axios';
 import { SubscribeCategoryParams, SubscribeSourceParams, UnsubscribeCategoryParams, UnsubscribeSourceParams } from '../../types/Subscription';
+import { Source } from '../../types/Article';
 
 const endpoints = {
     CATEGORIES: '/categories',
@@ -27,8 +29,8 @@ class SubscriptionService {
 
     public getSources() {
         return axios
-            .get<any>(endpoints.SOURCES)
-            .then((res) => res.data)
+            .get<AxiosResponse<Source[]>>(endpoints.SOURCES)
+            .then((res) => res.data.data)
     }
 
     public subscribeToCategory({ category_id, user_id }: SubscribeCategoryParams) {
