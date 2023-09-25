@@ -8,19 +8,28 @@ import styles from './styles.module.scss';
 import { SubscribeCategoryParams } from '../../types/Subscription';
 import { useUserContext } from '../../contexts/UserContext';
 import { Category } from '../../types/Article';
+import { useCallback, useState } from 'react';
 
 
 const Categories = () => {
+    const [searchTerm, setSearchTerm] = useState<string | null>(null);
 
     const { width } = useViewport();
     const { user } = useUserContext();
     const queryClient = useQueryClient();
 
-    const handleSearch = () => { };
+    const searchCategory = useCallback(
+        (categories: Category[]) => {
+            if (!searchTerm) return categories;
+            return categories.filter((category) => category.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        },
+        [searchTerm]
+    );
 
     const { data: categories } = useQuery({
         queryKey: ["categories"],
         queryFn: () => SubscriptionService.getInstance().getCategories(),
+        select: searchCategory,
     })
 
     const { data: subscribedCategories } = useQuery({
@@ -67,6 +76,10 @@ const Categories = () => {
         }
     };
 
+    const handleSearch = (term: string) => {
+        setSearchTerm(term);
+    };
+
     const addSubscriptionData = (data: Category[]): ExtendedCategory[] => {
         return data.map((category) => {
             return {
@@ -84,7 +97,7 @@ const Categories = () => {
                     <h1>Categories</h1>
                     {width && width < 836 && <Searchbar />}
                 </div>
-                {categories && subscribedCategories && <SubscriptionList data={addSubscriptionData(categories.data)} subscribeFn={subscribeUnsubscribeCategory} />}
+                {categories && subscribedCategories && <SubscriptionList data={addSubscriptionData(categories)} subscribeFn={subscribeUnsubscribeCategory} />}
             </div>
         </div>
     )
