@@ -13,6 +13,7 @@ import AppearanceSettings from "../views/AppearanceSettings";
 import GoogleCallback from "../components/GoogleCallback";
 import TwitterCallback from "../components/TwitterCallback";
 import MetaCallback from "../components/MetaCallback";
+import NotFound from "../views/NotFound";
 
 export enum Routes {
     HOME = "/",
@@ -97,4 +98,8 @@ const publicRoutes = [
 export const router = createBrowserRouter([
     ...publicRoutes,
     ...routesForAuthenticatedOnly,
+    {
+        path: "*",
+        element: <NotFound />,
+    }
 ]);
