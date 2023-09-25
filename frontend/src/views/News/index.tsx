@@ -102,7 +102,7 @@ const News = () => {
                         <div className={styles.chips}>
                             <Chip label='All' selected={selectedCategoryIds.length === 0} onClick={resetCategories} />
                             {
-                                categories && categories.data.map((category: Category) => {
+                                categories && categories.map((category: Category) => {
                                     return <Chip label={category.name} selected={selectedCategoryIds.includes(category.id)} key={category.id} onClick={() => selectUnselectCategory(category.id)} />
                                 })
                             }
@@ -113,7 +113,7 @@ const News = () => {
                         <div className={styles.chips}>
                             <Chip label='All' selected={selectedSourceIds.length === 0} onClick={resetSources} />
                             {
-                                sources && sources.data.map((source: Source) => {
+                                sources && sources.map((source: Source) => {
                                     return <Chip label={source.name} selected={selectedSourceIds.includes(source.id)} key={source.id} onClick={() => selectUnselectSource(source.id)} />
                                 })
                             }
