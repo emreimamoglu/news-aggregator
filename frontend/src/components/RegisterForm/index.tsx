@@ -22,7 +22,7 @@ const RegisterForm = () => {
 
     const handleSubmit = async (values: any) => {
         const newValues = {
-            name: `${values.name} ${values.surname}`,
+            name: values.name,
             email: values.email,
             password: values.password,
             password_confirmation: values.password_confirmation
@@ -40,7 +40,6 @@ const RegisterForm = () => {
         password: yup.string().min(8, "The password field must be at least 8 characters.").required('Password*'),
         password_confirmation: yup.string().oneOf([yup.ref('password'), undefined], 'Passwords must match'),
         name: yup.string().required('Name*'),
-        surname: yup.string().required('Surname*'),
     });
 
     const formik = useFormik({
@@ -48,11 +47,9 @@ const RegisterForm = () => {
             email: undefined,
             password: undefined,
             name: undefined,
-            surname: undefined,
             month: undefined,
             day: undefined,
             year: undefined,
-            location: undefined,
         },
         onSubmit: handleSubmit,
         validationSchema: validationSchema,
@@ -117,21 +114,11 @@ const RegisterForm = () => {
                         <div className={styles.nameField}>
                             <Field name="name">
                                 {({ field, meta }: FieldProps) => (
-                                    <label id='first_name'>
+                                    <label id='name'>
                                         <input type="text" placeholder=' ' {...field} className={classnames({
                                             [styles.errorInput]: meta.touched && meta.error,
                                         })} />
-                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>First name</span>}
-                                    </label>
-                                )}
-                            </Field>
-                            <Field name="surname">
-                                {({ field, meta }: FieldProps) => (
-                                    <label id='surname'>
-                                        <input type="text" placeholder=' ' {...field} className={classnames({
-                                            [styles.errorInput]: meta.touched && meta.error,
-                                        })} />
-                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Last name</span>}
+                                        {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your Name</span>}
                                     </label>
                                 )}
                             </Field>
