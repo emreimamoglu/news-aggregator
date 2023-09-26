@@ -10,13 +10,9 @@ const AccountSettings = () => {
                 <div className={styles.form}>
                     <form>
                         <div className={styles.nameField}>
-                            <label id='first_name'>
+                            <label id='name'>
                                 <input type="text" placeholder=' ' />
-                                <span>First Name</span>
-                            </label>
-                            <label id='last_name'>
-                                <input type="text" placeholder=' ' />
-                                <span>Last Name</span>
+                                <span>Name</span>
                             </label>
                         </div>
                         <div className={styles.dateFields}>
@@ -33,11 +29,6 @@ const AccountSettings = () => {
                                 <span>Year</span>
                             </label>
                         </div>
-                        <select id='location_select'>
-                            <option value="1">America</option>
-                            <option value="2">Europe</option>
-                            <option value="3">Turkey</option>
-                        </select>
                         <div className={styles.emailPasswordField}>
                             <label id='email_label'>
                                 <input type="text" placeholder=' ' />
