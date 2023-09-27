@@ -11,6 +11,8 @@ const endpoints = {
     TWITTER_CALLBACK: '/auth/twitter/callback',
     META_LOGIN: '/auth/meta',
     META_CALLBACK: '/auth/meta/callback',
+    ME : '/me',
+    UPDATE_USER: '/update-user', 
 };
 
 class AuthService {
@@ -76,6 +78,18 @@ class AuthService {
         return axios
             .get<any>(`${endpoints.META_CALLBACK}${query}`)
             .then((res) => res.data)
+    };
+
+    public me() {
+        return axios
+            .get<any>(endpoints.ME)
+            .then((res) => res.data.data)
+    }
+
+    public updateMe(data: RegisterFormData) {
+        return axios
+            .put<any>(endpoints.UPDATE_USER, data)
+            .then((res) => res.data.data)
     };
 }
 
