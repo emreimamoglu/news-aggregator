@@ -9,8 +9,8 @@ use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use Password;
-use Request;
 
 class AuthController extends Controller
 {
@@ -27,10 +27,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return $this->success([
-            'user' => $user,
-            'token' => $user->createToken('API_TOKEN')->plainTextToken,
-        ], 'User created successfully'
+        return $this->success(
+            [
+                'user' => $user,
+                'token' => $user->createToken('API_TOKEN')->plainTextToken,
+            ],
+            'User created successfully'
         );
     }
 
@@ -38,7 +40,7 @@ class AuthController extends Controller
     {
         $request->validated($request->all());
 
-        if(!Auth::attempt($request->only('email', 'password'))) {
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return $this->error(null, 'Invalid credentials', 401);
         }
 
@@ -50,7 +52,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function  logout()
+    public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
         return $this->success(null, 'Logged out successfully');
@@ -95,6 +97,38 @@ class AuthController extends Controller
                 'password' => Hash::make($request->new_password),
             ]);
             return $this->success(null, 'Password changed successfully');
+        } else {
+            return $this->error(null, 'Current password is incorrect', 422);
+        }
+    }
+
+    public function currentUser()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return $this->error(null, 'User not found', 404);
+        }
+
+        return $this->success($user, null, 200);
+    }
+
+    public function updateUser(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:8|confirmed',
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $user = Auth::user();
+        
+        if (Hash::check($request->password, $user->password)) {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+            return $this->success(null, 'Fields updated successfully');
         } else {
             return $this->error(null, 'Current password is incorrect', 422);
         }

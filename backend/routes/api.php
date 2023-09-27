@@ -31,9 +31,11 @@ use Illuminate\Support\Facades\Route;
 # Public Routes
 
 Route::post('/register', [AuthController::class, 'register']);
+Route::put('/update-user', [AuthController::class, 'updateUser'])->middleware('auth:sanctum');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->name('password.email');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset');
+Route::get('/me', [AuthController::class, 'currentUser'])->middleware('auth:sanctum');
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter']);
@@ -59,7 +61,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('articles', ArticleController::class)->except(['index', 'show']);
     Route::get('user-saved-articles', [SavedArticleController::class, 'userSavedArticles']);
     Route::get('custom-feed', [ArticleController::class, 'customFeed']);
-    
+
 });
 
 Route::apiResource('articles', ArticleController::class)->except(['destroy', 'update', 'store']);
