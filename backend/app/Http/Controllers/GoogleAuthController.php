@@ -13,6 +13,7 @@ class GoogleAuthController extends Controller
 
     public function redirectToGoogle()
     {
+        \Log::info('User redirecting to Google for authentication');
         return $this->success([
             'url' => Socialite::driver('google')->stateless()->redirect()->getTargetUrl(),
         ], null, 200);
@@ -23,6 +24,7 @@ class GoogleAuthController extends Controller
         try {
             $socialiteUser = Socialite::driver('google')->stateless()->user();
         } catch (ClientException $e) {
+            \Log::error('Error authenticating with Google: ' . $e->getMessage());
             return $this->error(null, 'Invalid credentials provided', 422);
         }
 
@@ -40,6 +42,7 @@ class GoogleAuthController extends Controller
                 ]
             );
 
+        \Log::info('User authenticated with Google: ' . $user->email);
         return $this->success([
             'token' => $user->createToken('API_TOKEN')->plainTextToken,
             'user' => $user,
