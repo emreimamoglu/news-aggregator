@@ -18,6 +18,7 @@ class AuthController extends Controller
 
     public function register(StoreUserRequest $request)
     {
+        \Log::info('User registering with email: ' . $request->email . ' and name: ' . $request->name);
         $request->validated($request->all());
 
         $user = User::create([
@@ -38,14 +39,17 @@ class AuthController extends Controller
 
     public function login(LoginUserRequest $request)
     {
+        \Log::info('User logging in with email: ' . $request->email);
         $request->validated($request->all());
 
         if (!Auth::attempt($request->only('email', 'password'))) {
+            \Log::error('Invalid credentials for email: ' . $request->email);
             return $this->error(null, 'Invalid credentials', 401);
         }
 
         $user = User::where('email', $request->email)->first();
 
+        \Log::info('User logged in with email: ' . $request->email);
         return $this->success([
             'user' => auth()->user(),
             'token' => $user->createToken('API_TOKEN')->plainTextToken,
@@ -55,6 +59,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::user()->currentAccessToken()->delete();
+        \Log::info('User logged out with email: ' . Auth::user()->email);
         return $this->success(null, 'Logged out successfully');
     }
 
@@ -66,9 +71,13 @@ class AuthController extends Controller
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
-            ? $this->success(null, __($status))
-            : $this->error(null, __($status), 500);
+        if ($status === Password::RESET_LINK_SENT) {
+            \Log::info('User successfully requested password reset with email: ' . $request->email);
+            $this->success(null, __($status));
+        } else {
+            \Log::error('User failed to request password reset with email: ' . $request->email);
+            $this->error(null, __($status), 500);
+        }
     }
 
     public function resetPassword(ForgotPasswordRequest $request)
@@ -80,6 +89,7 @@ class AuthController extends Controller
     public function deleteAccount(Request $request)
     {
         Auth::user()->delete();
+        \Log::info('User deleted account with email: ' . Auth::user()->email);
         return $this->success(null, 'Account deleted successfully');
     }
 
@@ -96,8 +106,10 @@ class AuthController extends Controller
             $user->update([
                 'password' => Hash::make($request->new_password),
             ]);
+            \Log::info('User changed password with email: ' . Auth::user()->email);
             return $this->success(null, 'Password changed successfully');
         } else {
+            \Log::error('User failed to change password with email: ' . Auth::user()->email);
             return $this->error(null, 'Current password is incorrect', 422);
         }
     }
@@ -107,9 +119,10 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if (!$user) {
+            \Log::error('User not found');
             return $this->error(null, 'User not found', 404);
         }
-
+        \Log::info('User found with email: ' . $user->email);
         return $this->success($user, null, 200);
     }
 
@@ -122,14 +135,16 @@ class AuthController extends Controller
         ]);
 
         $user = Auth::user();
-        
+
         if (Hash::check($request->password, $user->password)) {
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
             ]);
+            \Log::info('User updated fields with email: ' . Auth::user()->email);
             return $this->success(null, 'Fields updated successfully');
         } else {
+            \Log::error('User failed to update fields with email: ' . Auth::user()->email);
             return $this->error(null, 'Current password is incorrect', 422);
         }
     }
