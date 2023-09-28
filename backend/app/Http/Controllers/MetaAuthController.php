@@ -14,7 +14,8 @@ class MetaAuthController extends Controller
     {
         $clientId = getenv('META_CLIENT_ID');
         $url = "https://www.facebook.com/v18.0/dialog/oauth?client_id={$clientId}&redirect_uri=http://localhost:5173/auth/meta&state=state&scope=email";
-       
+        
+        \Log::info('User redirecting to Meta for authentication');
         return $this->success([
             'url' => $url
         ], null, 200);
@@ -39,7 +40,7 @@ class MetaAuthController extends Controller
                 'access_token' => $token,
             ]
         ]);
-
+        \Log::info('User authenticated with Meta: ' . json_decode($data->getBody()->getContents())->email);
         return $this->success([
             'token' => $token,
             'user' => json_decode($data->getBody()->getContents()),
