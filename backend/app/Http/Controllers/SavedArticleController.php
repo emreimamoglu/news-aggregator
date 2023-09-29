@@ -24,6 +24,8 @@ class SavedArticleController extends Controller
      */
     public function store(StoreSavedArticleRequest $request)
     {
+        \Log::info('User saving article: ' . $request->article_id . ' for user: ' . $request->user_id);
+
         $request->validated($request->all());
         $savedArticle = SavedArticle::create($request->all());
         return $this->success($savedArticle, 'Article saved successfully');
@@ -42,6 +44,8 @@ class SavedArticleController extends Controller
      */
     public function destroy(SavedArticle $savedArticle)
     {
+        \Log::info('User deleting saved article: ' . $savedArticle->id . ' for user: ' . $savedArticle->user_id);
+        
         $savedArticle->delete();
         return $this->success(null, 'Article deleted successfully');
     }
