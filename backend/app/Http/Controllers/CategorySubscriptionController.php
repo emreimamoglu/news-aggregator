@@ -10,7 +10,7 @@ use App\Traits\HttpResponses;
 class CategorySubscriptionController extends Controller
 {
     use HttpResponses;
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -24,6 +24,7 @@ class CategorySubscriptionController extends Controller
      */
     public function store(StoreCategorySubscriptionRequest $request)
     {
+        \Log::info('User subscribing to category: ' . $request->category_id . ' for user: ' . $request->user_id);
         $request->validated($request->all());
         $categorySubscription = CategorySubscription::create($request->all());
         return $this->success($categorySubscription, 'Successfully subscribed to category');
@@ -50,6 +51,7 @@ class CategorySubscriptionController extends Controller
      */
     public function destroy(CategorySubscription $categorySubscription)
     {
+        \Log::info('User unsubscribing from category: ' . $categorySubscription->id . ' for user: ' . $categorySubscription->user_id);
         $categorySubscription->delete();
         return $this->success(null, 'Successfully unsubscribed from category');
     }
