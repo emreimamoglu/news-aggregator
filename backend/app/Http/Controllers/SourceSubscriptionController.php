@@ -24,6 +24,8 @@ class SourceSubscriptionController extends Controller
      */
     public function store(StoreSourceSubscriptionRequest $request)
     {
+        \Log::info('User subscribing to source: ' . $request->source_id . ' for user: ' . $request->user_id);
+
         $request->validated($request->all());
         $sourceSubscription = SourceSubscription::create($request->all());
         return $this->success($sourceSubscription, 'Successfully subscribed to source');
@@ -50,6 +52,7 @@ class SourceSubscriptionController extends Controller
      */
     public function destroy(SourceSubscription $sourceSubscription)
     {
+        \Log::info('User unsubscribing from source: ' . $sourceSubscription->id . ' for user: ' . $sourceSubscription->user_id);
         $sourceSubscription->delete();
         return $this->success(null, 'Successfully unsubscribed from source');
     }
