@@ -10,6 +10,7 @@ use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Password;
 
 class AuthController extends Controller
@@ -132,17 +133,32 @@ class AuthController extends Controller
             'password' => 'required|min:8|confirmed',
             'name' => 'required',
             'email' => 'required|email',
+            'image' => 'image|mimes:jpeg,png,jpg|max:2048',
+
         ]);
 
         $user = Auth::user();
 
         if (Hash::check($request->password, $user->password)) {
+
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->extension();
+
+            Storage::disk('gcs')->put($imageName, file_get_contents($image));
+
+            $publicUrl = Storage::disk('gcs')->url($imageName);
+
+
+
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'avatar' => $publicUrl,
             ]);
+
             \Log::info('User updated fields with email: ' . Auth::user()->email);
-            return $this->success(null, 'Fields updated successfully');
+
+            return $this->success($user, 'Fields updated successfully');
         } else {
             \Log::error('User failed to update fields with email: ' . Auth::user()->email);
             return $this->error(null, 'Current password is incorrect', 422);
