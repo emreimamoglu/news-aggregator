@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import AuthService from '../../services/Auth';
 import { RegisterFormData } from '../../types/Auth';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import ImageUploader from '../../components/ImageUploader';
 
 const AccountSettings = () => {
 
@@ -27,6 +28,10 @@ const AccountSettings = () => {
     const handleSubmit = async(values: RegisterFormData) => {
         await mutateAsync(values)
     }
+
+    const handleFile = (file: File) => {
+        console.log(file);
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -105,7 +110,7 @@ const AccountSettings = () => {
                     <div className={styles.profile}>
                         EI
                     </div>
-                    <button>Edit Image</button>
+                    <ImageUploader handleFile={handleFile}/>
                 </div>
             </div>
         </div>
