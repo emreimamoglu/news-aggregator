@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\MetaAuthController;
 use App\Http\Controllers\SavedArticleController;
@@ -11,8 +12,6 @@ use App\Http\Controllers\SourceController;
 use App\Http\Controllers\CategorySubscriptionController;
 use App\Http\Controllers\SourceSubscriptionController;
 use App\Http\Controllers\TwitterAuthController;
-use App\NewsUtils\NewsFetcher;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,7 +48,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('delete-account', [AuthController::class, 'deleteAccount']);
     Route::post('change-password', [AuthController::class, 'changePassword']);
-
+    Route::post('upload', [FileController::class, 'upload']);
+    
     # API Resources
 
     Route::apiResource('categories', CategoryController::class);
