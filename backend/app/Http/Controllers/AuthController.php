@@ -140,20 +140,9 @@ class AuthController extends Controller
         $user = Auth::user();
 
         if (Hash::check($request->password, $user->password)) {
-
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->extension();
-
-            Storage::disk('gcs')->put($imageName, file_get_contents($image));
-
-            $publicUrl = Storage::disk('gcs')->url($imageName);
-
-
-
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'avatar' => $publicUrl,
             ]);
 
             \Log::info('User updated fields with email: ' . Auth::user()->email);
