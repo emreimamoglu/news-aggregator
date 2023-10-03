@@ -30,6 +30,7 @@ export type RegisterFormData = {
     email : string;
     password : string;
     password_confirmation : string;
+    avatarId : string | null;
 };
 
 export type ChangePasswordFormData = {
