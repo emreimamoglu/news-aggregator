@@ -6,16 +6,27 @@ import AuthService from '../../services/Auth';
 import { RegisterFormData } from '../../types/Auth';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import ImageUploader from '../../components/ImageUploader';
+import FileService from '../../services/File';
+import { useEffect, useState } from 'react';
 
 const AccountSettings = () => {
 
-    const {data : user,isLoading : isUserLoading} = useQuery({
+    const [image, setImage] = useState<{
+        id: string,
+        url: string
+    } | null>(null);
+
+    const { data: user, isLoading: isUserLoading } = useQuery({
         queryKey: ['me'],
-        queryFn: () => AuthService.getInstance().me()
+        queryFn: () => AuthService.getInstance().me(),
     })
 
-    const {mutateAsync} = useMutation({
-        mutationFn: (values : RegisterFormData) => AuthService.getInstance().updateMe(values)
+    const { mutateAsync } = useMutation({
+        mutationFn: (values: RegisterFormData) => AuthService.getInstance().updateMe(values)
+    })
+
+    const { mutateAsync: upload } = useMutation({
+        mutationFn: (data: FormData) => FileService.getInstance().upload(data)
     })
 
     const validationSchema = yup.object().shape({
@@ -25,25 +36,43 @@ const AccountSettings = () => {
         name: yup.string().required('Name*'),
     });
 
-    const handleSubmit = async(values: RegisterFormData) => {
-        await mutateAsync(values)
+    const handleSubmit = async (values: RegisterFormData) => {
+        await mutateAsync({ ...values, avatarId: image?.id?.toString() || null })
     }
 
-    const handleFile = (file: File) => {
-        console.log(file);
+    const handleFile = async (file: File) => {
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const res = await upload(formData);
+            setImage(res.data.file);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getFirstLetter = (name: string) => {
+        return name.charAt(0).toUpperCase();
     };
 
     const formik = useFormik({
         initialValues: {
-            name: user?.name || '',
-            email: user?.email || '',
+            name: user?.user?.name || '',
+            email: user?.user?.email || '',
             password: '',
             password_confirmation: '',
+            avatarId: user?.avatar?.id || null,
         },
         validationSchema: validationSchema,
         onSubmit: handleSubmit,
-        enableReinitialize : true,
+        enableReinitialize: true,
     })
+
+    useEffect(() => {
+        if (!user) return;
+        setImage(user?.avatar || null);
+    }, [user])
     return (
         <div className={styles.container}>
             <div className={styles.title}>
@@ -108,9 +137,11 @@ const AccountSettings = () => {
                 </div>
                 <div className={styles.profilePicture}>
                     <div className={styles.profile}>
-                        EI
+                        {
+                            image?.url ? <img src={image.url} alt="profile" /> : <span>{getFirstLetter(user?.name || '')}</span>
+                        }
                     </div>
-                    <ImageUploader handleFile={handleFile}/>
+                    <ImageUploader handleFile={handleFile} />
                 </div>
             </div>
         </div>
