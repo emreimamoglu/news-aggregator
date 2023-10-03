@@ -8,6 +8,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Traits\HttpResponses;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -117,14 +118,25 @@ class AuthController extends Controller
 
     public function currentUser()
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
+            $media = DB::table('files')
+                ->where('id', intval($user->avatar_id))
+                ->first();
 
-        if (!$user) {
-            \Log::error('User not found');
-            return $this->error(null, 'User not found', 404);
+            if (!$user) {
+                \Log::error('User not found');
+                return $this->error(null, 'User not found', 404);
+            }
+            \Log::info('User found : ' . $user);
+            return $this->success([
+                'user' => $user,
+                'avatar' => $media,
+            ], null, 200);
+        } catch (\Exception $e) {
+            \Log::error('User not found' . $e->getMessage());
+            return $this->error(null, 'Error while finding user', 500);
         }
-        \Log::info('User found with email: ' . $user->email);
-        return $this->success($user, null, 200);
     }
 
     public function updateUser(Request $request)
@@ -134,7 +146,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'image' => 'image|mimes:jpeg,png,jpg|max:2048',
-
+            'avatarId' => 'required|string',
         ]);
 
         $user = Auth::user();
@@ -143,6 +155,7 @@ class AuthController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'avatar_id' => $request->avatarId,
             ]);
 
             \Log::info('User updated fields with email: ' . Auth::user()->email);
