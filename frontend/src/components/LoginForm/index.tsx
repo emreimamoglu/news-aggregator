@@ -85,7 +85,7 @@ const LoginForm = () => {
                         <Field name="email">
                             {({ field, meta }: FieldProps) => (
                                 <label id='email_label'>
-                                    <input type="text" placeholder=' ' {...field} className={classnames({
+                                    <input type="text" autoComplete='username' placeholder=' ' {...field} className={classnames({
                                         [styles.errorInput]: meta.touched && meta.error,
                                     })} />
                                     {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your email address</span>}
@@ -95,7 +95,7 @@ const LoginForm = () => {
                         <Field name="password">
                             {({ field, meta }: FieldProps) => (
                                 <label id='password_label'>
-                                    <input type="password" placeholder=' ' {...field} className={classnames({
+                                    <input type="password" autoComplete='current-password' placeholder=' ' {...field} className={classnames({
                                         [styles.errorInput]: meta.touched && meta.error,
                                     })} />
                                     {(meta.touched && meta.error) ? <span className={styles.errorSpan}>{meta.touched && meta.error}</span> : <span>Enter your password</span>}
