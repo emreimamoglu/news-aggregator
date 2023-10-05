@@ -7,19 +7,27 @@ import { useQuery } from '@tanstack/react-query';
 import ArticleService from '../../services/Article';
 import { Article } from '../../types/Article';
 import { ExtendedArticle } from '../../components/ArticleListItem';
+import { useState } from 'react';
 
 const ReadLater = () => {
+    const [searchTerm, setSearchTerm] = useState<string | null>(null);
 
     const { width } = useViewport();
-
-    const handleSearch = () => { };
-
     const { data } = useQuery({
         queryKey: ["saved-articles"],
         queryFn: () => ArticleService.getInstance().getSavedArticlesList(),
     })
 
-    const addSavedField = (articles: Article[]) : ExtendedArticle[] => {
+    const handleSearch = (search: string) => {
+        setSearchTerm(search);
+    };
+
+    const applySearch = (articles: Article[]): Article[] => {
+        if (!searchTerm) return articles;
+        return articles.filter((article) => article.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    };
+
+    const addSavedField = (articles: Article[]): ExtendedArticle[] => {
         return articles.map(article => {
             return {
                 ...article,
@@ -39,7 +47,7 @@ const ReadLater = () => {
                     </div>
                 </div>
                 {data && <div className={styles.news}>
-                    <ArticleList articles={addSavedField(data.data)} />
+                    <ArticleList articles={addSavedField(applySearch(data.data))} />
                 </div>}
 
             </div>
