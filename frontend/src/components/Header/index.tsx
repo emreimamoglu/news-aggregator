@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { useViewport } from '../../hooks/useViewport';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';
+import { useUserContext } from '../../contexts/UserContext';
 
 interface HeaderProps {
     searchFn?: (searchTerm: string) => void;
@@ -13,6 +14,7 @@ interface HeaderProps {
 const Header = ({ searchFn }: HeaderProps) => {
     const { width } = useViewport();
     const navigate = useNavigate();
+    const { user } = useUserContext();
 
     const handleLogoClick = () => {
         navigate(Routes.SETTINGS);
@@ -28,7 +30,7 @@ const Header = ({ searchFn }: HeaderProps) => {
                 </div>}
                 {width && width > 835 &&
                     <div onClick={handleLogoClick}>
-                        {(false ? (<></>) : (
+                        {(user?.avatar?.url ? (<img className={styles.image} src={user?.avatar?.url}/>) : (
                             <div className={styles.imgPlaceholder}>
                                 EI
                             </div>

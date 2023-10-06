@@ -30,10 +30,19 @@
             align-items: center;
             justify-content: center;
             color: var(--color-primary-white, #FFFFFF);
+            cursor: pointer;
+        }
+
+        .image {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
         }
     }
 }
 
-.noSearch{
+.noSearch {
     justify-content: flex-end !important;
 }
