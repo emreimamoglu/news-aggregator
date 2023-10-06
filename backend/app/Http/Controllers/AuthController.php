@@ -130,7 +130,9 @@ class AuthController extends Controller
             }
             \Log::info('User found : ' . $user);
             return $this->success([
-                'user' => $user,
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
                 'avatar' => $media,
             ], null, 200);
         } catch (\Exception $e) {
