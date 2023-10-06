@@ -8,6 +8,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import ImageUploader from '../../components/ImageUploader';
 import FileService from '../../services/File';
 import { useEffect, useState } from 'react';
+import { useUserContext } from '../../contexts/UserContext';
 
 const AccountSettings = () => {
 
@@ -15,6 +16,8 @@ const AccountSettings = () => {
         id: string,
         url: string
     } | null>(null);
+
+    const { setUser } = useUserContext();
 
     const { data: user, isLoading: isUserLoading } = useQuery({
         queryKey: ['me'],
@@ -58,8 +61,8 @@ const AccountSettings = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: user?.user?.name || '',
-            email: user?.user?.email || '',
+            name: user?.name || '',
+            email: user?.email || '',
             password: '',
             password_confirmation: '',
             avatarId: user?.avatar?.id || null,
@@ -72,6 +75,7 @@ const AccountSettings = () => {
     useEffect(() => {
         if (!user) return;
         setImage(user?.avatar || null);
+        setUser(user);
     }, [user])
     return (
         <div className={styles.container}>

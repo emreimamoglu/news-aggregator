@@ -14,7 +14,10 @@ export type User = {
     id : string,
     google_id : string | null;
     name : string;
-    avatar : string | null;
+    avatar : {
+        id : string;
+        url : string;
+    } | null;
     email : string;
     email_verified_at : string | null;
     created_at : string;
