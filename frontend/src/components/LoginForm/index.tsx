@@ -18,8 +18,8 @@ const LoginForm = () => {
     const { mutate, isError, isLoading } = useMutation({
         mutationFn: AuthService.getInstance().login,
         onSuccess: (data) => {
-            localStorage.setItem('token', data.token);
-            setUser(data.user);
+            localStorage.setItem('token', data.data.token);
+            setUser(data.data.user);
             navigate(Routes.HOME);
         },
     });
