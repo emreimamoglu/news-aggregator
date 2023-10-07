@@ -50,10 +50,18 @@ class AuthController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        $media = DB::table('files')
+                ->where('id', intval($user->avatar_id))
+                ->first();
 
         \Log::info('User logged in with email: ' . $request->email);
         return $this->success([
-            'user' => auth()->user(),
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'avatar' => $media,
+            ],
             'token' => $user->createToken('API_TOKEN')->plainTextToken,
         ]);
     }
