@@ -30,7 +30,6 @@ axiosInstance.interceptors.response.use(
     async (error) => {
         if (error.response.status === 401) {
             clearLocalStorage();
-            window.location.href = '/';
         }
         return Promise.reject(error);
     })
