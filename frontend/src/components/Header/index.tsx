@@ -5,6 +5,7 @@ import { useViewport } from '../../hooks/useViewport';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';
 import { useUserContext } from '../../contexts/UserContext';
+import { getFirstLetter } from '../../utils';
 
 interface HeaderProps {
     searchFn?: (searchTerm: string) => void;
@@ -32,7 +33,7 @@ const Header = ({ searchFn }: HeaderProps) => {
                     <div onClick={handleLogoClick}>
                         {(user?.avatar?.url ? (<img className={styles.image} src={user?.avatar?.url}/>) : (
                             <div className={styles.imgPlaceholder}>
-                                EI
+                                {user?.name && getFirstLetter(user?.name)}
                             </div>
                         ))}
                     </div>

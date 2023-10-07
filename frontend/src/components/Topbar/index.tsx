@@ -4,6 +4,7 @@ import BrandIcon from '../BrandIcon';
 import styles from './styles.module.scss';
 import { Routes } from '../../routes';
 import { useUserContext } from '../../contexts/UserContext';
+import { getFirstLetter } from '../../utils';
 
 export interface TopbarProps {
     toggleSidebar: () => void
@@ -31,7 +32,7 @@ const Topbar = ({ toggleSidebar }: TopbarProps) => {
                 <button className={styles.profile} onClick={navigateToSettings}>
                     {(user?.avatar?.url ? (<img className={styles.image} src={user?.avatar?.url} />) : (
                         <div className={styles.imgPlaceholder}>
-                            EI
+                            {user?.name && getFirstLetter(user?.name)}
                         </div>
                     ))}
                 </button>
