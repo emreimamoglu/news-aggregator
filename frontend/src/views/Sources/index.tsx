@@ -9,6 +9,7 @@ import { Source } from '../../types/Article';
 import { useUserContext } from '../../contexts/UserContext';
 import { SubscribeSourceParams } from '../../types/Subscription';
 import { useCallback, useState } from 'react';
+import withAuth from '../../components/withAuth';
 
 
 const Sources = () => {
@@ -104,4 +105,4 @@ const Sources = () => {
     )
 };
 
-export default Sources;
+export default withAuth(Sources);

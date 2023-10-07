@@ -8,6 +8,7 @@ import ArticleService from '../../services/Article';
 import { Article } from '../../types/Article';
 import { ExtendedArticle } from '../../components/ArticleListItem';
 import { useState } from 'react';
+import withAuth from '../../components/withAuth';
 
 const ReadLater = () => {
     const [searchTerm, setSearchTerm] = useState<string | null>(null);
@@ -55,4 +56,4 @@ const ReadLater = () => {
     )
 };
 
-export default ReadLater;
+export default withAuth(ReadLater);

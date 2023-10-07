@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import ArticleService from '../../services/Article';
 import { ArticleQueryParams, Category, Source } from '../../types/Article';
 import SubscriptionService from '../../services/Subscription';
+import withAuth from '../../components/withAuth';
 
 const News = () => {
     const [filterOpen, setFilterOpen] = useState(false);
@@ -127,4 +128,4 @@ const News = () => {
     )
 };
 
-export default News;
+export default withAuth(News);

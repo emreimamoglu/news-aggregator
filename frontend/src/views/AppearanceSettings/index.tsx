@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import minusIcon from '../../assets/minus.svg';
 import plusIcon from '../../assets/plus.svg';
 import styles from './styles.module.scss';
+import withAuth from '../../components/withAuth';
 
 const AppearanceSettings = () => {
     return (
@@ -44,4 +45,4 @@ const AppearanceSettings = () => {
     );
 };
 
-export default AppearanceSettings;
+export default withAuth(AppearanceSettings);

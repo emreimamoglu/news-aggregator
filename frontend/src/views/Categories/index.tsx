@@ -9,6 +9,7 @@ import { SubscribeCategoryParams } from '../../types/Subscription';
 import { useUserContext } from '../../contexts/UserContext';
 import { Category } from '../../types/Article';
 import { useCallback, useState } from 'react';
+import withAuth from '../../components/withAuth';
 
 
 const Categories = () => {
@@ -103,4 +104,4 @@ const Categories = () => {
     )
 };
 
-export default Categories;
+export default withAuth(Categories);

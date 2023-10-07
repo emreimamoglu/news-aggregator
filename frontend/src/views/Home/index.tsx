@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import ArticleService from '../../services/Article';
 import { ArticleQueryParams } from '../../types/Article';
 import { useState } from 'react';
+import withAuth from '../../components/withAuth';
 
 const Home = () => {
     const [searchTerm, setSearchTerm] = useState<string>("");
@@ -43,4 +44,4 @@ const Home = () => {
     )
 };
 
-export default Home;
+export default withAuth(Home);

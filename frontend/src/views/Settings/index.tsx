@@ -4,6 +4,7 @@ import tileIcon from '../../assets/tile.svg';
 
 import styles from './styles.module.scss';
 import { Routes } from '../../routes';
+import withAuth from '../../components/withAuth';
 
 const Settings = () => {
 
@@ -34,4 +35,4 @@ const Settings = () => {
     )
 };
 
-export default Settings;
+export default withAuth(Settings);
