@@ -9,6 +9,8 @@ import readLaterIcon from '../../assets/readlater.svg';
 import BackIcon from '../../assets/back.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../routes';
+import logoutIcon from '../../assets/logout.svg';
+import AuthService from '../../services/Auth';
 
 export interface SidebarProps {
     open: boolean;
@@ -24,6 +26,16 @@ const SidebarMenu = () => {
         const targetRoute = e.currentTarget.getAttribute('data-route');
         if (targetRoute) {
             navigate(targetRoute as Routes);
+        }
+    }
+
+    const handleLogout = async() => {
+        try {
+            await AuthService.getInstance().logout();
+            localStorage.clear();
+            navigate(Routes.LOGIN);
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -72,6 +84,12 @@ const SidebarMenu = () => {
                         <p>Categories</p>
                         <p>201</p>
                     </div>
+                </div>
+            </div>
+            <div className={classnames(styles.menuOption,styles.logout)} onClick={handleLogout}>
+                <div className={styles.menuOptionItem}>
+                    <p>Logout</p>
+                    <img src={logoutIcon} alt="logout" />
                 </div>
             </div>
         </div>
