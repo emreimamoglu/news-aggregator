@@ -13,6 +13,7 @@ const endpoints = {
     META_CALLBACK: '/auth/meta/callback',
     ME : '/me',
     UPDATE_USER: '/update-user', 
+    LOGOUT: '/logout',
 };
 
 class AuthService {
@@ -29,6 +30,12 @@ class AuthService {
     public login(data: LoginFormData) {
         return axios
             .post<any>(endpoints.LOGIN, data)
+            .then((res) => res.data)
+    }
+
+    public logout() {
+        return axios
+            .post<any>(endpoints.LOGOUT)
             .then((res) => res.data)
     }
 
