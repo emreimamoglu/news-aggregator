@@ -9,6 +9,8 @@ import ImageUploader from '../../components/ImageUploader';
 import FileService from '../../services/File';
 import { useEffect, useState } from 'react';
 import { useUserContext } from '../../contexts/UserContext';
+import { getFirstLetter } from '../../utils';
+import withAuth from '../../components/withAuth';
 
 const AccountSettings = () => {
 
@@ -53,10 +55,6 @@ const AccountSettings = () => {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    const getFirstLetter = (name: string) => {
-        return name.charAt(0).toUpperCase();
     };
 
     const formik = useFormik({
@@ -152,4 +150,4 @@ const AccountSettings = () => {
     );
 };
 
-export default AccountSettings;
+export default withAuth(AccountSettings);

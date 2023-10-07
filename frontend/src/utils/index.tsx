@@ -1,7 +1,9 @@
 import { isValidDate } from "./isValidDate";
+import { getFirstLetter } from "./getFirstLetter";
 
-export{
-    isValidDate
+export {
+    isValidDate,
+    getFirstLetter
 }
 
 
