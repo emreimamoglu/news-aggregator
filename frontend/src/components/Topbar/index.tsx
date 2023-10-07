@@ -3,6 +3,7 @@ import menuIcon from '../../assets/menu.svg';
 import BrandIcon from '../BrandIcon';
 import styles from './styles.module.scss';
 import { Routes } from '../../routes';
+import { useUserContext } from '../../contexts/UserContext';
 
 export interface TopbarProps {
     toggleSidebar: () => void
@@ -10,6 +11,7 @@ export interface TopbarProps {
 
 const Topbar = ({ toggleSidebar }: TopbarProps) => {
     const navigate = useNavigate();
+    const { user } = useUserContext();
 
     const navigateToHome = () => {
         navigate(Routes.HOME);
@@ -22,12 +24,16 @@ const Topbar = ({ toggleSidebar }: TopbarProps) => {
     return (
         <div className={styles.container}>
             <div className={styles.topbar}>
-                <img className={styles.menuIcon} src={menuIcon} alt="menu" onClick={toggleSidebar}/>
+                <img className={styles.menuIcon} src={menuIcon} alt="menu" onClick={toggleSidebar} />
                 <div className={styles.brandIcon} onClick={navigateToHome}>
                     <BrandIcon />
                 </div>
                 <button className={styles.profile} onClick={navigateToSettings}>
-                    EI
+                    {(user?.avatar?.url ? (<img className={styles.image} src={user?.avatar?.url} />) : (
+                        <div className={styles.imgPlaceholder}>
+                            EI
+                        </div>
+                    ))}
                 </button>
             </div>
         </div>
