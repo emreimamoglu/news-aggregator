@@ -17,6 +17,7 @@ const MetaCallback = () => {
     }, {
         onSuccess: (data) => {
             setUser(data.data.user);
+            localStorage.setItem('token', data.data.token);
             navigate(Routes.HOME);
         },
     });
@@ -25,7 +26,7 @@ const MetaCallback = () => {
     return (
         <div className={styles.container}>
             <div>
-                <LoadingSpinner />
+                <LoadingSpinner color="#119C59"/>
                 {isLoading ? <h1>Verifying Facebook Login</h1> : error ? <h1>Facebook Login Failed</h1> : <h1>Facebook Login Successful, Redirecting</h1>}
             </div>
         </div>
