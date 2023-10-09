@@ -37,8 +37,8 @@ Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('
 Route::get('/me', [AuthController::class, 'currentUser'])->middleware('auth:sanctum');
 Route::get('auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
-Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter']);
-Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback']);
+// Route::get('auth/twitter', [TwitterAuthController::class, 'redirectToTwitter']);
+// Route::get('auth/twitter/callback', [TwitterAuthController::class, 'handleTwitterCallback']);
 Route::get('auth/meta', [MetaAuthController::class, 'redirectToMeta']);
 Route::get('auth/meta/callback', [MetaAuthController::class, 'handleMetaCallback']);
 
