@@ -137,12 +137,17 @@ const Sidebar = ({ open, closeSidebar }: SidebarProps) => {
     const ref = useOutsideClick(closeSidebar);
     const { width } = useViewport();
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleLogoClick = () => {
+        navigate(Routes.HOME);
+    }
 
     return (
         <aside ref={ref} className={classnames(styles.sidebar, {
             [styles.sidebarOpen]: (open || (width && width > 835))
         })}>
-            <div className={styles.brandlogo}>
+            <div className={styles.brandlogo} onClick={handleLogoClick}>
                 <BrandIcon />
             </div>
             <div className={styles.sidebarOptions}>
